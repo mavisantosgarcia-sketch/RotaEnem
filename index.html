@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#4E6334">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Rota ENEM">
+<meta name="description" content="Rota ENEM: organize estudos, metas, revisões, simulados e redação para o ENEM e vestibulares. Seus dados ficam só no seu navegador.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%234E6334%22%2F%3E%3Cpath%20d%3D%22M18%2044V20h16a8%208%200%200%201%200%2016H18m14%200%2012%208%22%20fill%3D%22none%22%20stroke%3D%22%23F7F8F0%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%234E6334%22%2F%3E%3Cpath%20d%3D%22M18%2044V20h16a8%208%200%200%201%200%2016H18m14%200%2012%208%22%20fill%3D%22none%22%20stroke%3D%22%23F7F8F0%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Rota ENEM</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Layout: navegação lateral no desktop, faixa de abas rolável no celular; conteúdo em cartões sobre off white esverdeado. Verde musgo é o único acento; cada área do ENEM tem a sua cor de dado. */
+:root{
+  --bg:#F3F4EC; --surface:#FAFAF6; --surface-2:#EAEDDF; --ink:#1E2819; --ink-2:#44503C; --muted:#636E59; --line:#D6DAC8;
+  --moss:#4E6334; --moss-strong:#36461F; --moss-soft:#DDE5CC; --on-moss:#F7F8F0;
+  --warn:#8A5F0F; --warn-soft:#F0E5C4; --bad:#9A3F2A; --bad-soft:#F1DAD1;
+  --c-lin:#788C32; --c-hum:#A97628; --c-nat:#2B7A71; --c-mat:#9E4B34; --c-red:#58698F;
+  --f-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --f-body:'Public Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141912; --surface:#1B2118; --surface-2:#252C20; --ink:#E7EBDC; --ink-2:#BBC3AC; --muted:#949D86; --line:#2D3527;
+    --moss:#93AE6B; --moss-strong:#B3CB8F; --moss-soft:#2A3622; --on-moss:#121710;
+    --warn:#E0B65A; --warn-soft:#3A3219; --bad:#E39A84; --bad-soft:#3F231C;
+    --c-lin:#A9BE6A; --c-hum:#DBA751; --c-nat:#5BB8AB; --c-mat:#E0856B; --c-red:#93A9D3;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141912; --surface:#1B2118; --surface-2:#252C20; --ink:#E7EBDC; --ink-2:#BBC3AC; --muted:#949D86; --line:#2D3527;
+  --moss:#93AE6B; --moss-strong:#B3CB8F; --moss-soft:#2A3622; --on-moss:#121710;
+  --warn:#E0B65A; --warn-soft:#3A3219; --bad:#E39A84; --bad-soft:#3F231C;
+  --c-lin:#A9BE6A; --c-hum:#DBA751; --c-nat:#5BB8AB; --c-mat:#E0856B; --c-red:#93A9D3;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:700;letter-spacing:-.01em;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(26px,5vw,36px)} h2{font-size:21px} h3{font-size:17px} h4{font-size:15px}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--moss-strong)}
+:focus-visible{outline:2px solid var(--moss);outline-offset:2px}
+.muted{color:var(--muted)} .small{font-size:13px} .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+
+.shell{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:0 36px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-top:14px}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:20px;text-decoration:none;color:var(--ink)}
+.logo svg{width:30px;height:30px;flex:none}
+.icon-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer}
+.icon-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0 12px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--ink-2);font-weight:500;font-size:14px;border:1px solid transparent}
+.nav a svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav a:hover{background:var(--surface-2)}
+.nav a[aria-current="page"]{background:var(--moss);color:var(--on-moss)}
+.sync{display:none;font-size:12.5px;color:var(--muted);padding:10px 14px}
+main{padding-top:8px;min-width:0;display:grid;gap:20px;align-content:start}
+@media(min-width:900px){
+  .shell{grid-template-columns:220px minmax(0,1fr);align-items:start}
+  .top{align-self:start;padding-top:28px}
+  .nav{flex-direction:column;overflow:visible;padding:20px 0}
+  .nav a{border-radius:10px}
+  .sync{display:block}
+  main{padding-top:28px}
+}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+.card.soft{background:var(--surface-2);border-color:transparent}
+.card.moss{background:var(--moss);color:var(--on-moss);border-color:var(--moss)}
+.card.moss .muted,.card.moss .eyebrow{color:inherit;opacity:.78}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.page-head{display:grid;gap:6px;margin-bottom:2px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px}
+.stack{display:grid;gap:12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spread{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:14px;text-decoration:none;color:var(--ink)}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--moss);border-color:var(--moss);color:var(--on-moss)}
+.btn.primary:hover{background:var(--moss-strong);border-color:var(--moss-strong)}
+.btn.sm{min-height:32px;padding:0 12px;font-size:13px}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.danger{color:var(--bad)}
+.field{display:grid;gap:6px;min-width:0}
+.field label,.lbl{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+input,select,textarea{width:100%;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 11px;min-height:40px}
+textarea{resize:vertical;min-height:72px}
+input[type=checkbox]{width:18px;height:18px;min-height:0;accent-color:var(--moss)}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:4px 11px;border-radius:999px;background:var(--surface-2);font-size:12.5px;font-weight:500;border:1px solid transparent;color:var(--ink-2)}
+button.chip{cursor:pointer;font:inherit;font-size:13px;font-weight:500;padding:7px 13px}
+button.chip[aria-pressed="true"]{background:var(--moss);color:var(--on-moss)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)} .chip.bad{background:var(--bad-soft);color:var(--bad)} .chip.good{background:var(--moss-soft);color:var(--moss-strong)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.meter{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.meter>i{display:block;height:100%;background:var(--moss);border-radius:99px}
+.card.moss .meter{background:rgba(255,255,255,.2)} .card.moss .meter>i{background:var(--on-moss)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs button{flex:none;background:none;border:0;border-bottom:2px solid transparent;padding:10px 14px;font-weight:600;color:var(--muted);cursor:pointer;font-size:14px;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--moss)}
+.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px;display:grid;gap:10px;justify-items:center}
+.list{display:grid}
+.item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item .t{font-weight:600;overflow-wrap:anywhere}
+.item .s{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.stat{display:grid;gap:2px;padding:14px;border-radius:12px;background:var(--surface-2)}
+.stat b{font:700 26px/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--muted)}
+.note{padding:12px 14px;border-radius:10px;background:var(--warn-soft);color:var(--warn);font-size:13.5px}
+.note.info{background:var(--moss-soft);color:var(--moss-strong)}
+
+.clock{font:500 clamp(64px,18vw,104px)/1 var(--f-mono);text-align:center;font-variant-numeric:tabular-nums;letter-spacing:-.03em;padding:18px 0 8px}
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px}
+.day{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--surface);display:grid;gap:8px;align-content:start}
+.day.now{border-color:var(--moss);box-shadow:0 0 0 1px var(--moss)}
+.day.past{opacity:.62}
+.blk{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding-top:10px;border-top:1px solid var(--line)}
+.blk .t{font-weight:600;font-size:14px;overflow-wrap:anywhere} .blk .s{font-size:12.5px;color:var(--muted)}
+.bars{display:grid;gap:12px}
+.bar{display:grid;grid-template-columns:96px minmax(0,1fr) 84px;gap:10px;align-items:center;font-size:13.5px}
+.bar .track{height:12px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar .track i{display:block;height:100%;border-radius:99px}
+.bar .v{text-align:right;font-family:var(--f-mono);font-size:12.5px}
+.vbars{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px;align-items:end;height:150px}
+.vbars div{display:grid;gap:4px;justify-items:center;align-content:end;height:100%;font-size:11.5px;color:var(--muted)}
+.vbars i{display:block;width:100%;max-width:44px;background:var(--moss);border-radius:6px 6px 0 0;min-height:2px}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font:11px var(--f-mono)}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .lab{fill:var(--ink);font-weight:500}
+.quote{background:var(--surface-2);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.6;overflow-wrap:anywhere}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.thumbs figure{margin:0;display:grid;gap:6px;min-width:0}
+.thumbbtn{border:0;padding:0;background:none;cursor:pointer;display:block;width:100%}
+.zoomimg{width:100%;max-height:70vh;object-fit:contain;border:1px solid var(--line);border-radius:10px;background:var(--surface-2)}
+.thumbs img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;border:1px solid var(--line);background:var(--surface-2)}
+label.btn{position:relative;cursor:pointer}
+label.btn.off{opacity:.5;pointer-events:none}
+label.btn:focus-within{outline:2px solid var(--moss);outline-offset:2px}
+.filein{position:absolute;inset:0;opacity:0;width:100%;height:100%;min-height:0;padding:0;cursor:pointer}
+textarea.essay{min-height:300px;line-height:1.65;font-size:15px}
+.scroll-x{overflow-x:auto}
+details>summary{cursor:pointer;font-weight:600;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 0}
+details>summary::-webkit-details-marker{display:none}
+details>summary::after{content:"+";font-size:20px;color:var(--muted);line-height:1}
+details[open]>summary::after{content:"−"}
+.status{font-size:12px;font-weight:600;border-radius:999px;padding:4px 11px;border:1px solid var(--line);background:var(--surface);cursor:pointer}
+.status.s1{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.status.s2{background:var(--moss-soft);color:var(--moss-strong);border-color:transparent}
+@media(max-width:520px){.bar{grid-template-columns:78px minmax(0,1fr) 70px}.card{padding:16px}}
+@media(prefers-reduced-motion:no-preference){.meter>i,.bar .track i{transition:width .4s ease}}
+</style>
+
+<div class="shell">
+  <div class="top">
+    <div class="brand">
+      <a class="logo" href="#hoje" aria-label="Rota ENEM, início">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--moss)"/><path d="M8 22c3-9 8-12 16-12-1 8-5 13-13 13M8 22c3-3 6-5 10-7" stroke="var(--on-moss)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Rota ENEM</span>
+      </a>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Alternar tema claro e escuro">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+      </button>
+    </div>
+    <nav class="nav" id="nav" aria-label="Seções"></nav>
+    <div class="sync" id="sync"></div>
+  </div>
+  <main id="app"></main>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ------------------------------------------------------------------ dados fixos */
+var AREAS={lin:{n:"Linguagens"},hum:{n:"Ciências Humanas"},nat:{n:"Ciências da Natureza"},mat:{n:"Matemática"},red:{n:"Redação"}};
+var SHORT={lin:"Ling.",hum:"Humanas",nat:"Natureza",mat:"Mat.",red:"Redação"};
+var OBJ=["lin","hum","nat","mat"];
+var SYL={
+ lin:["Interpretação de textos","Gêneros textuais","Funções da linguagem","Figuras de linguagem","Variação linguística","Coesão e coerência","Intertextualidade","Romantismo","Realismo e Naturalismo","Modernismo","Literatura contemporânea","Artes e cultura","Educação física e corpo","Língua estrangeira","Tecnologias da comunicação"],
+ hum:["Brasil Colônia","Brasil Império","República Velha e Era Vargas","Ditadura militar e redemocratização","Idade Média e Moderna","Revoluções Industrial e Francesa","Guerras Mundiais e Guerra Fria","Cartografia","Clima, relevo e vegetação","Urbanização","Geopolítica e globalização","Questões ambientais","Agropecuária e indústria","Filosofia antiga e política","Sociologia: cultura e desigualdade","Cidadania e direitos humanos","Trabalho e capitalismo"],
+ nat:["Citologia","Genética","Ecologia","Fisiologia humana","Evolução","Estequiometria","Soluções e separação de misturas","Termoquímica","Equilíbrio químico","Eletroquímica","Química orgânica","Radioatividade","Cinemática","Leis de Newton","Energia e trabalho","Termologia","Óptica e ondulatória","Eletricidade","Hidrostática"],
+ mat:["Problemas com operações básicas","Porcentagem e juros","Razão, proporção e regra de três","Funções do 1º e 2º grau","Exponencial e logaritmo","Progressões","Geometria plana","Geometria espacial","Trigonometria","Análise combinatória","Probabilidade","Estatística e gráficos","Geometria analítica","Escalas e unidades"],
+ red:["Estrutura dissertativo-argumentativa","Repertório sociocultural","Coesão e conectivos","Proposta de intervenção","Norma culta"]
+};
+var COMP=["Norma culta","Compreensão do tema","Argumentação","Coesão","Proposta de intervenção"];
+var EIXOS=["Saúde","Educação","Tecnologia e ciência","Meio ambiente","Direitos e cidadania","Trabalho e economia","Cultura e identidade","Cidades e desigualdades"];
+var THEMES_RAW=[{"e":"Saúde","t":"Os impactos do excesso de telas na saúde de crianças e adolescentes no Brasil","x":["Celulares, tablets e jogos fazem parte da rotina de muitas crianças desde cedo. Há famílias que usam a tela para entreter os filhos enquanto trabalham, e escolas que já discutem limites ao uso dentro e fora da sala de aula.","Profissionais de saúde alertam que o uso intenso de telas pode atrapalhar o sono, a atenção e as brincadeiras ao ar livre. Ao mesmo tempo, a tecnologia também ajuda a aprender e a manter amizades, o que torna o debate mais complexo do que proibir ou liberar."],"p":["Responsabilidade de famílias, escolas e empresas de tecnologia","Efeitos no sono, na atenção e na convivência","Educação digital como alternativa à simples proibição"],"r":["Estatuto da Criança e do Adolescente (Lei 8.069/1990) e a proteção integral","Constituição Federal, art. 227: prioridade absoluta à criança e ao adolescente","Zygmunt Bauman e a vida conectada em “Modernidade líquida”"]},{"e":"Educação","t":"Caminhos para reduzir a evasão escolar no ensino médio brasileiro","x":["Muitos jovens deixam a escola antes de concluir o ensino médio. Entre os motivos que costumam aparecer estão a necessidade de trabalhar, a distância entre o conteúdo e a vida real e a falta de apoio para quem fica para trás.","Programas de ensino integral, auxílio financeiro e busca ativa de estudantes faltosos são algumas das respostas já testadas por redes de ensino. O desafio é fazer com que essas ações cheguem de forma contínua a quem mais precisa."],"p":["Relação entre trabalho precoce e abandono escolar","Currículo e sentido do estudo para o jovem","Papel do Estado, da escola e da família"],"r":["Constituição Federal, art. 205: educação como direito de todos e dever do Estado e da família","Plano Nacional de Educação (Lei 13.005/2014)","Paulo Freire, “Pedagogia da Autonomia”"]},{"e":"Tecnologia e ciência","t":"Desafios para o uso ético da inteligência artificial na sociedade brasileira","x":["Sistemas de inteligência artificial já ajudam a indicar filmes, filtrar currículos e produzir textos e imagens. À medida que passam a decidir coisas que afetam a vida das pessoas, cresce a pergunta sobre quem responde quando algo dá errado.","Especialistas apontam riscos como o viés em decisões automáticas, a criação de conteúdo falso e o uso de dados pessoais sem consentimento. Ao mesmo tempo, a tecnologia abre caminhos na saúde, na educação e na pesquisa científica."],"p":["Responsabilidade de empresas e do poder público","Proteção de dados e transparência","Educação para o uso crítico da tecnologia"],"r":["Lei Geral de Proteção de Dados (Lei 13.709/2018)","Marco Civil da Internet (Lei 12.965/2014)","Hans Jonas, “O princípio responsabilidade”, sobre ética na era tecnológica"]},{"e":"Meio ambiente","t":"Desafios para enfrentar os impactos das mudanças climáticas nas cidades brasileiras","x":["Chuvas fortes, enchentes, ondas de calor e secas atingem cidades de diferentes regiões do país. Os efeitos costumam ser mais graves onde há moradias em áreas de risco e pouca infraestrutura de drenagem.","Adaptar as cidades envolve mais áreas verdes, planejamento do uso do solo e sistemas de alerta. Debates internacionais, como o Acordo de Paris, cobram metas de redução de emissões, mas as decisões também precisam chegar ao nível local."],"p":["Desigualdade: quem sofre mais com os desastres","Planejamento urbano e prevenção","Cooperação entre governos, empresas e população"],"r":["Constituição Federal, art. 225: meio ambiente ecologicamente equilibrado","Acordo de Paris (2015)","Estatuto da Cidade (Lei 10.257/2001)"]},{"e":"Direitos e cidadania","t":"Desafios para garantir o acesso à moradia digna no Brasil","x":["Morar bem vai além de ter um teto. Inclui água tratada, esgoto, energia, transporte por perto e segurança contra deslizamentos e enchentes. Em muitas cidades brasileiras, parte da população vive em locais sem essas condições.","Programas habitacionais, regularização de terrenos e aluguel social são algumas das políticas discutidas. Ao mesmo tempo, imóveis vazios em áreas centrais alimentam o debate sobre a função social da propriedade."],"p":["Moradia como direito social, e não só como mercadoria","Regularização fundiária e infraestrutura","Função social da propriedade"],"r":["Constituição Federal, art. 6º: moradia entre os direitos sociais","Estatuto da Cidade (Lei 10.257/2001)","Carolina Maria de Jesus, “Quarto de despejo”"]},{"e":"Trabalho e economia","t":"Os efeitos do trabalho por aplicativos sobre os direitos dos trabalhadores no Brasil","x":["Entregadores e motoristas de aplicativo escolhem seus horários, mas dependem das regras e dos valores definidos pelas plataformas. Muitos trabalham longas jornadas sem férias, sem seguro e sem garantia de renda mínima.","Há quem defenda a liberdade e a flexibilidade desse modelo, e quem defenda o reconhecimento de direitos trabalhistas. O debate envolve empresas, trabalhadores, sindicatos e o poder público."],"p":["Flexibilidade versus proteção social","Papel do Estado na regulamentação","Futuro do trabalho na era digital"],"r":["Consolidação das Leis do Trabalho (CLT)","Charles Chaplin, “Tempos modernos” (1936)","Ricardo Antunes, “O privilégio da servidão”"]},{"e":"Cultura e identidade","t":"Desafios para a preservação do patrimônio cultural brasileiro","x":["Igrejas históricas, museus, saberes de comunidades e festas populares formam o patrimônio cultural do país. Parte desse patrimônio sofre com falta de manutenção, de recursos e de conhecimento por parte da própria população.","O incêndio que atingiu o Museu Nacional, em 2018, tornou-se exemplo do que se perde quando a conservação fica em segundo plano. Também existe patrimônio que não é feito de pedra: modos de fazer, línguas e tradições."],"p":["Patrimônio material e imaterial","Responsabilidade do poder público e da sociedade","Educação patrimonial nas escolas"],"r":["Constituição Federal, art. 216, sobre o patrimônio cultural brasileiro","IPHAN, órgão federal de proteção ao patrimônio","Incêndio do Museu Nacional (2018)"]},{"e":"Cidades e desigualdades","t":"Desafios da mobilidade urbana e do transporte público nas cidades brasileiras","x":["Quem mora longe do trabalho pode gastar horas por dia em ônibus, trens e metrôs lotados. Esse tempo perdido pesa mais para quem tem renda menor e vive nas periferias.","Faixas exclusivas de ônibus, ciclovias e integração entre tarifas são medidas adotadas em várias cidades. Elas disputam espaço e orçamento com o transporte por carro, que ainda recebe grande parte dos investimentos."],"p":["Relação entre moradia, emprego e deslocamento","Prioridade ao transporte coletivo","Impactos ambientais e na qualidade de vida"],"r":["Política Nacional de Mobilidade Urbana (Lei 12.587/2012)","Constituição Federal, art. 6º: transporte entre os direitos sociais (Emenda 90/2015)","Milton Santos, geógrafo, sobre cidadania e território"]},{"e":"Saúde","t":"Desafios para ampliar a vacinação e combater a desinformação em saúde no Brasil","x":["O Brasil construiu ao longo de décadas um programa de vacinação reconhecido, o Programa Nacional de Imunizações. Mesmo assim, boatos e informações falsas nas redes sociais ajudam a espalhar dúvidas sobre a segurança das vacinas.","A Revolta da Vacina, em 1904, mostra que a resistência a campanhas de saúde não é nova. Hoje, o desafio inclui explicar com clareza como a ciência funciona e garantir que os serviços de saúde cheguem a todas as regiões."],"p":["Papel da escola e da mídia na informação confiável","Acesso aos serviços de saúde em todas as regiões","Responsabilidade das plataformas digitais"],"r":["Programa Nacional de Imunizações (PNI)","Revolta da Vacina (1904)","Constituição Federal, art. 196: saúde como direito de todos"]},{"e":"Educação","t":"O papel da escola no combate ao bullying e à violência entre adolescentes no Brasil","x":["Humilhações, apelidos e agressões físicas ou virtuais ainda fazem parte do cotidiano de muitos estudantes. Quem sofre pode perder o interesse pelos estudos, isolar-se e ter prejuízos na saúde emocional.","Há leis que obrigam as escolas a prevenir e combater a intimidação sistemática, mas a aplicação depende de professores preparados, da participação das famílias e de canais seguros para denúncia."],"p":["Formação de professores e acolhimento","Cyberbullying e redes sociais","Participação das famílias e dos estudantes"],"r":["Lei 13.185/2015, que institui o Programa de Combate à Intimidação Sistemática","Constituição Federal, art. 227","Estatuto da Criança e do Adolescente (Lei 8.069/1990)"]},{"e":"Tecnologia e ciência","t":"Caminhos para combater golpes digitais e proteger a população brasileira na internet","x":["Mensagens falsas de bancos, links enganosos e perfis clonados são formas comuns de golpe. Idosos e pessoas com pouca familiaridade com tecnologia estão entre os alvos mais frequentes, mas ninguém está totalmente protegido.","A prevenção passa por bancos e plataformas com sistemas de segurança, por leis que punam os criminosos e por campanhas que ensinem a desconfiar de ofertas e pedidos urgentes."],"p":["Educação digital em diferentes idades","Responsabilidade de bancos, operadoras e plataformas","Punição e prevenção dos crimes virtuais"],"r":["Lei 12.737/2012, sobre crimes informáticos","Lei Geral de Proteção de Dados (Lei 13.709/2018)","Marco Civil da Internet (Lei 12.965/2014)"]},{"e":"Meio ambiente","t":"Caminhos para a preservação dos biomas brasileiros diante do desmatamento e das queimadas","x":["Amazônia, Cerrado, Pantanal, Caatinga, Mata Atlântica e Pampa abrigam enorme diversidade de plantas e animais e ajudam a regular o clima e a água. O desmatamento e as queimadas ameaçam esse equilíbrio.","Fiscalização, incentivo à produção sustentável e valorização das comunidades que vivem da floresta aparecem entre as saídas apontadas. A realização da COP30 em Belém, em 2025, colocou a Amazônia no centro do debate mundial."],"p":["Fiscalização e punição de crimes ambientais","Alternativas econômicas sustentáveis","Papel das comunidades tradicionais"],"r":["Constituição Federal, art. 225","Código Florestal (Lei 12.651/2012)","COP30, realizada em Belém (2025)"]},{"e":"Direitos e cidadania","t":"Caminhos para combater o trabalho análogo ao de escravo no Brasil","x":["Mais de um século depois da abolição, o país ainda encontra pessoas submetidas a jornadas exaustivas, dívidas impagáveis e condições degradantes. A situação aparece no campo e nas cidades, em setores como agropecuária, construção e confecção.","O Código Penal define o crime, e fiscais do trabalho resgatam trabalhadores a cada ano. Ainda assim, a pobreza, a falta de oportunidades e a dificuldade de denunciar mantêm muitas pessoas vulneráveis."],"p":["Pobreza e vulnerabilidade como porta de entrada","Fiscalização e punição de quem explora","Responsabilidade das empresas ao longo da cadeia produtiva"],"r":["Lei Áurea (1888)","Código Penal, art. 149, sobre redução a condição análoga à de escravo","Cadastro de empregadores flagrados com trabalho escravo, divulgado pelo governo federal"]},{"e":"Trabalho e economia","t":"Desafios para a inserção do jovem no mercado de trabalho no Brasil","x":["Para conseguir o primeiro emprego, muitos jovens ouvem que precisam de experiência, mas como ter experiência sem ser contratado? Esse impasse atinge principalmente quem vive em regiões com poucas vagas ou saiu cedo da escola.","Programas de aprendizagem profissional, estágios e cursos técnicos funcionam como ponte entre a escola e o trabalho. O desafio é ampliar essas oportunidades sem prejudicar os estudos."],"p":["Qualificação e acesso a cursos técnicos","Aprendizagem e estágio como porta de entrada","Equilíbrio entre trabalho e estudos"],"r":["Lei da Aprendizagem (Lei 10.097/2000)","Estatuto da Juventude (Lei 12.852/2013)","Constituição Federal, art. 7º, que fixa idade mínima para o trabalho"]},{"e":"Cultura e identidade","t":"Desafios para democratizar o acesso à leitura e aos livros no Brasil","x":["Livros costumam custar caro, e muitas cidades têm poucas livrarias e bibliotecas. Mesmo onde há acesso, nem sempre há estímulo para que as pessoas leiam por prazer.","Bibliotecas comunitárias, clubes de leitura e programas de distribuição de livros ajudam a formar leitores. Pesquisas sobre o hábito de leitura do brasileiro, como a “Retratos da Leitura no Brasil”, orientam políticas públicas."],"p":["Escola e família na formação de leitores","Bibliotecas públicas e comunitárias","Livros digitais e novas formas de leitura"],"r":["Paulo Freire, “A importância do ato de ler”","Plano Nacional do Livro e Leitura (PNLL)","Pesquisa “Retratos da Leitura no Brasil”"]},{"e":"Cidades e desigualdades","t":"Caminhos para enfrentar a insegurança alimentar e o desperdício de alimentos no Brasil","x":["O país é grande produtor de alimentos, mas famílias ainda passam dias sem refeições adequadas. Ao mesmo tempo, grande quantidade de comida é perdida na colheita, no transporte e dentro das casas.","O médico e escritor Josué de Castro mostrou, em “Geografia da Fome”, que a fome tem causas sociais e políticas, e não apenas naturais. Hoje, a segurança alimentar é tratada como direito, ao lado da educação e da saúde."],"p":["Fome como problema social e político","Combate ao desperdício na cadeia de produção","Programas de alimentação escolar e de renda"],"r":["Josué de Castro, “Geografia da Fome”","Constituição Federal, art. 6º: alimentação entre os direitos sociais (Emenda 64/2010)","Lei de Segurança Alimentar e Nutricional (Lei 11.346/2006)"]},{"e":"Saúde","t":"Desafios para o acesso à saúde pública em regiões distantes dos grandes centros no Brasil","x":["O Sistema Único de Saúde garante atendimento a todos, mas quem vive em áreas rurais, ribeirinhas ou longe dos grandes centros muitas vezes precisa viajar horas para consultas e exames. Barcos-hospital, equipes itinerantes e a telemedicina são caminhos usados para diminuir essa distância.","Faltam profissionais dispostos a se fixar em locais afastados, e a internet instável dificulta o atendimento a distância. Quando a doença é descoberta tarde, o tratamento costuma ser mais difícil e mais caro."],"p":["Distribuição de médicos e equipes pelo território","Telemedicina e infraestrutura de internet","Atenção básica e prevenção"],"r":["Constituição Federal, art. 196 e art. 198 (SUS)","Lei Orgânica da Saúde (Lei 8.080/1990)","Programa Mais Médicos (Lei 12.871/2013)"]},{"e":"Saúde","t":"Os riscos da automedicação e do uso indiscriminado de antibióticos no Brasil","x":["Tomar remédio por conta própria, seguindo a dica de um conhecido ou de um site, é comum e parece inofensivo. Mas medicamentos podem esconder sintomas, causar reações e interagir mal com outros remédios.","O uso de antibióticos sem necessidade ou fora da dose correta contribui para que bactérias se tornem resistentes, o que dificulta o tratamento de infecções comuns. Por isso, esses remédios só devem ser usados com orientação de um profissional de saúde."],"p":["Papel de médicos e farmacêuticos na orientação","Propaganda de medicamentos e facilidade de acesso","Resistência bacteriana como problema coletivo"],"r":["Anvisa, agência que regula os medicamentos no país","Lei 5.991/1973, sobre o comércio de medicamentos","Alexander Fleming e a descoberta da penicilina (1928)"]},{"e":"Saúde","t":"A importância da doação de órgãos e os desafios para ampliá-la no Brasil","x":["Muitas pessoas aguardam um transplante, e para várias delas a doação é a única chance de continuar vivendo ou de ter melhor qualidade de vida. No Brasil, os transplantes são feitos por um sistema público que atende pelo SUS.","A doação de órgãos de pessoas falecidas depende da autorização da família. Por isso, conversar com os parentes sobre essa vontade em vida faz diferença, e campanhas de conscientização ajudam a derrubar medos e dúvidas."],"p":["Conversa em família e consentimento","Combate a mitos e à desinformação","Estrutura para captação e transporte de órgãos"],"r":["Lei dos Transplantes (Lei 9.434/1997)","Sistema Nacional de Transplantes","Setembro Verde, campanha de incentivo à doação"]},{"e":"Saúde","t":"Desafios para prevenir a obesidade infantil e incentivar a alimentação saudável no Brasil","x":["Alimentos ultraprocessados, como salgadinhos, refrigerantes e biscoitos recheados, são práticos, baratos e muito anunciados. Em muitas casas e escolas, eles ocupam o lugar de frutas, verduras e comida preparada na hora.","O excesso de peso na infância pode trazer problemas de saúde que continuam na vida adulta. Alimentação escolar saudável, regras para a propaganda dirigida a crianças e incentivo à atividade física fazem parte do debate."],"p":["Alimentação escolar e educação nutricional","Publicidade de alimentos dirigida a crianças","Preço e acesso a alimentos saudáveis"],"r":["Guia Alimentar para a População Brasileira (Ministério da Saúde)","Programa Nacional de Alimentação Escolar (Lei 11.947/2009)","Constituição Federal, art. 227"]},{"e":"Saúde","t":"O papel da atividade física e do esporte na promoção da saúde da população brasileira","x":["Praticar atividade física regularmente ajuda o coração, os ossos, o humor e o sono, mas parte da população passa o dia sentada, no trabalho, na escola ou diante de telas.","Praças, quadras e projetos esportivos gratuitos facilitam o acesso, mas não existem em todos os bairros. A educação física escolar também tem papel central em criar o hábito de se movimentar."],"p":["Espaços públicos e projetos esportivos gratuitos","Educação física na escola","Efeitos na saúde física e emocional"],"r":["Constituição Federal, art. 217, sobre o dever do Estado de fomentar práticas esportivas","Lei Geral do Esporte (Lei 14.597/2023)","Orientações da Organização Mundial da Saúde sobre atividade física"]},{"e":"Saúde","t":"Desafios para ampliar o cuidado com a saúde mental de estudantes no Brasil","x":["Provas, cobrança por resultado, comparação nas redes sociais e incerteza sobre o futuro pesam sobre muitos estudantes. Cansaço, irritação e dificuldade para dormir podem aparecer em épocas de mais pressão.","Escolas e universidades têm ampliado rodas de conversa e o apoio de psicólogos, mas nem sempre há profissionais suficientes. Reconhecer sinais de sofrimento e procurar ajuda cedo está entre as orientações de especialistas."],"p":["Papel da escola e da família no acolhimento","Pressão por desempenho e comparação","Acesso a atendimento psicológico"],"r":["Lei da Reforma Psiquiátrica (Lei 10.216/2001)","Lei 13.935/2019, sobre psicólogos e assistentes sociais na educação básica","Setembro Amarelo, campanha de valorização da vida"]},{"e":"Educação","t":"Desafios para a inclusão de estudantes com deficiência nas escolas brasileiras","x":["Estudantes com deficiência têm direito de frequentar a escola comum, com apoio para aprender. Isso pode envolver rampas, materiais adaptados, intérpretes de Libras e professores de apoio.","Na prática, muitas escolas ainda enfrentam falta de estrutura e de formação de professores. A convivência entre estudantes diferentes também ensina respeito e cooperação a toda a turma."],"p":["Formação de professores e recursos de acessibilidade","Convivência e combate ao preconceito","Responsabilidade do Estado e das escolas"],"r":["Lei Brasileira de Inclusão (Lei 13.146/2015)","Constituição Federal, art. 208, III, sobre o atendimento educacional especializado","Convenção sobre os Direitos das Pessoas com Deficiência (ONU, 2006)"]},{"e":"Educação","t":"A importância da educação financeira na formação dos jovens brasileiros","x":["Muitos jovens começam a lidar com dinheiro cedo, seja com mesada, primeiro emprego ou compras pela internet. Mesmo assim, noções de orçamento, juros e poupança nem sempre aparecem na escola.","A educação financeira ajuda a planejar gastos, evitar dívidas e entender o custo de comprar a prazo. O tema aparece em documentos educacionais como a BNCC, mas a forma de ensiná-lo varia entre as escolas."],"p":["Escola, família e mídia como educadoras","Consumo consciente e endividamento","Poupança e planejamento a longo prazo"],"r":["Base Nacional Comum Curricular (BNCC)","Estratégia Nacional de Educação Financeira (Decreto 7.397/2010)","Lei do Superendividamento (Lei 14.181/2021)"]},{"e":"Educação","t":"Desafios para a valorização da carreira do professor no Brasil","x":["O professor é peça central do ensino, mas muitos profissionais relatam salários baixos, turmas cheias, jornada pesada e pouco reconhecimento. Isso desestimula jovens a escolher a carreira.","Formação inicial e continuada, plano de carreira, boas condições de trabalho e respeito da comunidade aparecem como caminhos. O debate envolve governos, escolas, famílias e a própria sociedade."],"p":["Remuneração e condições de trabalho","Formação inicial e continuada","Reconhecimento social da profissão"],"r":["Lei do Piso Salarial do Magistério (Lei 11.738/2008)","Constituição Federal, art. 206, V, sobre a valorização dos profissionais da educação","Paulo Freire, “Pedagogia da Autonomia”"]},{"e":"Educação","t":"Desafios para garantir a alfabetização de crianças na idade certa no Brasil","x":["Aprender a ler e a escrever nos primeiros anos do ensino fundamental é a base para aprender todas as outras matérias. Quando a criança chega ao fim do 2º ano sem ler com autonomia, o atraso tende a crescer nas séries seguintes.","A pandemia de covid-19 afastou crianças da sala de aula e aumentou a preocupação com esse atraso. Redes de ensino têm investido em formação de professores, materiais e acompanhamento, como no Compromisso Nacional Criança Alfabetizada."],"p":["Formação de professores e material didático","Participação da família na leitura","Desigualdades entre redes de ensino e regiões"],"r":["Plano Nacional de Educação (Lei 13.005/2014)","Compromisso Nacional Criança Alfabetizada","Magda Soares, “Alfabetização e letramento”"]},{"e":"Educação","t":"Desafios para ampliar o acesso e a permanência no ensino superior no Brasil","x":["Entrar na universidade é um passo importante para muitos jovens, mas o acesso ainda depende de renda, da qualidade da escola e do local de moradia. O ENEM e o SISU ampliaram a possibilidade de concorrer a vagas em todo o país.","A Lei de Cotas reserva parte das vagas das instituições federais a estudantes de escolas públicas, com recortes de renda e étnico-raciais. Além de entrar, o desafio é permanecer: moradia, alimentação e transporte pesam no orçamento dos estudantes."],"p":["Políticas de acesso e de permanência","Qualidade da educação básica pública","Papel das universidades na redução de desigualdades"],"r":["Lei de Cotas (Lei 12.711/2012)","Constituição Federal, art. 206, I, sobre igualdade de condições para acesso e permanência","Programa Nacional de Assistência Estudantil (Decreto 7.234/2010)"]},{"e":"Educação","t":"O papel da escola no combate à desinformação entre os jovens brasileiros","x":["Boatos, montagens e notícias falsas circulam em grupos de mensagens e redes sociais com muita rapidez. Muitos jovens se informam principalmente pelo celular, onde nem sempre fica claro quem produziu um conteúdo.","A educação midiática ensina a checar a fonte, comparar versões e perceber quando um texto tenta provocar emoção em vez de informar. A escola pode incluir esse aprendizado em todas as disciplinas."],"p":["Leitura crítica e checagem de fontes","Papel da escola, da família e das plataformas","Consequências da desinformação para a saúde e a convivência"],"r":["Marco Civil da Internet (Lei 12.965/2014)","Agências de checagem de fatos","BNCC, competência de cultura digital"]},{"e":"Tecnologia e ciência","t":"Os efeitos das redes sociais na imagem corporal e na autoestima dos jovens brasileiros","x":["Fotos editadas, filtros e rotinas aparentemente perfeitas fazem parte do dia a dia das redes. Ao se comparar com esses padrões, muitos jovens passam a se sentir insatisfeitos com o próprio corpo.","Influenciadores podem inspirar hábitos saudáveis, mas também divulgar dietas e padrões irreais. Especialistas defendem diálogo em casa e na escola e mais cuidado das plataformas com o conteúdo que recomendam."],"p":["Padrões de beleza e comparação social","Responsabilidade de influenciadores e plataformas","Diálogo em família e na escola"],"r":["Estatuto da Criança e do Adolescente (Lei 8.069/1990)","Guy Debord, “A sociedade do espetáculo”","Zygmunt Bauman, “Modernidade líquida”"]},{"e":"Tecnologia e ciência","t":"Desafios para a inclusão digital da população brasileira","x":["Estudar, procurar emprego, acessar serviços públicos e até marcar consultas médicas dependem cada vez mais da internet. Mas nem todos têm um aparelho adequado, plano de dados ou conexão estável.","Falta também preparo para usar os recursos com segurança e autonomia, principalmente entre idosos e moradores de áreas isoladas. Políticas de conectividade nas escolas e em espaços públicos fazem parte da discussão."],"p":["Acesso à infraestrutura e a equipamentos","Capacitação para o uso das ferramentas","Exclusão digital e desigualdade social"],"r":["Marco Civil da Internet (Lei 12.965/2014)","Manuel Castells, “A sociedade em rede”","Pesquisa TIC Domicílios, do Cetic.br"]},{"e":"Tecnologia e ciência","t":"Os desafios do descarte do lixo eletrônico no Brasil","x":["Celulares, computadores, carregadores e pilhas são trocados com frequência, em parte porque novos modelos surgem o tempo todo. Quando vão para o lixo comum, esses aparelhos podem liberar substâncias que contaminam o solo e a água.","O lixo eletrônico também guarda metais que podem ser reaproveitados. A logística reversa obriga fabricantes e vendedores a participar do recolhimento, mas muitas pessoas não sabem onde levar os aparelhos velhos."],"p":["Responsabilidade de empresas e consumidores","Consumo e obsolescência programada","Pontos de coleta e educação ambiental"],"r":["Política Nacional de Resíduos Sólidos (Lei 12.305/2010)","Logística reversa","Constituição Federal, art. 225"]},{"e":"Tecnologia e ciência","t":"Os limites do uso de reconhecimento facial e da vigilância por câmeras no Brasil","x":["Câmeras com reconhecimento facial já são usadas em estádios, aeroportos, prédios e na segurança pública. A tecnologia promete agilizar a identificação de pessoas e ajudar a localizar suspeitos e desaparecidos.","Críticos alertam para o risco de erros, de vigilância excessiva e de uso de imagens sem consentimento. O debate é como equilibrar segurança, privacidade e transparência sobre quem guarda esses dados."],"p":["Segurança pública e privacidade","Risco de erros e de discriminação","Transparência e fiscalização"],"r":["Lei Geral de Proteção de Dados (Lei 13.709/2018)","Constituição Federal, art. 5º, X, sobre a intimidade e a vida privada","George Orwell, “1984”"]},{"e":"Tecnologia e ciência","t":"A expansão das apostas on-line e seus riscos para os jovens brasileiros","x":["Jogos eletrônicos e plataformas de apostas estão a um clique no celular, muitas vezes divulgados por influenciadores e anúncios nas redes sociais. A maioridade é exigida para apostar, mas o controle nem sempre funciona.","Especialistas alertam para o risco de vício, de endividamento e de perda de dinheiro, mesmo entre quem aposta pouco. A discussão envolve regulamentação, fiscalização da publicidade e apoio a quem perde o controle."],"p":["Publicidade e influenciadores","Regulamentação e fiscalização","Endividamento e saúde mental"],"r":["Lei 14.790/2023, que regula as apostas de quota fixa","Estatuto da Criança e do Adolescente (Lei 8.069/1990)","Lei do Superendividamento (Lei 14.181/2021)"]},{"e":"Tecnologia e ciência","t":"Desafios para a valorização da ciência e da divulgação científica no Brasil","x":["Vacinas, GPS e medicamentos chegam à vida das pessoas depois de anos de pesquisa. Ainda assim, parte da população desconhece como a ciência trabalha ou desconfia de seus resultados.","Grande parte da pesquisa feita no país acontece em universidades públicas, e cortes de recursos e baixa divulgação preocupam cientistas. Museus de ciência, canais de divulgação e a escola ajudam a aproximar o público desse conhecimento."],"p":["Escola e mídia na divulgação científica","Investimento em pesquisa e inovação","Combate ao negacionismo"],"r":["Carl Sagan, “O mundo assombrado pelos demônios”","Semana Nacional de Ciência e Tecnologia","Constituição Federal, art. 218, sobre o incentivo à ciência"]},{"e":"Meio ambiente","t":"Desafios para a gestão do lixo e a ampliação da reciclagem no Brasil","x":["Todos os dias as cidades brasileiras produzem muito lixo, e parte dele ainda acaba em lixões a céu aberto, onde contamina o solo e a água. A coleta seletiva existe em muitos municípios, mas nem sempre funciona bem.","Catadores de materiais recicláveis fazem parte importante dessa cadeia, muitas vezes em condições precárias. Reduzir o consumo, reaproveitar e reciclar são passos defendidos por especialistas."],"p":["Responsabilidade de governos, empresas e consumidores","Papel dos catadores e das cooperativas","Redução do consumo e do desperdício"],"r":["Política Nacional de Resíduos Sólidos (Lei 12.305/2010)","Constituição Federal, art. 225","Os 3 Rs da sustentabilidade: reduzir, reutilizar e reciclar"]},{"e":"Meio ambiente","t":"Desafios para garantir o acesso à água tratada e ao saneamento básico no Brasil","x":["Ter água tratada e esgoto coletado é condição básica de saúde, porque reduz doenças como diarreias e verminoses. Ainda assim, muitas famílias brasileiras vivem sem um desses serviços ou sem os dois.","O Marco Legal do Saneamento, de 2020, estabeleceu metas para ampliar os serviços e abriu espaço para investimento privado. Há debate sobre como garantir preços justos e atender também as regiões mais pobres."],"p":["Saneamento e saúde pública","Investimento público e privado","Desigualdades regionais"],"r":["Marco Legal do Saneamento (Lei 14.026/2020)","Constituição Federal, art. 196 e art. 225","Dia Mundial da Água, comemorado em 22 de março"]},{"e":"Meio ambiente","t":"Os impactos da poluição por plástico nos rios e nos oceanos","x":["Sacolas, garrafas e embalagens descartadas de forma incorreta chegam aos rios e ao mar, onde levam muitos anos para se degradar. Animais marinhos podem ingerir esse material ou ficar presos nele.","Pedaços cada vez menores, chamados de microplásticos, já foram encontrados em diversos ambientes. Reduzir embalagens, trocar descartáveis e melhorar a coleta de lixo aparecem entre as propostas."],"p":["Redução de plásticos descartáveis","Coleta e reciclagem de resíduos","Consumo consciente"],"r":["Política Nacional de Resíduos Sólidos (Lei 12.305/2010)","ODS 14 da ONU, vida na água","Constituição Federal, art. 225"]},{"e":"Meio ambiente","t":"O papel da energia limpa na transição energética do Brasil","x":["O Brasil produz boa parte da sua eletricidade em usinas hidrelétricas e tem ampliado a energia solar e a eólica. Fontes renováveis emitem menos gases do efeito estufa do que o carvão e o petróleo.","Ao mesmo tempo, grandes obras podem afetar comunidades e ecossistemas, e a mudança do modelo exige investimento e planejamento. A transição energética é debatida como forma de combater o aquecimento global sem frear o desenvolvimento."],"p":["Fontes renováveis e impactos locais","Políticas públicas e incentivos","Acesso à energia pela população"],"r":["Acordo de Paris (2015)","ODS 7 da ONU, energia limpa e acessível","Constituição Federal, art. 225"]},{"e":"Meio ambiente","t":"Os efeitos do consumismo e da moda de descarte rápido sobre o meio ambiente","x":["Roupas, eletrônicos e acessórios são trocados cada vez mais rápido, incentivados por promoções e tendências que mudam toda semana. Produzir tudo isso gasta água, energia e matéria-prima.","Brechós, conserto, troca e compra planejada ajudam a diminuir o descarte. Também há debate sobre a responsabilidade das empresas, que precisam rever o modo de produzir e de anunciar."],"p":["Consumismo e publicidade","Reutilização e economia circular","Responsabilidade das empresas"],"r":["Zygmunt Bauman, “Vida para consumo”","Código de Defesa do Consumidor (Lei 8.078/1990)","Constituição Federal, art. 170, VI, sobre a defesa do meio ambiente na ordem econômica"]},{"e":"Meio ambiente","t":"Caminhos para combater o tráfico de animais silvestres no Brasil","x":["Aves, répteis e macacos retirados da natureza são vendidos como animais de estimação ou para colecionadores. Muitos morrem durante o transporte, e a retirada prejudica o equilíbrio do ambiente onde viviam.","A Lei de Crimes Ambientais prevê punição para quem captura ou comercializa animais silvestres sem autorização. Fiscalização, denúncias e educação ambiental são medidas citadas para reduzir a procura por esses animais."],"p":["Fiscalização e punição","Educação e conscientização do consumidor","Biodiversidade e equilíbrio ecológico"],"r":["Lei de Crimes Ambientais (Lei 9.605/1998)","Constituição Federal, art. 225, § 1º, VII, sobre a proteção da fauna","Convenção sobre Diversidade Biológica (Rio-92)"]},{"e":"Direitos e cidadania","t":"Desafios para ampliar a participação dos jovens na vida política e comunitária do Brasil","x":["Aos 16 anos o voto é facultativo, e muitos jovens decidem se vão ou não tirar o título de eleitor. Debates apontam que parte deles se afasta da política tradicional, mas participa de grêmios, coletivos e causas.","Conhecer direitos, acompanhar o que acontece na cidade e participar de conselhos e consultas públicas são formas de cidadania que vão além do voto. A escola pode ensinar como funcionam as instituições e como cobrar resultados."],"p":["Educação para a cidadania","Participação além do voto","Papel dos grêmios e dos conselhos"],"r":["Constituição Federal, art. 14, sobre o voto facultativo aos maiores de 16 e menores de 18 anos","Estatuto da Juventude (Lei 12.852/2013)","Hannah Arendt, “A condição humana”"]},{"e":"Direitos e cidadania","t":"Desafios para garantir os direitos das pessoas em situação de rua no Brasil","x":["Pessoas em situação de rua vivem em calçadas, praças e viadutos, expostas ao frio, à fome e à violência. As causas se misturam: perda de emprego, rompimento de laços familiares, dependência de substâncias e falta de moradia acessível.","Centros de acolhida e equipes de abordagem são algumas das respostas. Especialistas apontam que o atendimento funciona melhor quando reúne moradia, saúde, trabalho e documentos."],"p":["Moradia e políticas integradas","Combate ao preconceito","Acesso a saúde, documentos e trabalho"],"r":["Política Nacional para a População em Situação de Rua (Decreto 7.053/2009)","Constituição Federal, art. 1º, III, sobre a dignidade da pessoa humana, e art. 6º","Declaração Universal dos Direitos Humanos (1948)"]},{"e":"Direitos e cidadania","t":"Caminhos para o enfrentamento do racismo estrutural no Brasil","x":["O racismo aparece em ofensas, mas também em desigualdades de acesso a emprego, renda, moradia e segurança. Quando está presente nas regras, nos hábitos e nas instituições, costuma ser chamado de racismo estrutural.","A injúria racial passou a ser tratada como racismo pela lei, com pena maior. Políticas de cotas, educação antirracista e valorização da história e da cultura afro-brasileira fazem parte do debate."],"p":["Racismo estrutural e desigualdades","Educação antirracista","Punição e prevenção"],"r":["Lei 7.716/1989, que define os crimes de racismo, e Lei 14.532/2023","Constituição Federal, art. 5º, XLII, que torna o racismo crime inafiançável e imprescritível","Silvio Almeida, “Racismo estrutural”"]},{"e":"Direitos e cidadania","t":"Desafios para garantir a acessibilidade de pessoas com deficiência nos espaços públicos","x":["Calçadas esburacadas, ônibus sem elevador, prédios sem rampa e sites sem recursos de leitura dificultam a vida de pessoas com deficiência ou com mobilidade reduzida. Esses obstáculos reduzem a autonomia e limitam o acesso à escola, ao trabalho e ao lazer.","A acessibilidade beneficia também idosos, gestantes e pessoas com carrinho de bebê. Fiscalizar o cumprimento das normas e planejar as cidades pensando em todos são caminhos apontados."],"p":["Acessibilidade física e digital","Fiscalização do cumprimento da lei","Conscientização da sociedade"],"r":["Lei Brasileira de Inclusão (Lei 13.146/2015)","Lei 10.098/2000, sobre normas de acessibilidade","Convenção sobre os Direitos das Pessoas com Deficiência (ONU, 2006)"]},{"e":"Direitos e cidadania","t":"Caminhos para a ressocialização e a redução da superlotação no sistema prisional brasileiro","x":["Muitas unidades prisionais brasileiras têm mais presos do que vagas, com celas lotadas e pouca assistência. A pena de prisão deveria punir, mas também preparar a pessoa para voltar à sociedade.","Estudo e trabalho dentro das unidades podem reduzir o tempo de pena e ajudar na ressocialização, mas nem todos têm acesso a eles. A dificuldade de conseguir emprego depois da saída aumenta o risco de reincidência."],"p":["Ressocialização por estudo e trabalho","Superlotação e condições dignas","Preconceito contra egressos"],"r":["Lei de Execução Penal (Lei 7.210/1984)","Constituição Federal, art. 5º, XLIX, que assegura aos presos o respeito à integridade física e moral","Michel Foucault, “Vigiar e punir”"]},{"e":"Direitos e cidadania","t":"Desafios para ampliar o acesso à justiça e à informação sobre direitos no Brasil","x":["Conhecer os próprios direitos é o primeiro passo para exigi-los, mas muitas pessoas não sabem a quem recorrer quando são lesadas, como em conflitos de consumo, de trabalho ou de moradia.","A Defensoria Pública oferece orientação jurídica gratuita a quem não pode pagar um advogado, mas ainda não chega a todas as cidades. Educação em direitos e linguagem mais simples nos órgãos públicos aparecem como alternativas."],"p":["Educação jurídica e cidadania","Defensoria Pública e serviços gratuitos","Linguagem acessível na justiça"],"r":["Constituição Federal, art. 5º, XXXV e LXXIV, e art. 134, sobre a Defensoria Pública","Código de Defesa do Consumidor (Lei 8.078/1990)","Declaração Universal dos Direitos Humanos (1948)"]},{"e":"Trabalho e economia","t":"Os desafios do trabalho informal no Brasil","x":["Camelôs, diaristas, vendedores ambulantes e muitos prestadores de serviço trabalham sem carteira assinada. Eles costumam ter renda instável e ficam sem direitos como férias, 13º salário e licença em caso de doença.","A informalidade pode ser uma saída para quem não encontra emprego formal, mas deixa o trabalhador desprotegido na velhice e em acidentes. Qualificação, crédito e formalização, como o MEI, buscam reduzir o problema."],"p":["Proteção social e previdência","Qualificação e geração de emprego","Formalização de pequenos negócios"],"r":["Consolidação das Leis do Trabalho (CLT)","Constituição Federal, art. 7º, sobre os direitos dos trabalhadores","Lei Complementar 128/2008, que criou o Microempreendedor Individual"]},{"e":"Trabalho e economia","t":"Os efeitos do endividamento das famílias e do consumo por impulso no Brasil","x":["Cartão de crédito, parcelamentos e compras por aplicativo facilitam o consumo, mas também podem levar a dívidas difíceis de pagar. Anúncios que estimulam a compra por impulso agravam o problema.","A Lei do Superendividamento criou regras para proteger o consumidor e permitir a renegociação de dívidas. Especialistas defendem também educação financeira desde cedo e mais clareza nas informações sobre juros."],"p":["Educação financeira","Responsabilidade das instituições financeiras","Publicidade e consumo por impulso"],"r":["Lei do Superendividamento (Lei 14.181/2021)","Código de Defesa do Consumidor (Lei 8.078/1990)","Zygmunt Bauman, “Vida para consumo”"]},{"e":"Trabalho e economia","t":"Desafios para garantir a igualdade salarial entre homens e mulheres no Brasil","x":["Mulheres e homens podem exercer a mesma função e, ainda assim, receber valores diferentes. A diferença também aparece nos cargos de chefia, onde as mulheres continuam menos presentes.","A Lei de Igualdade Salarial obriga empresas maiores a divulgar relatórios de transparência salarial. O debate envolve fiscalização, divisão do trabalho doméstico e combate a preconceitos na contratação."],"p":["Transparência e fiscalização","Divisão do trabalho doméstico e de cuidado","Preconceito no mercado de trabalho"],"r":["Lei de Igualdade Salarial (Lei 14.611/2023)","Constituição Federal, art. 5º, I, e art. 7º, XXX","Simone de Beauvoir, “O segundo sexo”"]},{"e":"Trabalho e economia","t":"Os desafios do trabalho remoto para a qualidade de vida dos brasileiros","x":["Com a internet, muitas funções passaram a ser feitas de casa ou de qualquer lugar. O trabalho remoto reduz o tempo no trânsito e dá mais flexibilidade, mas pode misturar o espaço de descanso com o de trabalho.","O direito de se desconectar fora do horário de trabalho e o cuidado com a saúde mental aparecem como temas centrais. Também há dúvidas sobre quem paga os custos de internet e de equipamentos."],"p":["Direito à desconexão","Saúde física e emocional","Responsabilidades de empresas e empregados"],"r":["Consolidação das Leis do Trabalho, artigos sobre teletrabalho (Lei 13.467/2017)","Constituição Federal, art. 7º","Byung-Chul Han, “Sociedade do cansaço”"]},{"e":"Trabalho e economia","t":"Desafios para fortalecer o empreendedorismo e os pequenos negócios no Brasil","x":["Muitos brasileiros abrem o próprio negócio por vontade de empreender, e outros por falta de emprego. Pequenas empresas geram trabalho e renda em muitas cidades, mas enfrentam burocracia, impostos e dificuldade de crédito.","O MEI simplificou a formalização de pequenos negócios, com contribuição reduzida e acesso a benefícios previdenciários. O desafio é ajudar esses empreendedores a crescer e a se manter, com orientação e qualificação."],"p":["Burocracia e crédito","Formalização e proteção social","Orientação e qualificação do empreendedor"],"r":["Estatuto da Micro e Pequena Empresa (Lei Complementar 123/2006)","Lei Complementar 128/2008, que criou o MEI","Sebrae, instituição de apoio aos pequenos negócios"]},{"e":"Trabalho e economia","t":"Os impactos da automação sobre o emprego no Brasil","x":["Máquinas e programas já realizam tarefas antes feitas por pessoas, como atendimento em caixas, linhas de produção e análise de dados. Isso pode aumentar a eficiência, mas também extingue funções e exige novas habilidades.","Ao mesmo tempo, surgem profissões novas ligadas à tecnologia. Especialistas defendem qualificação contínua, políticas de transição e debate sobre quem deve arcar com os custos da mudança."],"p":["Qualificação e educação ao longo da vida","Papel do Estado e das empresas","Criação de novas ocupações"],"r":["Revolução Industrial e o movimento ludista","Constituição Federal, art. 7º, XXVII, que prevê proteção em face da automação","Charles Chaplin, “Tempos modernos” (1936)"]},{"e":"Cultura e identidade","t":"A importância das festas e manifestações da cultura popular para a identidade brasileira","x":["Festas juninas, carnaval, congadas, bumba meu boi e outras celebrações mantêm vivas tradições transmitidas por gerações. Elas reúnem comunidades, geram renda e fortalecem o sentimento de pertencimento.","Muitas dessas manifestações dependem de apoio financeiro e de reconhecimento para continuar. Ao mesmo tempo, o turismo e a comercialização levantam o debate sobre como preservar o sentido original da festa."],"p":["Patrimônio imaterial e identidade","Apoio público e financiamento","Turismo e mercantilização"],"r":["Constituição Federal, art. 215 e art. 216","Decreto 3.551/2000, que criou o registro de bens culturais de natureza imaterial","Câmara Cascudo, estudioso do folclore brasileiro"]},{"e":"Cultura e identidade","t":"Os efeitos da internet na linguagem e na escrita dos jovens brasileiros","x":["Abreviações, memes, emojis e gírias de internet fazem parte da forma como os jovens se comunicam. Há quem veja nisso um empobrecimento da escrita e quem defenda que a língua sempre mudou com o uso.","Linguistas lembram que adequar a linguagem a cada situação é uma habilidade. O desafio da escola é ensinar a norma culta sem desprezar as formas de falar dos estudantes."],"p":["Variação linguística e adequação ao contexto","Papel da escola no ensino da norma culta","Leitura e escrita na era digital"],"r":["Marcos Bagno, “Preconceito linguístico”","Matriz de Referência de Redação do ENEM, que avalia a norma culta","BNCC, área de Linguagens"]},{"e":"Cultura e identidade","t":"A influência dos influenciadores digitais na formação de valores dos jovens brasileiros","x":["Influenciadores digitais divulgam produtos, estilos de vida e opiniões para milhões de seguidores, muitos deles adolescentes. Quando a opinião vem de alguém admirado, pode ter mais peso do que a de professores ou familiares.","Existem criadores que divulgam conhecimento e causas sociais, mas também conteúdos que incentivam o consumismo e comportamentos de risco. Regras de transparência na publicidade e pensamento crítico ajudam a lidar com o fenômeno."],"p":["Publicidade disfarçada e transparência","Pensamento crítico dos jovens","Responsabilidade de quem influencia"],"r":["Código de Defesa do Consumidor, art. 36, sobre publicidade identificável","Conar, órgão de autorregulamentação da publicidade","Pierre Lévy, “Cibercultura”"]},{"e":"Cultura e identidade","t":"Desafios para fortalecer a produção cultural independente no Brasil","x":["Música, cinema, teatro e literatura produzidos fora dos grandes grupos de comunicação enfrentam dificuldades de divulgação. A internet abriu espaço para que artistas independentes alcancem público, mas viver da arte continua difícil.","Leis de incentivo e editais públicos financiam projetos culturais, e as plataformas digitais mudaram o modo de consumir arte. Mesmo assim, artistas apontam a concentração de recursos em poucas regiões."],"p":["Incentivo e financiamento público","Plataformas digitais e remuneração dos artistas","Descentralização da produção cultural"],"r":["Lei Rouanet (Lei 8.313/1991)","Lei Aldir Blanc (Lei 14.017/2020)","Constituição Federal, art. 215"]},{"e":"Cultura e identidade","t":"A importância da história e da memória local na formação dos estudantes brasileiros","x":["Cada cidade guarda histórias de pessoas, lugares e acontecimentos que não aparecem nos livros didáticos. Praças, ruas e prédios antigos contam essa memória, mas muitos acabam esquecidos ou demolidos.","Visitas a museus locais, projetos com idosos que contam o passado do bairro e pesquisas em arquivos ajudam os estudantes a se reconhecerem como parte da história. O desafio é integrar esse conteúdo ao currículo escolar."],"p":["Memória e identidade","Escola e história local","Preservação de documentos e espaços"],"r":["Constituição Federal, art. 216","IPHAN, órgão de proteção do patrimônio","Jacques Le Goff, “História e memória”"]},{"e":"Cultura e identidade","t":"O esporte como instrumento de inclusão e de identidade cultural no Brasil","x":["O futebol, o vôlei, a capoeira e outras práticas fazem parte da cultura brasileira e unem pessoas de diferentes origens. Projetos esportivos em comunidades oferecem atividade e convivência a crianças e jovens.","O esporte também mostra problemas, como violência entre torcidas, preconceito contra atletas e falta de investimento em modalidades menos populares. Garantir o acesso ao esporte faz parte do debate sobre cidadania."],"p":["Esporte como inclusão e educação","Violência e preconceito no esporte","Investimento público e privado"],"r":["Constituição Federal, art. 217","Lei Geral do Esporte (Lei 14.597/2023)","Roda de capoeira, reconhecida como patrimônio cultural"]},{"e":"Cidades e desigualdades","t":"O desafio de reduzir a desigualdade de renda no Brasil","x":["Mesmo sendo uma das maiores economias do mundo, o Brasil tem grande diferença entre a renda dos mais ricos e a dos mais pobres. Essa distância afeta o acesso à educação, à saúde e à moradia.","Programas de transferência de renda, valorização do salário mínimo e acesso a ensino de qualidade são debatidos como formas de reduzir o problema. Há também discussão sobre o sistema de impostos e sobre a geração de empregos."],"p":["Educação como instrumento de mobilidade social","Programas sociais e geração de renda","Sistema tributário e justiça social"],"r":["Constituição Federal, art. 3º, III, que fixa como objetivo erradicar a pobreza e reduzir as desigualdades","Programa Bolsa Família","ODS 10 da ONU, redução das desigualdades"]},{"e":"Cidades e desigualdades","t":"Caminhos para a prevenção da violência urbana entre os jovens brasileiros","x":["A violência urbana afeta o dia a dia de quem vive nas cidades, e os jovens estão entre os mais atingidos, tanto como vítimas quanto como alvo de recrutamento pelo crime. Medo e insegurança mudam a rotina de bairros inteiros.","Policiamento, investigação e punição fazem parte da resposta, mas especialistas lembram a importância de escolas em tempo integral, esporte, cultura e oportunidades de trabalho. O debate envolve prevenção, tratamento justo e confiança nas instituições."],"p":["Prevenção e oportunidades para os jovens","Papel da polícia e da justiça","Desigualdade e violência"],"r":["Constituição Federal, art. 144, sobre a segurança pública","Estatuto da Juventude (Lei 12.852/2013)","Sistema Único de Segurança Pública (Lei 13.675/2018)"]},{"e":"Cidades e desigualdades","t":"Os impactos do crescimento desordenado das cidades e da ocupação de áreas de risco no Brasil","x":["Muitas cidades brasileiras cresceram rápido a partir do século XX, muitas vezes sem planejamento. Sem moradia acessível, famílias ocuparam encostas e margens de rios, onde o risco de deslizamentos e enchentes é maior.","Planos diretores, regularização de terrenos, obras de drenagem e sistemas de alerta são medidas para reduzir o risco. A participação dos moradores no planejamento também aparece como caminho."],"p":["Planejamento urbano e moradia acessível","Prevenção de desastres","Participação da população"],"r":["Estatuto da Cidade (Lei 10.257/2001)","Política Nacional de Proteção e Defesa Civil (Lei 12.608/2012)","Milton Santos, “O espaço do cidadão”"]},{"e":"Cidades e desigualdades","t":"Desafios para a permanência dos jovens no campo e o êxodo rural no Brasil","x":["Muitos jovens do campo deixam o interior em busca de estudo e emprego na cidade. Com a saída, as famílias perdem mão de obra e alguns municípios veem a população diminuir.","A agricultura familiar produz parte importante dos alimentos que chegam à mesa dos brasileiros, mas enfrenta dificuldades de crédito, assistência técnica e acesso à internet. Escolas do campo e incentivos à produção ajudam a criar oportunidades."],"p":["Educação e trabalho no campo","Apoio à agricultura familiar","Infraestrutura e conectividade rural"],"r":["Lei da Agricultura Familiar (Lei 11.326/2006)","Pronaf, Programa Nacional de Fortalecimento da Agricultura Familiar","Constituição Federal, art. 187, sobre a política agrícola"]},{"e":"Cidades e desigualdades","t":"Desafios para ampliar o acesso ao lazer e aos espaços públicos nas periferias brasileiras","x":["Parques, praças, quadras e centros culturais são lugares de encontro e descanso, mas não estão distribuídos igualmente pela cidade. Em muitas periferias, faltam áreas verdes e opções de lazer seguras.","O acesso ao lazer é um direito e ajuda a melhorar a saúde, a convivência e a segurança. Projetos comunitários e ocupações culturais mostram como moradores podem transformar espaços abandonados."],"p":["Lazer como direito social","Desigualdade na distribuição de equipamentos públicos","Participação dos moradores"],"r":["Constituição Federal, art. 6º, que inclui o lazer entre os direitos sociais","Estatuto da Cidade (Lei 10.257/2001)","Henri Lefebvre, “O direito à cidade”"]},{"e":"Cidades e desigualdades","t":"Caminhos para reduzir a violência no trânsito das cidades brasileiras","x":["Acidentes de trânsito deixam mortos e feridos todos os dias no país, em ruas e rodovias. Excesso de velocidade, uso do celular ao volante e desrespeito aos pedestres estão entre as causas apontadas.","O Código de Trânsito Brasileiro estabelece regras e punições, mas a fiscalização nem sempre alcança todos os lugares. Educação para o trânsito, ruas mais seguras e campanhas como o Maio Amarelo fazem parte da prevenção."],"p":["Educação e fiscalização","Infraestrutura segura para pedestres e ciclistas","Responsabilidade individual e coletiva"],"r":["Código de Trânsito Brasileiro (Lei 9.503/1997)","Maio Amarelo, campanha de segurança no trânsito","Década de Ação pela Segurança no Trânsito, da ONU (2021-2030)"]}];
+var THEMES=(function(){var g={},o=[];THEMES_RAW.forEach(function(t){(g[t.e]=g[t.e]||[]).push(t);});for(var r=0;;r++){var any=false;EIXOS.forEach(function(e){if(g[e]&&g[e][r]){o.push(g[e][r]);any=true;}});if(!any)break;}return o;})();
+var PAST=[
+ {y:"2025",t:"Perspectivas acerca do envelhecimento na sociedade brasileira"},
+ {y:"2024",t:"Desafios para a valorização da herança africana no Brasil"},
+ {y:"2023",t:"Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil"},
+ {y:"2022",t:"Desafios para a valorização de comunidades e povos tradicionais no Brasil"},
+ {y:"2021",t:"Invisibilidade e registro civil: garantia de acesso à cidadania no Brasil"},
+ {y:"2020",t:"O estigma associado às doenças mentais na sociedade brasileira"},
+ {y:"2020 (digital)",t:"O desafio de reduzir as desigualdades entre as regiões do Brasil"},
+ {y:"2019",t:"Democratização do acesso ao cinema no Brasil"},
+ {y:"2018",t:"Manipulação do comportamento do usuário pelo controle de dados na Internet"},
+ {y:"2017",t:"Desafios para a formação educacional de surdos no Brasil"},
+ {y:"2016",t:"Caminhos para combater a intolerância religiosa no Brasil"},
+ {y:"2015",t:"A persistência da violência contra a mulher na sociedade brasileira"},
+ {y:"2014",t:"Publicidade infantil em questão no Brasil"}
+];
+var CLAUDE_URL="https://claude.ai/artifact/7RCX7niNc7zmxFJ1ctbjQn";
+function claudeCard(txt){return '<div class="note info stack" style="gap:10px"><span>'+txt+' Seus dados ficam guardados em cada lugar separadamente. Para levar de um para o outro, use Salvar e restaurar em Ajustes.</span><span><a class="btn primary" href="'+CLAUDE_URL+'" target="_blank" rel="noopener">Abrir a versão dentro do Claude</a></span></div>';}
+var COR_ERR={not_granted:"Você não permitiu que o site use o Claude. Permita quando o pedido aparecer para usar o corretor.",rate_limited:"Muitas correções seguidas ou limite de uso atingido. Tente de novo mais tarde.",invalid_json:"A correção veio num formato que não consegui ler. Tente de novo.",session_expired:"Entre de novo na sua conta e tente outra vez.",refused:"Não foi possível corrigir este texto. Revise o conteúdo e tente de novo.",prompt_too_large:"O texto ficou grande demais para corrigir de uma vez.",sampling_disabled:"O corretor não está disponível aqui.",not_declared:"O corretor não está disponível aqui.",capability_disabled:"O corretor não está disponível aqui.",capability_removed:"O corretor não está disponível aqui.",upstream_error:"Não consegui corrigir agora. Tente de novo em instantes."};
+var KINDS={
+ conteudo:["Não sabia o conteúdo","Rever a teoria do assunto e fazer algumas questões simples antes das difíceis."],
+ confusao:["Confundi conceitos","Montar um quadro comparando os conceitos que se misturam."],
+ interp:["Erro de interpretação","Sublinhar o que a questão pede antes de olhar as alternativas."],
+ distr:["Distração","Reler o enunciado e conferir a alternativa marcada antes de seguir."],
+ tempo:["Falta de tempo","Treinar questões cronometradas e deixar as mais lentas para o fim."],
+ calc:["Erro de cálculo","Refazer a conta por outro caminho e anotar o passo em que errou."]
+};
+var TYPES={conteudo:"Conteúdo",questoes:"Questões",revisao:"Revisão",redacao:"Redação",simulado:"Simulado"};
+var INT=[1,3,7,15,30,60];
+var DAYN=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
+var VIEWS=[
+ ["hoje","Hoje","M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"],
+ ["estudar","Estudar","M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 9v4l3 2M9 2h6"],
+ ["rotina","Rotina","M4 5h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM8 3v4M16 3v4M3 10h18"],
+ ["metas","Metas","M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 12.1v-.2"],
+ ["revisoes","Revisões","M20 11a8 8 0 0 0-14-4M4 4v4h4M4 13a8 8 0 0 0 14 4M20 20v-4h-4"],
+ ["simulados","Simulados","M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM9 8h6M9 12h6M9 16h3"],
+ ["evolucao","Evolução","M4 20V11M10 20V4M16 20v-7M2 20h20"]
+];
+
+/* ------------------------------------------------------------------ utilidades */
+function $(s,r){return (r||document).querySelector(s);}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function pad(n){return String(n).padStart(2,"0");}
+function ymd(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function today(){return ymd(new Date());}
+function parse(s){var p=s.split("-").map(Number);return new Date(p[0],p[1]-1,p[2]);}
+function addDays(s,n){var d=parse(s);d.setDate(d.getDate()+n);return ymd(d);}
+function diffDays(a,b){return Math.round((parse(a)-parse(b))/864e5);}
+function weekStart(s){var d=parse(s||today());d.setDate(d.getDate()-((d.getDay()+6)%7));return ymd(d);}
+function uid(){return Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-3);}
+function fmtDate(s){return parse(s).toLocaleDateString("pt-BR",{day:"2-digit",month:"short"}).replace(".","");}
+function fmtMin(m){m=Math.round(m);if(m<60)return m+" min";var h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+pad(r):"");}
+function fmtH(h){return h.toLocaleString("pt-BR",{maximumFractionDigits:1});}
+function pct(r,n){return n?Math.round(100*r/n):null;}
+function dot(a){return '<i class="dot" style="background:var(--c-'+a+')"></i>';}
+function num(v,min,max){var n=parseFloat(String(v).replace(",","."));if(isNaN(n))return null;if(min!=null&&n<min)n=min;if(max!=null&&n>max)n=max;return n;}
+
+/* ------------------------------------------------------------------ estado e armazenamento */
+var LS="rota-enem-v1";
+function DEF(){return {v:1,u:0,
+ set:{course:"",uni:"",year:"",examDate:"",targetNote:"",dayH:[1.5,1.5,1.5,1.5,1,2,0],goalH:9,goalQ:60,focus:25,brk:5,w:{lin:1,hum:1,nat:1,mat:1},eg:{c:[160,160,160,160,160],t:null}},
+ ses:[],rev:[],err:[],mock:[],ess:[],rep:[],goals:[],chk:[],cor:[],ts:{},rd:{}};}
+function merge(o){var d=DEF();var s=Object.assign(d,o||{});var set=Object.assign(DEF().set,(o&&o.set)||{});set.w=Object.assign({lin:1,hum:1,nat:1,mat:1},set.w||{});if(!Array.isArray(set.dayH)||set.dayH.length!==7)set.dayH=DEF().set.dayH;var eg=set.eg;if(!eg||!Array.isArray(eg.c)||eg.c.length!==5)set.eg={c:[160,160,160,160,160],t:null};else set.eg={c:eg.c.map(function(v){v=+v;return [0,40,80,120,160,200].indexOf(v)>=0?v:160;}),t:(eg.t==null||isNaN(+eg.t))?null:Math.max(0,Math.min(1000,+eg.t))};s.set=set;["ses","rev","err","mock","ess","rep","goals","chk","cor"].forEach(function(k){if(!Array.isArray(s[k]))s[k]=[];});if(!s.ts||typeof s.ts!=="object")s.ts={};if(!s.rd||typeof s.rd!=="object")s.rd={};return s;}
+var S=(function(){try{var r=localStorage.getItem(LS);if(r)return merge(JSON.parse(r));}catch(e){}return DEF();})();
+var ref=null,pushT=0,writing=false,again=false,dbState="local";
+function hasData(x){return x.ses.length||x.err.length||x.mock.length||x.ess.length||x.goals.length||x.rev.length||x.chk.length||x.rep.length||x.set.examDate||x.set.course||Object.keys(x.ts).length;}
+function prune(){var n=0;while(JSON.stringify(S).length>230000&&S.ses.length>200&&n<20){S.ses.splice(0,100);n++;}}
+function setStatus(s){dbState=s;var el=$("#sync");if(!el)return;el.textContent={ok:"Salvo na sua conta",sync:"Sincronizando…",local:"Salvo só neste navegador",slow:"Sem resposta da sua conta. Seus dados estão salvos neste navegador.",err:"Não consegui sincronizar agora. Tento de novo no próximo registro."}[s]||"";}
+function commit(soft){S.u=Date.now();prune();try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}schedulePush();if(!soft)render();}
+function schedulePush(){if(!ref)return;setStatus("sync");clearTimeout(pushT);pushT=setTimeout(flush,700);}
+function flush(){if(writing){again=true;return;}writing=true;ref.set({json:JSON.stringify(S),at:Date.now()}).then(function(){setStatus("ok");}).catch(function(e){if(e&&e.code==="invalid_argument"){ref=null;setStatus("local");}else setStatus("err");}).then(function(){writing=false;if(again){again=false;flush();}});}
+function initDb(){
+ try{
+  var c=window.claude;if(!c||!c.use)return;
+  Promise.all([c.use("db"),c.use("user")]).then(function(r){
+   var db=r[0],user=r[1];if(!db||!user)return null;
+   return user.id().then(function(id){
+    if(!id)return null;
+    ref=db.doc("data/users/"+id+"/app");
+    var first=true;var timer=setTimeout(function(){if(first)setStatus("slow");},10000);
+    ref.onSnapshot(function(snap){
+     if(snap.metadata.hasPendingWrites)return;
+     if(!snap.exists){
+      if(snap.metadata.fromCache)return;
+      clearTimeout(timer);first=false;
+      if(hasData(S))flush();else setStatus("ok");
+      return;
+     }
+     var d=snap.data();var remote=null;
+     try{remote=merge(JSON.parse(d.json));}catch(e){}
+     if(remote){
+      if((remote.u||0)>=(S.u||0)){S=remote;try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}softRender();}
+      else if(!snap.metadata.fromCache){schedulePush();}
+     }
+     if(!snap.metadata.fromCache){clearTimeout(timer);first=false;if(dbState!=="sync")setStatus("ok");}
+    },function(){setStatus("err");});
+   });
+  }).catch(function(){});
+ }catch(e){}
+}
+
+/* ------------------------------------------------------------------ estatísticas */
+function areaStats(days){
+ var out={};OBJ.forEach(function(a){out[a]={n:0,r:0};});
+ var since=days?addDays(today(),-days):"0000-00-00";
+ S.ses.forEach(function(s){if(s.qd&&s.d>=since&&out[s.a]){out[s.a].n+=s.qd;out[s.a].r+=s.qr;}});
+ S.mock.forEach(function(m){if(m.d>=since)OBJ.forEach(function(a){var x=m.ar&&m.ar[a];if(x&&x.n){out[a].n+=x.n;out[a].r+=x.r;}});});
+ return out;
+}
+function topicStats(){
+ var t={};
+ S.ses.forEach(function(s){if(!s.tp)return;var k=s.a+"|"+s.tp;var o=t[k]||(t[k]={n:0,r:0,last:"",min:0});o.n+=s.qd||0;o.r+=s.qr||0;o.min+=s.m||0;if(s.d>o.last)o.last=s.d;});
+ return t;
+}
+function lastDate(a){var l="";S.ses.forEach(function(s){if(s.a===a&&s.d>l)l=s.d;});return l;}
+function weekSes(ws){ws=ws||weekStart();var we=addDays(ws,6);return S.ses.filter(function(s){return s.d>=ws&&s.d<=we;});}
+function activeDates(){var o={};S.ses.forEach(function(s){o[s.d]=1;});S.mock.forEach(function(m){o[m.d]=1;});S.ess.forEach(function(e){o[e.d]=1;});Object.keys(S.rd).forEach(function(k){o[k]=1;});return o;}
+function streak(){var a=activeDates(),d=today(),n=0;if(!a[d])d=addDays(d,-1);while(a[d]){n++;d=addDays(d,-1);}return n;}
+function dueRev(){var t=today();return S.rev.filter(function(r){return r.due<=t;});}
+
+/* ------------------------------------------------------------------ rotina adaptativa */
+function pickTopic(a,used,acc){
+ var list=SYL[a],ts=topicStats(),key=function(t){return a+"|"+t;};
+ var weak=list.filter(function(t){var x=ts[key(t)];return x&&x.n>=3&&x.r/x.n<0.6;}).sort(function(x,y){return ts[key(x)].r/ts[key(x)].n-ts[key(y)].r/ts[key(y)].n;});
+ var fresh=list.filter(function(t){return !(S.ts[key(t)]>0)&&!ts[key(t)];});
+ var going=list.filter(function(t){return S.ts[key(t)]===1||(ts[key(t)]&&S.ts[key(t)]!==2);}).sort(function(x,y){return ((ts[key(x)]||{}).last||"")<((ts[key(y)]||{}).last||"")?-1:1;});
+ var order=(acc!=null&&acc<0.55)?[["weak",weak],["fresh",fresh],["going",going]]:[["fresh",fresh],["weak",weak],["going",going]];
+ for(var i=0;i<order.length;i++){
+  var kind=order[i][0],arr=order[i][1];
+  for(var j=0;j<arr.length;j++){
+   var t=arr[j];if(used[key(t)])continue;
+   var x=ts[key(t)],why;
+   if(kind==="weak")why="Acerto de "+Math.round(100*x.r/x.n)+"% em "+x.n+" questões deste assunto";
+   else if(kind==="fresh")why="Assunto ainda não estudado";
+   else why=(x&&x.last)?"Em andamento; última vez há "+diffDays(today(),x.last)+" dias":"Marcado como em andamento";
+   return {t:t,why:why,kind:kind};
+  }
+ }
+ var t0=list[0];return {t:t0,why:"Revisão geral da área",kind:"going"};
+}
+function routine(){
+ var t=today(),ws=weekStart();
+ var a45=areaStats(45),aAll=areaStats(0),info={};
+ OBJ.forEach(function(a){
+  var x=a45[a].n>=10?a45[a]:aAll[a];
+  var acc=x.n>=10?x.r/x.n:null;
+  var l=lastDate(a);var stale=l?Math.min(14,diffDays(t,l)):14;
+  var due=S.rev.filter(function(r){return r.a===a&&r.due<=t;}).length;
+  var w=S.set.w[a]!=null?S.set.w[a]:1;
+  info[a]={acc:acc,n:x.n,stale:stale,due:due,pr:w*(0.35+(acc==null?0.5:1-acc)+0.3*stale/14+Math.min(0.3,0.05*due))};
+ });
+ var nb=S.set.dayH.map(function(h){return Math.max(0,Math.round(h*60/45));});
+ var days=nb.map(function(n,i){return {i:i,date:addDays(ws,i),n:n,free:n,pre:[],blocks:[]};});
+ var hasRev=S.rev.length>0||S.err.length>0;
+ var dueN=dueRev().length;
+ days.forEach(function(d){if(hasRev&&d.n>=2){d.free--;d.pre.push({k:"rev",len:1,label:"Revisões do dia",topic:"Itens vencidos e caderno de erros",why:d.date===t?(dueN?dueN+" itens para revisar agora":"Nada vencido agora; use para o caderno de erros"):"Revisões que vencerem até lá"});}});
+ // redação: 1 bloco por semana
+ var order=[2,3,1,4,0,5,6],ri=-1;
+ for(var q=0;q<order.length;q++){if(days[order[q]].free>=1&&days[order[q]].n>=2){ri=order[q];break;}}
+ if(ri<0)for(q=0;q<order.length;q++){if(days[order[q]].free>=1){ri=order[q];break;}}
+ if(ri>=0){
+  var avg=compAvg(),why="Escreva o texto e envie ao corretor na aba Simulados, em Tema e correção";
+  var topic="Tema da semana: "+weekTheme().t;
+  var ecur=essCur();if(ecur){var egl=essGoal(),wi=0,wgap=-1e9;ecur.c.forEach(function(v,i){var d=egl.c[i]-v;if(d>wgap){wgap=d;wi=i;}});why=wgap>0?"Competência "+(wi+1)+" ("+COMP[wi]+"): faltam "+Math.round(wgap)+" pontos para a sua meta de "+egl.c[wi]:"Todas as metas por competência foram atingidas na média recente. Mantenha o ritmo.";}
+  days[ri].free--;days[ri].pre.push({k:"red",a:"red",len:1,label:"Redação",topic:topic,why:why});
+ }
+ // simulado por área
+ var lastMock=S.mock.reduce(function(m,x){return x.d>m?x.d:m;},"");
+ var needSim=!lastMock||diffDays(t,lastMock)>=14;
+ if(needSim){
+  var si=-1;
+  if(days[5].free>=2)si=5;else{var best=-1;days.forEach(function(d){if(d.free>=2&&d.free>best){best=d.free;si=d.i;}});if(si<0)days.forEach(function(d){if(si<0&&d.free>=1)si=d.i;});}
+  if(si>=0){
+   var cover={};OBJ.forEach(function(a){cover[a]="";});
+   S.mock.forEach(function(m){OBJ.forEach(function(a){if(m.ar&&m.ar[a]&&m.d>cover[a])cover[a]=m.d;});});
+   var sa=OBJ.slice().sort(function(x,y){if(cover[x]!==cover[y])return cover[x]<cover[y]?-1:1;return info[y].pr-info[x].pr;})[0];
+   var len=Math.min(2,days[si].free);days[si].free-=len;
+   days[si].pre.push({k:"sim",a:sa,len:len,label:lastMock?"Simulado: "+AREAS[sa].n:"Diagnóstico: "+AREAS[sa].n,topic:"45 questões com cronômetro, depois corrigir e registrar os erros",why:lastMock?"Último simulado há "+diffDays(t,lastMock)+" dias":"Ainda não há simulado registrado; o resultado calibra a rotina"});
+  }
+ }
+ // blocos de estudo por área
+ var F=days.reduce(function(s,d){return s+d.free;},0),cnt={};OBJ.forEach(function(a){cnt[a]=0;});
+ if(F>0){
+  var sumP=OBJ.reduce(function(s,a){return s+info[a].pr;},0),left=F;
+  if(F>=OBJ.length){OBJ.forEach(function(a){cnt[a]=1;});left-=OBJ.length;}
+  var rem=OBJ.map(function(a){return {a:a,q:left*info[a].pr/sumP};});
+  rem.forEach(function(x){var f=Math.floor(x.q);cnt[x.a]+=f;});
+  var used=OBJ.reduce(function(s,a){return s+cnt[a];},0);
+  rem.sort(function(x,y){return (y.q-Math.floor(y.q))-(x.q-Math.floor(x.q));});
+  var k=0;while(used<F&&rem.length){cnt[rem[k%rem.length].a]++;used++;k++;}
+ }
+ var usedTopics={},prev=null;
+ days.forEach(function(d){
+  d.blocks=d.pre.slice();
+  for(var s=0;s<d.free;s++){
+   var cands=OBJ.filter(function(a){return cnt[a]>0;});
+   if(!cands.length)break;
+   var alt=cands.filter(function(a){return a!==prev;});if(alt.length)cands=alt;
+   cands.sort(function(x,y){return cnt[y]-cnt[x]||info[y].pr-info[x].pr;});
+   var a=cands[0];cnt[a]--;prev=a;
+   var pk=pickTopic(a,usedTopics,info[a].acc);usedTopics[a+"|"+pk.t]=1;
+   var acc=info[a].acc,label;
+   if(pk.kind==="fresh")label="Conteúdo novo + questões";
+   else if(acc==null)label="Conteúdo + questões";
+   else if(acc<0.55)label="Ponto fraco: conteúdo + questões";
+   else if(acc<0.75)label="Questões e correção dos erros";
+   else label="Questões mistas de manutenção";
+   d.blocks.push({k:"est",a:a,len:1,label:label,topic:pk.t,why:pk.why});
+  }
+ });
+ return {days:days,info:info,needSim:needSim};
+}
+function compAvg(){
+ if(!S.ess.length)return null;var sum=[0,0,0,0,0];S.ess.forEach(function(e){e.c.forEach(function(v,i){sum[i]+=v;});});return sum.map(function(v){return v/S.ess.length;});
+}
+
+
+function bkCard(){
+ var s='<section class="card stack"><h3>Seus dados</h3><p class="small muted" style="max-width:70ch">Tudo o que você registra é seu. Gere um backup para guardar uma cópia ou levar para outro aparelho, e restaure quando precisar. Cole só backups que você mesmo gerou.</p><div class="row"><button class="btn" type="button" data-act="bkMake">Gerar backup</button><button class="btn" type="button" data-act="bkRestoreOpen">Restaurar backup</button><button class="btn danger" type="button" data-act="delAll">Apagar tudo</button></div>';
+ if(ui.bk)s+='<div class="field"><label for="bkOut">Seu backup</label><textarea id="bkOut" readonly style="min-height:110px;font:12px var(--f-mono)">'+esc(ui.bk)+'</textarea><div class="row"><button class="btn sm" type="button" data-act="bkCopy">Copiar</button><span class="small muted" id="bkMsg">Guarde este texto num lugar seguro.</span></div></div>';
+ if(ui.bkR)s+='<div class="field"><label for="bkIn">Cole aqui o backup</label><textarea id="bkIn" data-in="bkIn" style="min-height:110px;font:12px var(--f-mono)">'+esc(ui.bkText)+'</textarea>'+(ui.bkErr?'<p class="note">'+esc(ui.bkErr)+'</p>':'')+'<div class="row"><button class="btn primary sm" type="button" data-act="bkApply">Restaurar agora</button><span class="small muted">Isso substitui os dados que estão aqui.</span></div></div>';
+ if(ui.delAsk)s+='<p class="note">Isso apaga todas as suas sessões, metas, revisões, simulados e redações, neste aparelho e na sua conta. Não dá para desfazer.</p><div class="row"><button class="btn danger sm" type="button" data-act="delAllYes">Sim, apagar tudo</button><button class="btn sm" type="button" data-act="delAllNo">Cancelar</button></div>';
+ return s+'</section>';
+}
+function sanitize(o){
+ if(!o||typeof o!=="object"||Array.isArray(o))throw 0;
+ var A=function(x){return Array.isArray(x)?x.slice(0,3000):[];};
+ var id=function(v){return String(v==null?"":v).replace(/[^a-z0-9]/gi,"").slice(0,20)||uid();};
+ var st=function(v,n){return String(v==null?"":v).slice(0,n);};
+ var dt=function(v){v=String(v||"");return /^\d{4}-\d{2}-\d{2}$/.test(v)?v:today();};
+ var nm=function(v,lo,hi){v=+v;if(!isFinite(v))v=0;return Math.max(lo,Math.min(hi,v));};
+ var ar=function(v){return AREAS[v]?v:"mat";};
+ var c={v:1,u:Date.now()},s=o.set&&typeof o.set==="object"?o.set:{};
+ c.set={course:st(s.course,80),uni:st(s.uni,80),year:st(s.year,4).replace(/[^0-9]/g,""),examDate:/^\d{4}-\d{2}-\d{2}$/.test(s.examDate)?s.examDate:"",targetNote:st(s.targetNote,6).replace(/[^0-9]/g,""),
+  dayH:Array.isArray(s.dayH)&&s.dayH.length===7?s.dayH.map(function(v){return nm(v,0,10);}):DEF().set.dayH,goalH:nm(s.goalH||9,1,60),goalQ:Math.round(nm(s.goalQ||60,5,1000)),focus:nm(s.focus||25,5,120),brk:nm(s.brk||5,1,60),
+  w:{lin:nm(s.w&&s.w.lin||1,.5,2),hum:nm(s.w&&s.w.hum||1,.5,2),nat:nm(s.w&&s.w.nat||1,.5,2),mat:nm(s.w&&s.w.mat||1,.5,2)},
+  eg:{c:s.eg&&Array.isArray(s.eg.c)&&s.eg.c.length===5?s.eg.c.map(function(v){v=+v;return [0,40,80,120,160,200].indexOf(v)>=0?v:160;}):[160,160,160,160,160],t:s.eg&&s.eg.t!=null&&isFinite(+s.eg.t)?nm(s.eg.t,0,1000):null}};
+ c.ses=A(o.ses).map(function(x){x=x||{};return {i:id(x.i),d:dt(x.d),a:ar(x.a),tp:st(x.tp,80),ty:TYPES[x.ty]?x.ty:"questoes",m:Math.round(nm(x.m,0,600)),qd:Math.round(nm(x.qd,0,500)),qr:Math.round(nm(x.qr,0,500)),nt:st(x.nt,140)};});
+ c.rev=A(o.rev).map(function(x){x=x||{};return {i:id(x.i),a:ar(x.a),t:st(x.t,120),k:x.k==="erro"?"erro":"topico",due:dt(x.due),st:Math.round(nm(x.st,0,INT.length-1)),ref:x.ref?id(x.ref):undefined};});
+ c.err=A(o.err).map(function(x){x=x||{};return {i:id(x.i),d:dt(x.d),a:ar(x.a),tp:st(x.tp,80),k:KINDS[x.k]?x.k:"conteudo",o:st(x.o,60),w:st(x.w,300),y:st(x.y,300),f:st(x.f,300)};});
+ c.mock=A(o.mock).map(function(x){x=x||{};var r={};OBJ.forEach(function(a){var q=x.ar&&x.ar[a];if(q&&+q.n>0)r[a]={r:Math.round(nm(q.r,0,200)),n:Math.round(nm(q.n,1,200))};});return {i:id(x.i),d:dt(x.d),nm:st(x.nm,60),ar:r,min:Math.round(nm(x.min,0,600)),nt:st(x.nt,140)};});
+ c.ess=A(o.ess).map(function(x){x=x||{};var q=Array.isArray(x.c)?x.c:[];return {i:id(x.i),d:dt(x.d),t:st(x.t,120),c:[0,1,2,3,4].map(function(k){var v=Math.round(nm(q[k],0,200)/40)*40;return v;}),nt:st(x.nt,160)};});
+ c.rep=A(o.rep).map(function(x){x=x||{};return {i:id(x.i),t:st(x.t,160),m:st(x.m,60)};});
+ c.goals=A(o.goals).map(function(x){x=x||{};return {i:id(x.i),t:st(x.t,120),a:AREAS[x.a]?x.a:"",d:/^\d{4}-\d{2}-\d{2}$/.test(x.d)?x.d:"",done:x.done?1:0};});
+ c.chk=A(o.chk).map(function(x){x=x||{};return {d:dt(x.d),sleep:x.sleep==null||!isFinite(+x.sleep)?null:nm(x.sleep,0,14),en:x.en==null?undefined:Math.round(nm(x.en,1,5))};}).slice(-120);
+ c.cor=[];c.ts={};var ts=o.ts&&typeof o.ts==="object"?o.ts:{};
+ OBJ.forEach(function(a){SYL[a].forEach(function(t){var v=+ts[a+"|"+t];if(v===1||v===2)c.ts[a+"|"+t]=v;});});
+ c.rd={};var rd=o.rd&&typeof o.rd==="object"?o.rd:{};Object.keys(rd).slice(0,800).forEach(function(k){if(/^\d{4}-\d{2}-\d{2}$/.test(k))c.rd[k]=Math.round(nm(rd[k],0,1000));});
+ return merge(c);
+}
+function essSorted(){return S.ess.slice().sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:0;});}
+function essCur(){var es=essSorted().slice(-3);if(!es.length)return null;var c=[0,0,0,0,0];es.forEach(function(e){e.c.forEach(function(v,i){c[i]+=v;});});c=c.map(function(v){return v/es.length;});return {c:c,t:c.reduce(function(a,b){return a+b;},0),n:es.length};}
+function essGoal(){var g=S.set.eg,sum=g.c.reduce(function(a,b){return a+b;},0);return {c:g.c,t:g.t==null?sum:g.t,sum:sum,auto:g.t==null};}
+function essGoalPanel(){
+ var cur=essCur(),g=essGoal(),tot=cur?Math.round(cur.t):null;
+ var s='<section class="card stack"><div class="head" style="margin:0"><h2>Metas da redação</h2><span class="small muted">'+(cur?'Atual: média das últimas '+cur.n+(cur.n===1?' redação':' redações'):'Sem redações corrigidas ainda')+'</span></div>';
+ s+='<div class="stack" style="gap:8px"><div class="spread"><div><span class="eyebrow">Nota final</span><div class="row" style="align-items:baseline;gap:8px"><b class="mono" style="font-size:34px;line-height:1">'+(tot==null?'–':tot)+'</b><span class="muted">meta '+g.t+' de 1000</span></div></div>'+(tot==null?'':(tot>=g.t?'<span class="chip good">Meta atingida</span>':'<span class="chip warn">Faltam '+(g.t-tot)+' pontos</span>'))+'</div><div class="meter"><i style="width:'+(tot==null?0:Math.min(100,100*tot/Math.max(1,g.t)))+'%"></i></div>';
+ s+='<div class="row" style="align-items:end"><div class="field" style="width:190px"><label for="egT">Meta da nota final</label><input id="egT" type="number" min="0" max="1000" step="20" inputmode="numeric" value="'+g.t+'" data-change="egTot"></div>'+(g.auto?'<span class="small muted">Soma das metas por competência</span>':'<button class="btn sm" type="button" data-act="egAuto">Usar a soma das competências ('+g.sum+')</button>')+'</div></div>';
+ var gi=-1,gap=0;if(cur)cur.c.forEach(function(v,i){var d=g.c[i]-v;if(d>gap){gap=d;gi=i;}});
+ COMP.forEach(function(n,i){
+  var v=cur?cur.c[i]:null,goal=g.c[i],p=v==null?0:(goal?Math.min(100,100*v/goal):100);
+  var st=v==null?'Sem dados':(v>=goal?'Meta atingida':'Faltam '+Math.round(goal-v)+' pontos');
+  s+='<div class="stack" style="gap:6px;border-top:1px solid var(--line);padding-top:12px"><div class="spread"><b>C'+(i+1)+' · '+n+'</b><span class="mono small">'+(v==null?'–':Math.round(v))+' / '+goal+'</span></div><div class="meter"><i style="width:'+p+'%;background:var(--c-red)"></i></div><div class="spread"><span class="row"><span class="small muted">'+st+'</span>'+(i===gi?'<span class="chip bad">Foco</span>':'')+'</span><div class="field" style="width:120px"><label class="small" for="egc'+i+'">Meta</label><select id="egc'+i+'" data-change="egComp" data-i="'+i+'">'+[0,40,80,120,160,200].map(function(x){return '<option value="'+x+'"'+(g.c[i]===x?' selected':'')+'>'+x+'</option>';}).join('')+'</select></div></div></div>';
+ });
+ s+='<p class="small muted">Os valores iniciais (160 em cada competência, 800 no total) são só um ponto de partida. Defina a meta pelo curso que você quer: confira a nota de corte oficial do SISU e o peso da redação no edital da universidade e do curso que você escolheu.</p></section>';
+ return s;
+}
+/* ------------------------------------------------------------------ gráficos */
+function lineChart(series,labels,o){
+ var W=640,H=230,L=40,R=22,T=16,B=30,n=labels.length;
+ var min=o.min,max=o.max,ticks=o.ticks;
+ var X=function(i){return n<=1?(L+(W-L-R)/2):L+(W-L-R)*i/(n-1);};
+ var Y=function(v){return T+(H-T-B)*(1-(v-min)/(max-min));};
+ var g="";
+ ticks.forEach(function(tk){g+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(tk)+'" y2="'+Y(tk)+'"/><text x="'+(L-8)+'" y="'+(Y(tk)+4)+'" text-anchor="end">'+tk+(o.unit||"")+'</text>';});
+ if(o.ref!=null){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(o.ref)+'" y2="'+Y(o.ref)+'" stroke="var(--moss)" stroke-width="1.6" stroke-dasharray="6 5"/><text class="lab" x="'+(L+6)+'" y="'+(Y(o.ref)-6)+'">meta '+o.ref+'</text>';}
+ var step=Math.max(1,Math.ceil(n/7));
+ labels.forEach(function(l,i){if(i%step===0||i===n-1)g+='<text x="'+X(i)+'" y="'+(H-8)+'" text-anchor="'+(n<=1?"middle":i===0?"start":i===n-1?"end":"middle")+'">'+esc(l)+'</text>';});
+ series.forEach(function(s){
+  var pts=s.pts.filter(function(p){return p.v!=null;});
+  if(pts.length>1)g+='<polyline fill="none" stroke="'+s.color+'" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" points="'+pts.map(function(p){return X(p.i).toFixed(1)+","+Y(p.v).toFixed(1);}).join(" ")+'"/>';
+  pts.forEach(function(p,j){var last=j===pts.length-1;g+='<circle cx="'+X(p.i).toFixed(1)+'" cy="'+Y(p.v).toFixed(1)+'" r="'+(last?5:3.2)+'" fill="'+s.color+'"/>';if(last)g+='<text class="lab" x="'+Math.min(W-R,X(p.i)).toFixed(1)+'" y="'+(Y(p.v)-10).toFixed(1)+'" text-anchor="'+(p.i>=n-1&&n>1?"end":"middle")+'">'+p.v+(o.unit||"")+'</text>';});
+ });
+ return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(o.aria||"Gráfico")+'">'+g+'</svg>';
+}
+
+/* ------------------------------------------------------------------ interface: estado local */
+var ui={view:"hoje",rev:"hoje",sim:"simulados",errKind:"all",log:false,pre:null,essayTotal:0,openSyl:{},bk:"",bkR:false,bkText:"",bkErr:"",delAsk:false,sampleOk:undefined,imgLim:null,cor:{src:"week",past:0,free:"",text:"",busy:false,res:null,err:"",ctl:null,mode:"type",files:[],urls:[],reading:false,info:null,ok:false,prog:"",partial:false,careful:false,zoom:-1,rev:"",rr:null,extP:"",extIn:"",extRr:null,extMsg:"",extMsg2:""}};
+var T={mode:"focus",total:25*60,endAt:0,left:25*60,running:false,area:"mat",topic:"",type:"questoes",tick:0,done:false};
+
+/* ------------------------------------------------------------------ views */
+function vHoje(){
+ var R=routine(),t=today(),idx=(new Date().getDay()+6)%7,day=R.days[idx];
+ var h=new Date().getHours(),greet=h<5?"Boa madrugada":h<12?"Bom dia":h<18?"Boa tarde":"Boa noite";
+ var dd=S.set.examDate?diffDays(S.set.examDate,t):null;
+ var wk=weekSes(),wmin=wk.reduce(function(a,s){return a+s.m;},0),wq=wk.reduce(function(a,s){return a+(s.qd||0);},0);
+ var due=dueRev().length,ck=S.chk.filter(function(c){return c.d===t;})[0]||{};
+ var last3=S.chk.slice(-3),lowSleep=last3.length>=3&&last3.every(function(c){return c.sleep!=null;})&&last3.reduce(function(a,c){return a+c.sleep;},0)/3<7;
+ var pri=OBJ.slice().sort(function(a,b){return R.info[b].pr-R.info[a].pr;}).slice(0,2);
+ var s='<div class="page-head"><span class="eyebrow">'+greet+'</span><h1>Rota de hoje</h1></div>';
+ s+='<section class="card moss"><div class="spread"><div class="stack" style="gap:6px"><span class="eyebrow">'+(S.set.course?'Seu objetivo'+(S.set.year?' para '+esc(S.set.year):''):'Primeiro passo')+'</span><h2 style="font-size:clamp(22px,4.5vw,30px)">'+(S.set.course?esc(S.set.course):'Defina o seu objetivo')+'</h2><p class="small muted">'+(S.set.course?esc(S.set.uni||'Entrada pelo ENEM'):'Curso, universidades e ano da prova, na tela Metas')+'</p></div>';
+ s+='<div style="text-align:right">'+(dd!=null&&dd>=0?'<div class="mono" style="font-size:40px;line-height:1">'+dd+'</div><div class="small muted">dias até a prova</div>':'<a class="btn" href="#metas" style="background:transparent;color:inherit;border-color:rgba(255,255,255,.4)">Definir data da prova</a>')+'</div></div></section>';
+ if(!(S.ses.length||S.mock.length||S.ess.length))s+='<section class="card soft"><h3>Comece por aqui</h3><ol style="margin:8px 0 0;padding-left:20px;display:grid;gap:4px"><li>Em <a href="#metas">Metas</a>, escreva o curso que você quer e a data da prova.</li><li>Em <a href="#rotina">Rotina</a>, informe quantas horas você consegue estudar em cada dia.</li><li>Faça um simulado por área e registre em <a href="#simulados">Simulados</a>. É isso que calibra a sua rotina.</li><li>Depois de cada estudo, registre a sessão em <a href="#estudar">Estudar</a>.</li></ol></section>';
+ s+='<div class="g2"><section class="card"><div class="head"><h2>Plano de hoje</h2><span class="chip">'+DAYN[idx]+' · '+fmtH(S.set.dayH[idx])+' h</span></div>';
+ if(!day.blocks.length)s+='<div class="empty"><p>Hoje é dia de descanso.</p><p class="small">Descansar também faz parte da rotina. Se quiser estudar, registre uma sessão em Estudar.</p></div>';
+ else{s+='<div class="list">';day.blocks.forEach(function(b,j){s+=blockHtml(b,idx,j,true);});s+='</div>';}
+ s+='</section><div class="stack">';
+ s+='<section class="card"><div class="head"><h2>Esta semana</h2></div><div class="stack"><div><div class="spread small"><span>Horas de estudo</span><span class="mono">'+fmtH(wmin/60)+' / '+fmtH(S.set.goalH)+' h</span></div><div class="meter"><i style="width:'+Math.min(100,100*wmin/60/S.set.goalH)+'%"></i></div></div><div><div class="spread small"><span>Questões resolvidas</span><span class="mono">'+wq+' / '+S.set.goalQ+'</span></div><div class="meter"><i style="width:'+Math.min(100,100*wq/S.set.goalQ)+'%"></i></div></div></div></section>';
+ s+='<div class="g3"><div class="stat"><b>'+streak()+'</b><span>dias seguidos</span></div><div class="stat"><b>'+due+'</b><span>revisões vencidas</span></div></div>';
+ s+='<section class="card soft"><h4>Foco da semana</h4><p class="small muted" style="margin-top:4px">'+(Object.keys(areaStats(0)).some(function(a){return areaStats(0)[a].n>=10;})?'As áreas que mais pedem atenção agora, pelo seu histórico: ':'Ainda sem dados suficientes. Comece pelo diagnóstico por área. Até lá, as quatro áreas dividem o tempo: ')+'</p><div class="chips" style="margin-top:8px">'+(S.ses.length||S.mock.length?pri.map(function(a){return '<span class="chip">'+dot(a)+AREAS[a].n+'</span>';}).join(""):OBJ.map(function(a){return '<span class="chip">'+dot(a)+SHORT[a]+'</span>';}).join(""))+'</div></section>';
+ s+='</div></div>';
+ s+='<section class="card"><div class="head"><h2>Como estou hoje</h2><span class="small muted">Leva 10 segundos</span></div><div class="form-grid"><div class="field"><label for="ckSleep">Horas de sono na última noite</label><input id="ckSleep" type="number" min="0" max="14" step="0.5" inputmode="decimal" value="'+(ck.sleep!=null?ck.sleep:"")+'" data-change="ckSleep"></div><div class="field"><span class="lbl">Energia</span><div class="chips">';
+ ["Baixa","Fraca","Média","Boa","Ótima"].forEach(function(l,i){s+='<button type="button" class="chip" aria-pressed="'+(ck.en===i+1)+'" data-act="ckEn" data-v="'+(i+1)+'">'+l+'</button>';});
+ s+='</div></div></div>';
+ if(lowSleep)s+='<p class="note" style="margin-top:12px">Nos últimos três registros você dormiu menos de 7 horas em média. Dormir pouco piora a memória e a atenção, então vale proteger o sono antes de aumentar as horas de estudo.</p>';
+ else if(ck.en&&ck.en<=2)s+='<p class="note info" style="margin-top:12px">Dia de pouca energia: faça só as revisões e uma sessão curta. Parar cedo também conta.</p>';
+ s+='</section>';
+ return s;
+}
+function blockHtml(b,di,j,btn){
+ var left=b.k==="rev"?'<span class="dot" style="background:var(--moss)"></span>':dot(b.a||"red");
+ var len=b.len>1?" · "+b.len*45+" min":" · 45 min";
+ var s='<div class="item"><span>'+left+'</span><div><div class="t">'+esc(b.label)+(b.a&&b.k!=="est"&&b.k!=="red"?"":"")+'</div><div class="s">'+(b.a&&b.k==="est"?esc(AREAS[b.a].n)+" · ":"")+esc(b.topic)+len+'</div><div class="s">'+esc(b.why)+'</div></div>';
+ s+=btn?'<button class="btn sm primary" data-act="startBlock" data-d="'+di+'" data-j="'+j+'">Iniciar</button>':'';
+ return s+'</div>';
+}
+function vEstudar(){
+ var area=T.area,s='<div class="page-head"><span class="eyebrow">Sessão de estudos</span><h1>Estudar agora</h1></div>';
+ s+='<section class="card"><div class="stack"><div class="field"><span class="lbl">Área</span><div class="chips">';
+ ["lin","hum","nat","mat","red"].forEach(function(a){s+='<button type="button" class="chip" aria-pressed="'+(T.area===a)+'" data-act="tArea" data-v="'+a+'">'+dot(a)+AREAS[a].n+'</button>';});
+ s+='</div></div><div class="form-grid"><div class="field"><label for="tTopic">Assunto</label><input id="tTopic" list="dlTopics" value="'+esc(T.topic)+'" placeholder="Ex.: Funções do 2º grau" data-in="tTopic" autocomplete="off"><datalist id="dlTopics">'+SYL[area].map(function(x){return '<option value="'+esc(x)+'">';}).join("")+'</datalist></div>';
+ s+='<div class="field"><label for="tType">Tipo de estudo</label><select id="tType" data-change="tType">'+Object.keys(TYPES).map(function(k){return '<option value="'+k+'"'+(T.type===k?" selected":"")+'>'+TYPES[k]+'</option>';}).join("")+'</select></div></div>';
+ s+='<div class="clock" id="tdisp" aria-live="off">'+clockText()+'</div>';
+ s+='<div class="chips" style="justify-content:center">';
+ [[25,"Foco 25"],[45,"Foco 45"],[50,"Foco 50"]].forEach(function(p){s+='<button type="button" class="chip" aria-pressed="'+(T.mode==="focus"&&T.total===p[0]*60)+'" data-act="tPreset" data-v="'+p[0]+'">'+p[1]+' min</button>';});
+ s+='<button type="button" class="chip" aria-pressed="'+(T.mode==="break")+'" data-act="tBreak">Pausa '+S.set.brk+' min</button></div>';
+ s+='<div class="row" style="justify-content:center"><button class="btn primary" type="button" data-act="tToggle" id="tBtn">'+(T.running?"Pausar":(T.left<T.total&&T.left>0?"Continuar":"Começar"))+'</button><button class="btn" type="button" data-act="tReset">Zerar</button><button class="btn" type="button" data-act="tFinish">Encerrar e registrar</button></div>';
+ s+='<p class="small muted" style="text-align:center" id="tHint">'+(T.done?"Tempo concluído. Registre a sessão para ela entrar nas suas estatísticas.":"Registre sempre quantas questões fez e quantas acertou. É isso que ajusta a sua rotina.")+'</p></div></section>';
+ if(ui.log)s+=logForm();
+ else s+='<div><button class="btn" type="button" data-act="openLog">Registrar sessão sem cronômetro</button></div>';
+ var rec=S.ses.slice(-8).reverse();
+ s+='<section class="card"><div class="head"><h2>Últimas sessões</h2></div>';
+ if(!rec.length)s+='<div class="empty"><p>Nenhuma sessão ainda.</p><p class="small">Quando você registrar a primeira, ela aparece aqui e começa a moldar a rotina.</p></div>';
+ else{s+='<div class="list">';rec.forEach(function(x){s+='<div class="item"><span>'+dot(x.a)+'</span><div><div class="t">'+esc(x.tp||AREAS[x.a].n)+'</div><div class="s">'+fmtDate(x.d)+' · '+fmtMin(x.m)+' · '+TYPES[x.ty]+(x.qd?' · '+x.qr+'/'+x.qd+' questões ('+pct(x.qr,x.qd)+'%)':'')+(x.nt?' · '+esc(x.nt):'')+'</div></div><button class="btn sm ghost danger" data-act="delSes" data-id="'+x.i+'" aria-label="Apagar sessão">Apagar</button></div>';});s+='</div>';}
+ return s+'</section>';
+}
+function logForm(){
+ var mins=ui.logMin||Math.max(1,Math.round((T.total-T.left)/60))||S.set.focus;
+ var s='<form class="card stack" data-submit="addSes" id="logForm"><div class="head" style="margin:0"><h2>Registrar sessão</h2></div><div class="form-grid">';
+ s+='<div class="field"><label for="lMin">Minutos estudados</label><input id="lMin" name="m" type="number" min="1" max="600" required value="'+mins+'" inputmode="numeric"></div>';
+ s+='<div class="field"><label for="lDate">Data</label><input id="lDate" name="d" type="date" required value="'+today()+'" max="'+today()+'"></div>';
+ s+='<div class="field"><label for="lQd">Questões feitas</label><input id="lQd" name="qd" type="number" min="0" max="500" inputmode="numeric" placeholder="0"></div>';
+ s+='<div class="field"><label for="lQr">Questões certas</label><input id="lQr" name="qr" type="number" min="0" max="500" inputmode="numeric" placeholder="0"></div></div>';
+ s+='<div class="field"><label for="lNt">Observação (opcional)</label><input id="lNt" name="nt" maxlength="140" placeholder="Ex.: errei por não lembrar a fórmula"></div>';
+ s+='<p class="small muted">'+esc(AREAS[T.area].n)+' · '+esc(T.topic||"sem assunto definido")+' · '+TYPES[T.type]+'. Mude acima se precisar.</p>';
+ s+='<div class="row"><button class="btn primary" type="submit">Salvar sessão</button><button class="btn" type="button" data-act="closeLog">Cancelar</button></div></form>';
+ return s;
+}
+function vRotina(){
+ var R=routine(),t=today(),tot=0,byA={lin:0,hum:0,nat:0,mat:0,red:0,rev:0,sim:0};
+ R.days.forEach(function(d){d.blocks.forEach(function(b){tot+=b.len;if(b.k==="est")byA[b.a]+=b.len;else if(b.k==="red")byA.red+=b.len;else if(b.k==="rev")byA.rev+=b.len;else byA.sim+=b.len;});});
+ var s='<div class="page-head"><span class="eyebrow">Rotina que se ajusta</span><h1>Sua semana</h1><p class="muted" style="max-width:62ch">Montada a partir da sua disponibilidade e do que você registra: acertos por área, assuntos já vistos, revisões vencidas e tempo desde o último simulado. Ela é recalculada a cada registro.</p></div>';
+ s+='<section class="card"><div class="spread"><div class="chips">';
+ OBJ.forEach(function(a){s+='<span class="chip">'+dot(a)+SHORT[a]+' · '+byA[a]+(byA[a]===1?' bloco':' blocos')+'</span>';});
+ s+='<span class="chip">'+dot("red")+'Redação · '+byA.red+'</span><span class="chip">Revisão · '+byA.rev+'</span>'+(byA.sim?'<span class="chip">Simulado · '+byA.sim+'</span>':'')+'</div><span class="small muted mono">'+tot+' blocos de 45 min</span></div>';
+ if(!S.ses.length&&!S.mock.length)s+='<p class="note info" style="margin-top:14px">Primeira semana: sem dados, as áreas dividem o tempo de forma parecida e o simulado por área serve de diagnóstico. A partir do primeiro registro a rotina começa a mudar.</p>';
+ s+='</section><div class="days">';
+ R.days.forEach(function(d){
+  var cls="day"+(d.date===t?" now":d.date<t?" past":"");
+  s+='<div class="'+cls+'"><div class="spread"><h4>'+DAYN[d.i]+'</h4><span class="small muted mono">'+fmtDate(d.date)+' · '+fmtH(S.set.dayH[d.i])+' h</span></div>';
+  if(!d.blocks.length)s+='<p class="small muted">Descanso.</p>';
+  d.blocks.forEach(function(b,j){s+='<div class="blk"><span>'+(b.k==="rev"?'<i class="dot" style="background:var(--moss)"></i>':dot(b.a||"red"))+'</span><div><div class="t">'+esc(b.label)+'</div><div class="s">'+(b.k==="est"?esc(AREAS[b.a].n)+" · ":"")+esc(b.topic)+(b.len>1?" · "+b.len*45+" min":"")+'</div><div class="s" style="margin-top:2px">'+esc(b.why)+'</div>'+(d.date>=t?'<button class="btn sm" style="margin-top:8px" data-act="startBlock" data-d="'+d.i+'" data-j="'+j+'">Iniciar</button>':'')+'</div></div>';});
+  s+='</div>';
+ });
+ s+='</div><section class="card"><details><summary>Ajustar disponibilidade e peso das áreas</summary><div class="stack" style="margin-top:14px"><p class="small muted">Informe quantas horas você realmente consegue estudar em cada dia. Deixe 0 nos dias de descanso. O bloco de estudo tem 45 minutos.</p><div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,110px),1fr))">';
+ DAYN.forEach(function(n,i){s+='<div class="field"><label for="dh'+i+'">'+n+'</label><input id="dh'+i+'" type="number" min="0" max="10" step="0.5" inputmode="decimal" value="'+S.set.dayH[i]+'" data-change="dayH" data-i="'+i+'"></div>';});
+ s+='</div><p class="small muted">Peso por área (1 = normal). Aumente uma área se o edital do seu curso der peso maior a ela. Confira o edital oficial antes.</p><div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr))">';
+ OBJ.forEach(function(a){s+='<div class="field"><label for="w'+a+'">'+SHORT[a]+'</label><input id="w'+a+'" type="number" min="0.5" max="2" step="0.1" inputmode="decimal" value="'+S.set.w[a]+'" data-change="weight" data-a="'+a+'"></div>';});
+ return s+'</div></div></details></section>';
+}
+function vMetas(){
+ var s='<div class="page-head"><span class="eyebrow">Metas</span><h1>Onde você quer chegar</h1></div>';
+ var wk=weekSes(),wmin=wk.reduce(function(a,x){return a+x.m;},0),wq=wk.reduce(function(a,x){return a+(x.qd||0);},0);
+ s+='<div class="g2"><section class="card stack"><div class="head" style="margin:0"><h2>Meta principal</h2></div><div class="form-grid"><div class="field"><label for="mCourse">Curso que você quer</label><input id="mCourse" maxlength="80" value="'+esc(S.set.course)+'" placeholder="Escreva o seu curso" data-change="objSet" data-k="course"></div><div class="field"><label for="mUni">Universidades</label><input id="mUni" maxlength="80" value="'+esc(S.set.uni)+'" placeholder="Escreva as suas opções" data-change="objSet" data-k="uni"></div><div class="field"><label for="mYear">Ano da prova</label><input id="mYear" type="number" min="2026" max="2040" inputmode="numeric" value="'+esc(S.set.year)+'" data-change="objSet" data-k="year"></div></div>';
+ s+='<div class="field"><label for="mDate">Data da prova</label><input id="mDate" type="date" value="'+esc(S.set.examDate)+'" data-change="examDate"><span class="small muted">A data oficial sai no edital do INEP. Preencha quando for divulgada.</span></div>';
+ s+='<div class="field"><label for="mNote">Nota que você quer atingir</label><input id="mNote" type="number" min="0" max="1000" inputmode="numeric" value="'+esc(S.set.targetNote)+'" placeholder="Ex.: média dos cursos que você escolher" data-change="targetNote"><span class="small muted">Use a nota de corte oficial do SISU como referência. Ela muda a cada edição e por modalidade de ingresso.</span></div></section>';
+ s+='<section class="card stack"><div class="head" style="margin:0"><h2>Metas da semana</h2></div>';
+ s+='<div><div class="spread small"><span>Horas de estudo</span><span class="mono">'+fmtH(wmin/60)+' / '+fmtH(S.set.goalH)+' h</span></div><div class="meter"><i style="width:'+Math.min(100,100*wmin/60/S.set.goalH)+'%"></i></div></div>';
+ s+='<div><div class="spread small"><span>Questões resolvidas</span><span class="mono">'+wq+' / '+S.set.goalQ+'</span></div><div class="meter"><i style="width:'+Math.min(100,100*wq/S.set.goalQ)+'%"></i></div></div>';
+ s+='<div class="form-grid"><div class="field"><label for="gH">Meta de horas por semana</label><input id="gH" type="number" min="1" max="60" step="0.5" inputmode="decimal" value="'+S.set.goalH+'" data-change="goalH"></div><div class="field"><label for="gQ">Meta de questões por semana</label><input id="gQ" type="number" min="5" max="1000" inputmode="numeric" value="'+S.set.goalQ+'" data-change="goalQ"></div></div><p class="small muted">Esses números iniciais são só um ponto de partida. Ajuste para o que cabe na sua semana.</p></section></div>';
+ {var ec=essCur(),eg=essGoal(),et=ec?Math.round(ec.t):null;s+='<section class="card"><div class="spread"><div class="stack" style="gap:6px;min-width:0"><h2>Meta da redação</h2><p class="small muted">'+(et==null?"Ainda sem redação corrigida. Meta atual: "+eg.t+" de 1000.":"Nota atual "+et+" · meta "+eg.t+(et>=eg.t?" · atingida":" · faltam "+(eg.t-et)+" pontos"))+'</p><div class="meter" style="max-width:420px"><i style="width:'+(et==null?0:Math.min(100,100*et/Math.max(1,eg.t)))+'%"></i></div></div><button class="btn" type="button" data-act="goNotas">Ver metas por competência</button></div></section>';}
+ s+='<section class="card"><div class="head"><h2>Minhas metas</h2></div><form class="form-grid" data-submit="addGoal" style="align-items:end"><div class="field" style="grid-column:1/-1"><label for="goalT">Nova meta</label><input id="goalT" name="t" required maxlength="120" placeholder="Ex.: fechar o conteúdo de Funções até o fim do mês"></div><div class="field"><label for="goalA">Área</label><select id="goalA" name="a"><option value="">Geral</option>'+["lin","hum","nat","mat","red"].map(function(a){return '<option value="'+a+'">'+AREAS[a].n+'</option>';}).join("")+'</select></div><div class="field"><label for="goalD">Prazo</label><input id="goalD" name="d" type="date"></div><div><button class="btn primary" type="submit">Adicionar</button></div></form>';
+ var gs=S.goals.slice().sort(function(a,b){return (a.done-b.done)||((a.d||"9")<(b.d||"9")?-1:1);});
+ if(!gs.length)s+='<div class="empty" style="margin-top:14px"><p>Nenhuma meta ainda.</p><p class="small">Metas pequenas e com prazo funcionam melhor do que metas grandes e vagas.</p></div>';
+ else{s+='<div class="list" style="margin-top:8px">';gs.forEach(function(g){var late=!g.done&&g.d&&g.d<today();s+='<div class="item"><input type="checkbox" '+(g.done?"checked":"")+' data-change="goalDone" data-id="'+g.i+'" aria-label="Concluída"><div><div class="t" style="'+(g.done?"text-decoration:line-through;opacity:.6":"")+'">'+esc(g.t)+'</div><div class="s">'+(g.a?AREAS[g.a].n+" · ":"")+(g.d?"até "+fmtDate(g.d):"sem prazo")+'</div></div><div class="row">'+(late?'<span class="chip bad">atrasada</span>':'')+'<button class="btn sm ghost danger" data-act="delGoal" data-id="'+g.i+'" aria-label="Apagar meta">Apagar</button></div></div>';});s+='</div>';}
+ s+='</section><section class="card soft"><h3>Confira sempre nas fontes oficiais</h3><p class="small muted" style="margin:6px 0 10px;max-width:70ch">Datas, notas de corte, pesos das áreas, vagas e regras de cotas mudam a cada edição. Antes de decidir qualquer prioridade, confirme no edital.</p><div class="chips"><a class="chip" href="https://www.gov.br/inep/pt-br" target="_blank" rel="noopener">INEP · ENEM</a><a class="chip" href="https://acessounico.mec.gov.br/sisu" target="_blank" rel="noopener">SISU</a></div><p class="small muted" style="margin-top:10px">Para notas de corte e regras de cada curso, procure o edital no site da universidade que você escolheu.</p></section>';
+ s+=bkCard();
+ return s;
+}
+function vRevisoes(){
+ var s='<div class="page-head"><span class="eyebrow">Memória de longo prazo</span><h1>Revisões</h1></div>';
+ s+='<div class="tabs" role="tablist">'+[["hoje","Para revisar"],["erros","Caderno de erros"],["mapa","Mapa de conteúdos"]].map(function(x){return '<button role="tab" aria-selected="'+(ui.rev===x[0])+'" data-act="revTab" data-v="'+x[0]+'">'+x[1]+'</button>';}).join("")+'</div>';
+ var t=today();
+ if(ui.rev==="hoje"){
+  var due=S.rev.filter(function(r){return r.due<=t;}).sort(function(a,b){return a.due<b.due?-1:1;});
+  var next=S.rev.filter(function(r){return r.due>t;}).sort(function(a,b){return a.due<b.due?-1:1;}).slice(0,10);
+  s+='<section class="card"><div class="head"><h2>Vencidas e de hoje</h2><span class="chip">'+due.length+' itens</span></div>';
+  if(!due.length)s+='<div class="empty"><p>'+(S.rev.length?"Nada para revisar agora.":"Ainda não há revisões.")+'</p><p class="small">'+(S.rev.length?"As próximas aparecem abaixo.":"Cada sessão de estudo com assunto e cada erro anotado cria revisões em 1, 3, 7, 15, 30 e 60 dias.")+'</p></div>';
+  else{s+='<div class="list">';due.forEach(function(r){var late=diffDays(t,r.due);s+='<div class="item" style="grid-template-columns:auto minmax(0,1fr)"><span>'+dot(r.a)+'</span><div class="stack" style="gap:8px"><div><div class="t">'+esc(r.t)+'</div><div class="s">'+AREAS[r.a].n+' · '+(r.k==="erro"?"erro anotado":"assunto estudado")+(late>0?' · '+late+(late===1?" dia":" dias")+' de atraso':'')+'</div></div><div class="row"><span class="small muted">Como foi?</span><button class="btn sm" data-act="rate" data-id="'+r.i+'" data-v="dificil">Difícil</button><button class="btn sm" data-act="rate" data-id="'+r.i+'" data-v="medio">Médio</button><button class="btn sm primary" data-act="rate" data-id="'+r.i+'" data-v="facil">Fácil</button></div></div></div>';});s+='</div>';}
+  s+='</section>';
+  if(next.length){s+='<section class="card"><div class="head"><h2>Próximas</h2></div><div class="list">';next.forEach(function(r){s+='<div class="item"><span>'+dot(r.a)+'</span><div><div class="t">'+esc(r.t)+'</div><div class="s">'+AREAS[r.a].n+'</div></div><span class="chip">'+fmtDate(r.due)+'</span></div>';});s+='</div></section>';}
+ }
+ if(ui.rev==="erros"){
+  s+='<section class="card"><details'+(S.err.length?"":" open")+'><summary>Anotar um erro</summary><form class="stack" data-submit="addErr" style="margin-top:14px"><div class="form-grid"><div class="field"><label for="eA">Área</label><select id="eA" name="a" data-change="errArea">'+["lin","hum","nat","mat","red"].map(function(a){return '<option value="'+a+'"'+((ui.errA||"mat")===a?" selected":"")+'>'+AREAS[a].n+'</option>';}).join("")+'</select></div><div class="field"><label for="eT">Assunto</label><input id="eT" name="tp" list="dlErr" required maxlength="80" autocomplete="off"><datalist id="dlErr">'+SYL[ui.errA||"mat"].map(function(x){return '<option value="'+esc(x)+'">';}).join("")+'</datalist></div><div class="field"><label for="eK">Tipo de erro</label><select id="eK" name="k">'+Object.keys(KINDS).map(function(k){return '<option value="'+k+'">'+KINDS[k][0]+'</option>';}).join("")+'</select></div><div class="field"><label for="eO">De onde veio</label><input id="eO" name="o" maxlength="60" placeholder="Ex.: Simulado 3, questão 27" value="'+esc(ui.errO||"")+'"></div></div>';
+  s+='<div class="field"><label for="eW">O que a questão pedia (resumo)</label><textarea id="eW" name="w" required maxlength="300"></textarea></div><div class="form-grid"><div class="field"><label for="eY">Por que errei</label><textarea id="eY" name="y" maxlength="300"></textarea></div><div class="field"><label for="eF">Como resolver certo</label><textarea id="eF" name="f" maxlength="300"></textarea></div></div><div><button class="btn primary" type="submit">Salvar erro e agendar revisão</button></div></form></details></section>';
+  var fl=S.err.filter(function(e){return ui.errKind==="all"||e.k===ui.errKind;}).slice().reverse();
+  s+='<section class="card"><div class="head"><h2>Meus erros</h2><div class="chips"><button class="chip" aria-pressed="'+(ui.errKind==="all")+'" data-act="errKind" data-v="all">Todos</button>'+Object.keys(KINDS).map(function(k){return '<button class="chip" aria-pressed="'+(ui.errKind===k)+'" data-act="errKind" data-v="'+k+'">'+KINDS[k][0]+'</button>';}).join("")+'</div></div>';
+  if(!fl.length)s+='<div class="empty"><p>Nenhum erro anotado'+(ui.errKind==="all"?" ainda":" neste tipo")+'.</p><p class="small">Anote assunto, tipo e como resolver certo. Reler o caderno é uma das revisões mais úteis.</p></div>';
+  else{s+='<div class="list">';fl.forEach(function(e){s+='<div class="item"><span>'+dot(e.a)+'</span><div><div class="t">'+esc(e.tp)+' <span class="chip" style="margin-left:6px">'+KINDS[e.k][0]+'</span></div><div class="s">'+fmtDate(e.d)+(e.o?" · "+esc(e.o):"")+'</div><div style="margin-top:6px;font-size:14px;overflow-wrap:anywhere">'+esc(e.w)+'</div>'+(e.y?'<div class="s" style="margin-top:4px"><b>Por que errei:</b> '+esc(e.y)+'</div>':'')+(e.f?'<div class="s"><b>Certo:</b> '+esc(e.f)+'</div>':'')+'<div class="s" style="margin-top:4px">Sugestão: '+KINDS[e.k][1]+'</div></div><button class="btn sm ghost danger" data-act="delErr" data-id="'+e.i+'" aria-label="Apagar erro">Apagar</button></div>';});s+='</div>';}
+  s+='</section>';
+ }
+ if(ui.rev==="mapa"){
+  s+='<p class="small muted" style="max-width:68ch">Marque o ponto em que você está em cada assunto: toque no rótulo para mudar. A rotina usa isso para sugerir assuntos novos. A lista segue os grandes temas das áreas do ENEM e não indica o que cai mais.</p>';
+  ["lin","hum","nat","mat"].forEach(function(a){
+   var list=SYL[a],dom=list.filter(function(x){return S.ts[a+"|"+x]===2;}).length,st=list.filter(function(x){return S.ts[a+"|"+x]===1;}).length;
+   s+='<section class="card"><details'+(ui.openSyl[a]?" open":"")+' data-act="sylToggle" data-a="'+a+'"><summary><span class="row">'+dot(a)+'<span>'+AREAS[a].n+'</span></span><span class="small muted mono">'+dom+' dominados · '+st+' em andamento · '+list.length+' no total</span></summary><div class="meter" style="margin:10px 0"><i style="width:'+(100*dom/list.length)+'%;background:var(--c-'+a+')"></i></div><div class="list">';
+   list.forEach(function(x,i){var v=S.ts[a+"|"+x]||0;s+='<div class="item" style="grid-template-columns:minmax(0,1fr) auto"><div class="t" style="font-weight:500">'+esc(x)+'</div><button class="status s'+v+'" data-act="topicSt" data-a="'+a+'" data-i="'+i+'">'+["Não visto","Estudando","Dominado"][v]+'</button></div>';});
+   s+='</div></details></section>';
+  });
+ }
+ return s;
+}
+function vSimulados(){
+ var s='<div class="page-head"><span class="eyebrow">Treino com prova</span><h1>Simulados e redação</h1></div>';
+ s+='<div class="tabs" role="tablist">'+[["simulados","Simulados"],["redacao","Tema e correção"],["notas","Notas das redações"]].map(function(x){return '<button role="tab" aria-selected="'+(ui.sim===x[0])+'" data-act="simTab" data-v="'+x[0]+'">'+x[1]+'</button>';}).join("")+'</div>';
+ if(ui.sim==="simulados"){
+  s+='<p class="note info">A nota do ENEM é calculada pela TRI, que considera quais questões você acertou, não só quantas. Aqui o % de acertos serve para acompanhar a sua evolução e não para prever a nota.</p>';
+  s+='<section class="card"><details'+(S.mock.length?"":" open")+'><summary>Registrar simulado ou prova anterior</summary><form class="stack" data-submit="addMock" style="margin-top:14px"><div class="form-grid"><div class="field"><label for="mNm">Nome</label><input id="mNm" name="nm" required maxlength="60" placeholder="Ex.: ENEM 2023, 1º dia"></div><div class="field"><label for="mD">Data</label><input id="mD" name="d" type="date" required value="'+today()+'" max="'+today()+'"></div><div class="field"><label for="mMin">Tempo gasto (min)</label><input id="mMin" name="min" type="number" min="1" max="600" inputmode="numeric"></div></div><p class="small muted">Preencha só as áreas que você fez. São 45 questões por área nas provas do ENEM; mude o total se o seu simulado tiver outro número.</p><div class="stack">';
+  OBJ.forEach(function(a){s+='<div class="row" style="gap:12px"><span class="row" style="width:150px">'+dot(a)+'<span class="small">'+AREAS[a].n+'</span></span><div class="field" style="width:110px"><label class="small" for="m'+a+'r">Acertos</label><input id="m'+a+'r" name="r_'+a+'" type="number" min="0" max="200" inputmode="numeric"></div><div class="field" style="width:110px"><label class="small" for="m'+a+'n">Total</label><input id="m'+a+'n" name="n_'+a+'" type="number" min="1" max="200" inputmode="numeric" value="45"></div></div>';});
+  s+='</div><div class="field"><label for="mNt">Observação (opcional)</label><input id="mNt" name="nt" maxlength="140"></div><div><button class="btn primary" type="submit">Salvar simulado</button></div></form></details></section>';
+  var ms=S.mock.slice().sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:0;});
+  s+='<section class="card"><div class="head"><h2>Evolução dos acertos</h2></div>';
+  if(!ms.length)s+='<div class="empty"><p>O gráfico aparece com o primeiro simulado.</p><p class="small">Dois ou mais simulados já mostram a direção da sua evolução.</p></div>';
+  else{
+   var ser=OBJ.map(function(a){return {name:a,color:"var(--c-"+a+")",pts:ms.map(function(m,i){var x=m.ar&&m.ar[a];return {i:i,v:x&&x.n?pct(x.r,x.n):null};})};}).filter(function(x){return x.pts.some(function(p){return p.v!=null;});});
+   s+='<div class="chips" style="margin-bottom:8px">'+ser.map(function(x){return '<span class="chip">'+dot(x.name)+SHORT[x.name]+'</span>';}).join("")+'</div><div class="scroll-x">'+lineChart(ser,ms.map(function(m){return fmtDate(m.d);}),{min:0,max:100,ticks:[0,25,50,75,100],unit:"%",aria:"Percentual de acertos por área em cada simulado"})+'</div>';
+  }
+  s+='</section><section class="card"><div class="head"><h2>Histórico</h2></div>';
+  if(!ms.length)s+='<div class="empty"><p>Nenhum simulado registrado.</p></div>';
+  else{s+='<div class="list">';ms.slice().reverse().forEach(function(m){s+='<div class="item" style="grid-template-columns:minmax(0,1fr) auto"><div><div class="t">'+esc(m.nm)+'</div><div class="s">'+fmtDate(m.d)+(m.min?' · '+fmtMin(m.min):'')+(m.nt?' · '+esc(m.nt):'')+'</div><div class="chips" style="margin-top:8px">'+OBJ.filter(function(a){return m.ar&&m.ar[a];}).map(function(a){var x=m.ar[a];return '<span class="chip">'+dot(a)+SHORT[a]+' '+x.r+'/'+x.n+' · '+pct(x.r,x.n)+'%</span>';}).join("")+'</div></div><div class="stack" style="gap:6px"><button class="btn sm" data-act="errFrom" data-v="'+esc(m.nm)+'">Anotar erros</button><button class="btn sm ghost danger" data-act="delMock" data-id="'+m.i+'">Apagar</button></div></div>';});s+='</div>';}
+  s+='</section>';
+ }else if(ui.sim==="notas"){
+  s+=essGoalPanel();
+  s+='<section class="card"><details'+(S.ess.length?"":" open")+'><summary>Registrar redação corrigida</summary><form class="stack" data-submit="addEss" style="margin-top:14px"><div class="form-grid"><div class="field"><label for="rT">Tema</label><input id="rT" name="t" required maxlength="120"></div><div class="field"><label for="rD">Data</label><input id="rD" name="d" type="date" required value="'+today()+'" max="'+today()+'"></div></div><p class="small muted">Cada competência vale de 0 a 200, em passos de 40. Corrija pelos critérios oficiais do INEP, com a ajuda de um professor se puder.</p><div class="form-grid">';
+  COMP.forEach(function(n,i){s+='<div class="field"><label for="rc'+i+'">C'+(i+1)+' · '+n+'</label><select id="rc'+i+'" name="c'+i+'" data-change="essSum">'+[0,40,80,120,160,200].map(function(v){return '<option value="'+v+'">'+v+'</option>';}).join("")+'</select></div>';});
+  s+='</div><div class="row"><span class="small muted">Total</span><b class="mono" id="essTot" style="font-size:20px">0</b><span class="small muted">de 1000</span></div><div class="field"><label for="rN">Observação (opcional)</label><input id="rN" name="nt" maxlength="160"></div><div><button class="btn primary" type="submit">Salvar redação</button></div></form></details></section>';
+  var es=S.ess.slice().sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:0;});
+  s+='<section class="card"><div class="head"><h2>Notas das redações</h2></div>';
+  if(!es.length)s+='<div class="empty"><p>O gráfico aparece com a primeira redação corrigida.</p></div>';
+  else{
+   s+='<div class="scroll-x">'+lineChart([{name:"red",color:"var(--c-red)",pts:es.map(function(e,i){return {i:i,v:e.c.reduce(function(a,b){return a+b;},0)};})}],es.map(function(e){return fmtDate(e.d);}),{min:0,max:1000,ticks:[0,250,500,750,1000],ref:essGoal().t,aria:"Nota total de cada redação e a linha da meta"})+'</div>';
+   var avg=compAvg();s+='<div class="bars" style="margin-top:16px"><h4>Média por competência</h4>'+avg.map(function(v,i){return '<div class="bar"><span>C'+(i+1)+' '+COMP[i].split(" ")[0]+'</span><div class="track"><i style="width:'+(v/2)+'%;background:var(--c-red)"></i></div><span class="v">'+Math.round(v)+'/200</span></div>';}).join("")+'</div>';
+  }
+  s+='</section>';
+  if(es.length){s+='<section class="card"><div class="head"><h2>Histórico</h2></div><div class="list">';es.slice().reverse().forEach(function(e){s+='<div class="item" style="grid-template-columns:minmax(0,1fr) auto"><div><div class="t">'+esc(e.t)+'</div><div class="s">'+fmtDate(e.d)+' · C1 '+e.c[0]+' · C2 '+e.c[1]+' · C3 '+e.c[2]+' · C4 '+e.c[3]+' · C5 '+e.c[4]+(e.nt?' · '+esc(e.nt):'')+'</div></div><div class="row"><b class="mono">'+e.c.reduce(function(a,b){return a+b;},0)+'</b><button class="btn sm ghost danger" data-act="delEss" data-id="'+e.i+'">Apagar</button></div></div>';});s+='</div></section>';}
+  s+='<section class="card"><div class="head"><h2>Banco de repertório</h2></div><form class="row" data-submit="addRep" style="align-items:end"><div class="field" style="flex:1 1 260px"><label for="repT">Citação, dado, filme, livro ou fato histórico</label><input id="repT" name="t" required maxlength="160"></div><div class="field" style="flex:1 1 160px"><label for="repM">Serve para o tema</label><input id="repM" name="m" maxlength="60" placeholder="Ex.: saúde, tecnologia"></div><button class="btn primary" type="submit">Guardar</button></form>';
+  if(!S.rep.length)s+='<div class="empty" style="margin-top:14px"><p>Guarde aqui o que você aprende nas aulas e leituras.</p><p class="small">Repertório pronto economiza tempo na hora de escrever.</p></div>';
+  else{s+='<div class="list" style="margin-top:8px">';S.rep.slice().reverse().forEach(function(r){s+='<div class="item" style="grid-template-columns:minmax(0,1fr) auto"><div><div class="t" style="font-weight:500">'+esc(r.t)+'</div>'+(r.m?'<div class="s">'+esc(r.m)+'</div>':'')+'</div><button class="btn sm ghost danger" data-act="delRep" data-id="'+r.i+'">Apagar</button></div>';});s+='</div>';}
+  s+='</section>';
+ }else{s+=vRedacao();}
+ return s;
+}
+var CYCLE_START="2026-11-02",CYCLE_FIRST="Desafios para a preservação do patrimônio cultural brasileiro";
+function weekTheme(k){var L=THEMES.length,s=0;THEMES.forEach(function(t,j){if(t.t===CYCLE_FIRST)s=j;});var w=Math.round((parse(weekStart(addDays(weekStart(),7*(k||0))))-parse(CYCLE_START))/6048e5),i=(((w+s)%L)+L)%L,t=THEMES[i];return {i:i,eixo:t.e,t:t.t,x:t.x,p:t.p,r:t.r,week:addDays(weekStart(),7*(k||0))};}
+COR_ERR.image_rejected="Não consegui usar essa imagem. Envie uma foto JPG, PNG ou WebP, inteira e de até 20 MB.";
+COR_ERR.images_unavailable="O envio de foto não está disponível aqui. Digite o texto.";
+COR_ERR.empty_completion="Não consegui ler texto nessa foto. Tente de novo mais perto da folha, com a folha reta e boa luz.";
+function wc(t){return String(t||"").split(/\s+/).filter(Boolean).length;}
+function corTheme(){
+ var c=ui.cor;
+ if(c.src==="week"){var w=weekTheme();return {t:w.t,ctx:"Textos de apoio fornecidos nesta semana:\n- "+w.x.join("\n- ")};}
+ if(c.src==="past"){var p=PAST[c.past]||PAST[0];return {t:p.t,ctx:"Tema de edição anterior do ENEM ("+p.y+"). Os textos motivadores oficiais não foram fornecidos."};}
+ return {t:String(c.free||"").trim(),ctx:"Tema escolhido livremente pela estudante. Os textos motivadores não foram fornecidos."};
+}
+function revExtra(rr){
+ var p=rr.prev,el=[["agente","agente"],["acao","ação"],["meio","meio"],["finalidade","finalidade"],["detalhamento","detalhamento"]].filter(function(k){return p.c5[k[0]];}).map(function(k){return k[1];});
+ var note=String(rr.note||"").replace(/[«»]/g,"").trim().slice(0,600);
+ return "RECORREÇÃO: esta é uma segunda correção do mesmo texto. A correção anterior deu "+p.comp.map(function(k,i){return "C"+(i+1)+" "+k.nota;}).join(", ")+" (total "+p.total+"); elementos da C5 marcados como presentes: "+(el.join(", ")||"nenhum")+". "+(note?"A estudante aponta o seguinte sobre a correção anterior: «"+note+"». ":"A estudante pediu para conferir tudo de novo, sem apontar um erro específico. ")+"Releia o texto inteiro do zero. Procure no texto a evidência de cada ponto apontado: se a estudante tiver razão, corrija a nota e diga o que mudou; se não tiver, mantenha a nota e explique no campo aviso, citando o trecho. Não ceda sem evidência no texto e não aumente notas só porque ela pediu. Confira de novo a pontuação da C5 pelos elementos. No campo aviso escreva, em até 2 frases, o que mudou em relação à correção anterior, ou que nada mudou e por quê.";
+}
+function corPrompt(th,text,extra){
+ var wds=wc(text);
+ return [
+  "Você é um corretor experiente de redações do ENEM. Avalie o texto abaixo como um corretor do INEP, seguindo a Matriz de Referência de Redação, com rigor e sem inflar notas. Responda em português do Brasil.",
+  "",
+  "TEMA: "+th.t,
+  "CONTEXTO: "+th.ctx,
+  (ui.cor.mode==="photo"&&ui.cor.info)?"ORIGEM DO TEXTO: redação escrita à mão, transcrita de foto e conferida pela estudante. Linhas manuscritas estimadas: "+ui.cor.info.linhas+" (a prova exige de 7 a 30). Legibilidade da letra: "+ui.cor.info.leg+". Trechos marcados com [ilegível] ou [?] podem ser falha de leitura da letra e não devem ser contados como erro de ortografia. Avalie só o que está no texto transcrito.":"",
+  "TEXTO DA ESTUDANTE ("+wds+" palavras):",
+  '"""',
+  text,
+  '"""',
+  "",
+  "ANULAÇÃO (nota zero): fuga total ao tema, texto que não seja dissertativo-argumentativo, texto com menos de 7 linhas, cópia dos textos de apoio, parte do texto desconectada do tema ou desrespeito aos direitos humanos. Se algo disso se aplicar, escreva o motivo em uma frase no campo anulacao; caso contrário deixe o campo vazio. Tangenciar o tema reduz a nota de C2 e afeta as demais.",
+  "",
+  "COMPETÊNCIAS (cada uma recebe 0, 40, 80, 120, 160 ou 200):",
+  "C1 Domínio da norma culta: ortografia, acentuação, pontuação, concordância, regência, estrutura das frases e registro formal.",
+  "C2 Compreensão do tema e do tipo textual: aborda o tema completo, segue a estrutura dissertativo-argumentativa e usa repertório sociocultural legitimado, pertinente ao tema e bem usado, e não apenas citado.",
+  "C3 Seleção e organização de argumentos: projeto de texto claro, argumentos consistentes, progressão das ideias e autoria.",
+  "C4 Coesão: conectivos variados e corretos, retomada de ideias, paragrafação e articulação entre frases e parágrafos.",
+  "C5 Proposta de intervenção: respeita os direitos humanos, está ligada à discussão do texto e traz os cinco elementos: agente (quem fará), ação (o que será feito), meio ou modo (como ou com o quê), finalidade (para quê) e detalhamento (detalhe ou exemplo de qualquer um dos outros elementos, como quem é o agente, o que a ação envolve ou como o meio funciona). Pontuação pelos elementos presentes, como no guia do INEP: 5 elementos = 200; 4 = 160; 3 = 120; 2 = 80; 1 = 40; nenhum, ou proposta que desrespeite os direitos humanos = 0. Conte cada elemento com atenção, um a um, no texto inteiro, inclusive nas frases de fechamento. Se o texto traz agente, ação, meio e finalidade, mas sem detalhamento, a C5 é 160, nunca menos. Preencha o campo c5 antes de dar a nota da C5.",
+  "",
+  "REGRAS: baseie-se só no que está escrito. Nota 200 é rara e exige texto excelente naquela competência. Não invente dados, leis nem citações. No campo trecho, copie literalmente até 15 palavras do texto da estudante.",
+  "Para cada competência escreva: acertos (o que funcionou, 1 a 2 frases), problemas (o que fez perder pontos, 1 a 2 frases), trecho (citação literal curta ilustrando o ponto principal, ou vazio) e como_melhorar (uma ação concreta). Em c5 informe se cada um dos cinco elementos aparece no texto. Em prioridades liste 3 ações, da que mais aumenta a nota para a que menos aumenta. Em reescrita reescreva em até 2 frases um trecho fraco, sem inventar dados. Em aviso escreva uma frase sobre a incerteza desta correção.",
+  "",
+  extra||"",
+  "Responda somente com JSON neste formato (competencias deve ter 5 objetos, com n de 1 a 5):",
+  '{"anulacao":"","competencias":[{"n":1,"nota":120,"acertos":"","problemas":"","trecho":"","como_melhorar":""}],"c5":{"agente":true,"acao":true,"meio":false,"finalidade":true,"detalhamento":false},"prioridades":["","",""],"reescrita":"","aviso":""}'
+ ].join("\n");
+}
+function normRes(r){
+ if(!r||!Array.isArray(r.competencias)||r.competencias.length<5)throw {code:"invalid_json"};
+ var comp=[],sum=0;
+ for(var i=0;i<5;i++){
+  var x=r.competencias.filter(function(k){return +k.n===i+1;})[0]||r.competencias[i]||{};
+  var n=Math.round((+x.nota||0)/40)*40;n=Math.max(0,Math.min(200,n));sum+=n;
+  comp.push({nota:n,bom:String(x.acertos||""),ruim:String(x.problemas||""),trecho:String(x.trecho||""),como:String(x.como_melhorar||"")});
+ }
+ var an=r.anulacao?String(r.anulacao).trim():"";
+ var c5=r.c5||{};
+ var nEl=["agente","acao","meio","finalidade","detalhamento"].filter(function(k){return !!c5[k];}).length;
+ if(r.c5&&comp[4].nota>0&&nEl>0&&comp[4].nota!==nEl*40){sum+=nEl*40-comp[4].nota;comp[4].nota=nEl*40;}
+ return {an:an,comp:comp,total:an?0:sum,c5:{agente:!!c5.agente,acao:!!c5.acao,meio:!!c5.meio,finalidade:!!c5.finalidade,detalhamento:!!c5.detalhamento},prio:(Array.isArray(r.prioridades)?r.prioridades:[]).slice(0,4).map(String).filter(Boolean),reescrita:String(r.reescrita||""),aviso:String(r.aviso||""),saved:false};
+}
+function applyRes(res,th,text,rr){
+ var c=ui.cor;c.busy=false;c.res=res;
+ if(rr){res.prevTotal=rr.prev.total;res.essId=rr.prev.essId||null;c.rev="";S.cor=S.cor.filter(function(k){return k.res!==rr.prev;});}
+ S.cor.push({i:uid(),d:today(),t:th.t,text:text.slice(0,6000),res:res});S.cor=S.cor.slice(-3);commit();
+}
+function parseExt(s){var t=String(s||""),a=t.indexOf("{"),b=t.lastIndexOf("}");if(a<0||b<a)throw {code:"invalid_json"};try{return JSON.parse(t.slice(a,b+1));}catch(e){throw {code:"invalid_json"};}}
+function extReadPrompt(th){return ["Estas imagens são a foto de uma redação escrita à mão para o ENEM. Transcreva o texto inteiro, linha por linha, da primeira à última linha, sem pular nem resumir nada.","O tema é: "+th+". Use o tema só para decifrar palavras difíceis e nunca escreva uma palavra que não esteja na folha.","Transcreva fielmente, palavra por palavra. NÃO corrija ortografia, acentuação, pontuação nem concordância: mantenha os erros como estão, porque o texto será corrigido depois. Se uma palavra for ilegível, escreva [ilegível]. Se estiver em dúvida, escreva a mais provável seguida de [?]. Ignore números de linha e margens.","Se uma palavra for dividida com hífen no fim da linha, junte as partes. Separe os parágrafos com uma linha em branco.","Responda só com o texto transcrito, sem comentários."].join("\n");}
+function copyTxt(t,cb){try{navigator.clipboard.writeText(t).then(function(){cb(true);}).catch(function(){cb(false);});}catch(e){cb(false);}}
+function extHand(c){var th=corTheme();return '<div class="note info stack" style="gap:10px"><span><b>Escreveu à mão?</b> Este site não lê fotos sozinho. Faça assim: <b>1)</b> toque em Copiar pedido de leitura; <b>2)</b> abra o Claude, anexe a foto da redação e envie o pedido; <b>3)</b> copie o texto que ele transcrever e cole na caixa abaixo; <b>4)</b> confira palavra por palavra e marque que conferiu.</span><span class="row"><button class="btn" type="button" data-act="corExtReadCopy">Copiar pedido de leitura</button><a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener">Abrir o Claude</a></span>'+(c.extMsg2?'<span class="small">'+esc(c.extMsg2)+'</span>':'')+'</div>';}
+function extBox(c){
+ var s='';
+ if(c.extP)s+='<div class="stack" style="gap:8px"><p class="small"><b>'+esc(c.extMsg||'')+'</b> No Claude, cole o pedido e envie. Depois copie a resposta inteira dele e cole abaixo.</p><textarea id="extP" readonly rows="4">'+esc(c.extP)+'</textarea><div class="row"><a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener">Abrir o Claude</a></div></div><div class="field"><label for="corExtIn">Cole aqui a resposta do Claude</label><textarea id="corExtIn" data-in="corExtIn" placeholder="Cole a resposta inteira, mesmo que ela comece com {">'+esc(c.extIn||'')+'</textarea></div><div class="row"><button class="btn primary" type="button" data-act="corExtImport">Mostrar o resultado</button></div>';
+ return s;
+}
+function resHtml(r){
+ var s='<section class="card stack"><div class="spread"><div><span class="eyebrow">Resultado estimado</span><div class="row" style="align-items:baseline;gap:8px"><b class="mono" style="font-size:44px;line-height:1">'+r.total+'</b><span class="muted">de 1000</span>'+(r.prevTotal!=null?'<span class="small muted">Correção anterior: '+r.prevTotal+'</span>':'')+'</div></div>'+(r.an?'<span class="chip bad">Possível anulação</span>':'')+'</div>';
+ if(r.an)s+='<p class="note">'+esc(r.an)+'</p>';
+ r.comp.forEach(function(x,i){
+  s+='<div class="stack" style="gap:6px;border-top:1px solid var(--line);padding-top:12px"><div class="spread"><h4>C'+(i+1)+' · '+COMP[i]+'</h4><span class="mono">'+x.nota+' / 200</span></div><div class="meter"><i style="width:'+(x.nota/2)+'%;background:var(--c-red)"></i></div>'+(x.bom?'<p class="small"><b>Funcionou:</b> '+esc(x.bom)+'</p>':'')+(x.ruim?'<p class="small"><b>Perdeu pontos:</b> '+esc(x.ruim)+'</p>':'')+(x.trecho?'<p class="small muted">Trecho: “'+esc(x.trecho)+'”</p>':'')+(x.como?'<p class="small"><b>Para melhorar:</b> '+esc(x.como)+'</p>':'')+'</div>';
+ });
+ s+='<div class="stack" style="gap:8px;border-top:1px solid var(--line);padding-top:12px"><h4>Proposta de intervenção: os 5 elementos</h4><div class="chips">';
+ [["agente","Agente"],["acao","Ação"],["meio","Meio ou modo"],["finalidade","Finalidade"],["detalhamento","Detalhamento"]].forEach(function(k){s+='<span class="chip '+(r.c5[k[0]]?"good":"warn")+'">'+(r.c5[k[0]]?"Tem · ":"Falta · ")+k[1]+'</span>';});
+ s+='</div></div>';
+ if(r.prio.length){s+='<div class="stack" style="gap:6px;border-top:1px solid var(--line);padding-top:12px"><h4>O que fazer na próxima redação</h4><ol style="margin:0;padding-left:20px;display:grid;gap:4px">'+r.prio.map(function(p){return '<li>'+esc(p)+'</li>';}).join("")+'</ol></div>';}
+ if(r.reescrita)s+='<div class="quote"><b class="small muted">Exemplo de trecho reescrito</b><br>'+esc(r.reescrita)+'</div>';
+ s+='<div class="stack" style="gap:8px;border-top:1px solid var(--line);padding-top:12px"><h4>Algo ficou errado na correção?</h4><p class="small muted">Diga o que você acha que o corretor errou. Ele relê o texto, confere e refaz a nota se você tiver razão. Se deixar em branco, ele só confere tudo de novo.</p><textarea id="corRev" data-in="corRev" maxlength="600" placeholder="Ex.: Eu detalhei o agente na proposta, mas o detalhamento não foi contado. Ou: a C1 está baixa demais para os erros que eu tive.">'+esc(ui.cor.rev||'')+'</textarea><div class="row"><button class="btn" type="button" data-act="'+(ui.sampleOk===false?'corExtCopy" data-v="re':'corRerun')+'"'+(ui.cor.busy?' disabled':'')+'>'+(ui.sampleOk===false?'Copiar pedido de nova correção':'Corrigir de novo')+'</button></div></div>';
+ s+='<p class="small muted">'+(r.aviso?esc(r.aviso)+' ':'')+'Esta é uma estimativa feita por IA a partir das competências do ENEM. A nota de um corretor do INEP pode ser diferente. Se puder, mostre o texto também para um professor.</p>';
+ s+='<div class="row">'+(r.an?'<span class="small muted">Ajuste o texto e corrija de novo para salvar a nota.</span>':'<button class="btn primary" type="button" data-act="corSave"'+(r.saved?' disabled':'')+'>'+(r.saved?"Nota salva no histórico":(r.essId?"Atualizar nota no histórico":"Salvar nota no histórico"))+'</button>')+'</div></section>';
+ return s;
+}
+function vRedacao(){
+ var w=weekTheme(),c=ui.cor,done=S.ess.some(function(e){return e.t===w.t&&e.d>=weekStart();});
+ var s='<section class="card stack"><div class="spread"><div class="stack" style="gap:6px"><span class="eyebrow">Tema da semana · '+fmtDate(weekStart())+' · '+esc(w.eixo)+'</span><h2>'+esc(w.t)+'</h2></div>'+(done?'<span class="chip good">Redação feita</span>':'')+'</div>';
+ s+='<p class="note info">O tema muda toda segunda-feira, nenhum se repete até depois da prova de 2027, e o eixo muda a cada semana. É um assunto atual de relevância social, no estilo do ENEM, e não uma previsão do que vai cair. Ninguém consegue garantir isso.</p>';
+ s+='<div class="stack"><h4>Textos de apoio</h4>'+w.x.map(function(x,i){return '<div class="quote"><b class="small muted">Texto '+(i+1)+'</b><br>'+esc(x)+'</div>';}).join("")+'</div>';
+ s+='<div class="g2"><div class="stack" style="gap:6px"><h4>Pontos para pensar</h4><ul style="margin:0;padding-left:20px;display:grid;gap:4px">'+w.p.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul></div><div class="stack" style="gap:6px"><h4>Repertório para conferir</h4><ul style="margin:0;padding-left:20px;display:grid;gap:4px">'+w.r.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul></div></div>';
+ s+='<details><summary>Próximas semanas</summary><div class="list" style="margin-top:8px">'+[1,2,3,4,5,6,7,8].map(function(k){var n=weekTheme(k);return '<div class="item" style="grid-template-columns:auto minmax(0,1fr)"><span class="chip">'+fmtDate(n.week)+'</span><div><div class="t" style="font-weight:500">'+esc(n.t)+'</div><div class="s">'+esc(n.eixo)+'</div></div></div>';}).join("")+'</div></details>';
+ s+='<p class="small muted">Os textos de apoio foram escritos para treino e não trazem números. Pesquise dados atuais em fontes como IBGE, ministérios e institutos de pesquisa e confira leis e autores antes de usar na redação.</p>';
+ s+='<div><button class="btn primary" type="button" data-act="useWeek">Escrever sobre este tema</button></div></section>';
+ s+='<section class="card stack" id="corretor"><div class="head" style="margin:0"><h2>Corretor por competências</h2></div>';
+ if(ui.sampleOk===false)s+=claudeCard('Você está usando o site fora do Claude. A correção precisa do Claude: o site prepara o pedido, você leva para o Claude e cola a resposta aqui, e o resultado aparece com notas e metas. Se preferir a correção automática, abra a versão dentro do Claude.');
+ s+='<div class="field"><span class="lbl">Tema da redação</span><div class="chips">'+[["week","Tema da semana"],["past","Tema que já caiu"],["free","Outro tema"]].map(function(x){return '<button type="button" class="chip" aria-pressed="'+(c.src===x[0])+'" data-act="corSrc" data-v="'+x[0]+'">'+x[1]+'</button>';}).join("")+'</div></div>';
+ if(c.src==="past")s+='<div class="field"><label for="corPast">Edição</label><select id="corPast" data-change="corPast">'+PAST.map(function(p,i){return '<option value="'+i+'"'+(c.past===i?" selected":"")+'>'+esc(p.y+" · "+p.t)+'</option>';}).join("")+'</select></div>';
+ else if(c.src==="free")s+='<div class="field"><label for="corFree">Tema</label><input id="corFree" data-in="corFree" maxlength="200" value="'+esc(c.free)+'" placeholder="Escreva o tema como no ENEM"></div>';
+ else s+='<p class="small muted">Tema: '+esc(w.t)+'</p>';
+ s+=corInput(c);
+ if(c.err)s+='<p class="note">'+esc(c.err)+'</p>';
+ s+='<div class="row">'+(ui.sampleOk===false?'<button class="btn primary" type="button" data-act="corExtCopy"'+(c.mode==="photo"&&!c.ok?' disabled':'')+'>Copiar pedido de correção</button>':'<button class="btn primary" type="button" data-act="corRun"'+(c.busy||c.reading||(c.mode==="photo"&&!c.ok)?' disabled':'')+'>'+(c.busy?"Corrigindo…":"Corrigir redação")+'</button>')+(c.busy?'<button class="btn" type="button" data-act="corStop">Parar</button><span class="small muted">Leva de 30 segundos a 2 minutos.</span>':'')+'</div><p class="small muted">O texto é enviado ao Claude pela sua própria conta, com a sua permissão, e usa o seu limite de uso. Ninguém mais recebe o texto.</p></section>';
+ if(ui.sampleOk===false)s+=extBox(c);
+ if(c.res)s+=resHtml(c.res);
+ if(S.cor.length){s+='<section class="card"><div class="head"><h2>Correções recentes</h2></div><div class="list">';S.cor.slice().reverse().forEach(function(x){s+='<div class="item" style="grid-template-columns:minmax(0,1fr) auto"><div><div class="t">'+esc(x.t)+'</div><div class="s">'+fmtDate(x.d)+' · '+x.res.total+' de 1000</div></div><button class="btn sm" data-act="corView" data-id="'+x.i+'">Ver</button></div>';});s+='</div></section>';}
+ s+='<section class="card"><div class="head"><h2>Temas que já caíram no ENEM</h2><span class="small muted">de 2014 a 2025</span></div><p class="small muted" style="margin-bottom:8px;max-width:68ch">Escreva sobre os temas antigos para treinar. Os textos motivadores oficiais estão nas provas, no site do INEP. Confira ali o enunciado exato de cada edição.</p><div class="list">';
+ PAST.forEach(function(p,i){s+='<div class="item" style="grid-template-columns:auto minmax(0,1fr) auto"><span class="chip">'+esc(p.y)+'</span><div class="t" style="font-weight:500">'+esc(p.t)+'</div><button class="btn sm" data-act="usePast" data-i="'+i+'">Escrever</button></div>';});
+ s+='</div></section>';
+ return s;
+}
+function planStrips(W,H){
+ var sh=Math.round(W/2.2);
+ if(H<=sh*1.15)return [{y:0,h:H}];
+ var step,n;
+ for(var k=0;k<20;k++){step=Math.round(sh*0.8);n=Math.ceil((H-sh)/step)+1;if(n<=7)break;sh=Math.round(sh*1.15);}
+ n=Math.max(1,n);var out=[];
+ for(var i=0;i<n;i++){var h=Math.min(sh,H),y=Math.max(0,Math.min(i*step,H-h));out.push({y:y,h:h});}
+ return out;
+}
+function loadImg(file){return new Promise(function(res,rej){var u=URL.createObjectURL(file),im=new Image();im.onload=function(){URL.revokeObjectURL(u);res(im);};im.onerror=function(){URL.revokeObjectURL(u);rej({code:"image_rejected"});};im.src=u;});}
+function sliceImage(file){
+ return loadImg(file).then(function(img){
+  var W=img.naturalWidth,H=img.naturalHeight;if(!W||!H)throw {code:"image_rejected"};
+  var plan=planStrips(W,H),scale=Math.min(1,2000/W),blobs=[];
+  return plan.reduce(function(p,s){return p.then(function(){
+   var cv=document.createElement("canvas");cv.width=Math.round(W*scale);cv.height=Math.max(1,Math.round(s.h*scale));
+   var cx=cv.getContext("2d");cx.fillStyle="#fff";cx.fillRect(0,0,cv.width,cv.height);cx.drawImage(img,0,s.y,W,s.h,0,0,cv.width,cv.height);
+   return new Promise(function(res,rej){cv.toBlob(function(b){b?res(b):rej({code:"image_rejected"});},"image/jpeg",0.92);}).then(function(b){blobs.push(b);});
+  });},Promise.resolve()).then(function(){return blobs;});
+ });
+}
+function readPrompt(o){
+ var p=[
+  "Você vai transcrever uma redação manuscrita (escrita à mão) a partir de imagens. As imagens são recortes horizontais consecutivos da folha, de cima para baixo, na ordem em que foram enviadas. Recortes vizinhos se sobrepõem um pouco: as últimas linhas de um recorte aparecem de novo no começo do seguinte. Transcreva cada linha uma única vez.",
+  o.tail?"Esta é a CONTINUAÇÃO. O texto já transcrito termina com estas linhas: «"+o.tail+"». Comece na linha seguinte a elas e não repita nada que já esteja transcrito.":"",
+  "O tema da redação é: "+o.theme+". Use isso só para decifrar palavras difíceis. Nunca escreva uma palavra que não esteja na folha.",
+  "REGRAS:",
+  "1. Leia linha por linha, da primeira à última linha com texto visível em TODAS as imagens. Não pule linhas, não resuma e não pare antes do fim da última imagem.",
+  "2. Transcreva fielmente, palavra por palavra. NÃO corrija ortografia, acentuação, pontuação nem concordância: preserve os erros exatamente como estão, porque o texto será corrigido depois.",
+  "3. Se uma palavra estiver ilegível, escreva [ilegível]. Se estiver em dúvida entre leituras, escreva a mais provável seguida de [?].",
+  "4. Ignore números de linha impressos, margens, cabeçalhos, rasuras evidentes e rascunho. Não invente nem complete frases.",
+  "5. Se uma palavra for dividida com hífen no fim da linha, mantenha o hífen no fim dessa linha.",
+  "Cada linha física escrita é um item de \"linhas\". Marque \"p\": true na linha que começa um novo parágrafo (geralmente com recuo no início) e false nas demais.",
+  "Informe também: legibilidade (boa, media ou ruim), duvidas (até 6 palavras ou trechos em que a leitura é incerta) e observacoes (uma frase sobre a imagem, por exemplo se está escura, cortada ou desfocada).",
+  "Responda somente com JSON neste formato:",
+  '{"linhas":[{"t":"texto da linha","p":true}],"legibilidade":"boa","duvidas":[""],"observacoes":""}'
+ ];
+ return p.filter(function(x){return x!=="";}).join("\n");
+}
+function normRead(r){
+ if(!r||!Array.isArray(r.linhas))throw {code:"invalid_json"};
+ var lines=r.linhas.map(function(x){if(typeof x==="string")return {t:x,p:false};return {t:String(x&&x.t!=null?x.t:""),p:!!(x&&x.p)};}).map(function(x){return {t:x.t.replace(/\s+/g," ").trim().slice(0,300),p:x.p};}).filter(function(x){return x.t;}).slice(0,200);
+ return {lines:lines,leg:["boa","media","ruim"].indexOf(r.legibilidade)>=0?r.legibilidade:"media",duv:(Array.isArray(r.duvidas)?r.duvidas:[]).map(function(x){return String(x).slice(0,80);}).filter(Boolean).slice(0,6),obs:String(r.observacoes||"").slice(0,300)};
+}
+function normKey(t){return String(t).toLowerCase().replace(/[^a-z0-9à-ú]/g,"");}
+function dedupeStart(all,part){
+ for(var k=Math.min(3,all.length,part.length);k>=1;k--){
+  var same=true;for(var i=0;i<k;i++){if(normKey(all[all.length-k+i].t)!==normKey(part[i].t)){same=false;break;}}
+  if(same)return part.slice(k);
+ }
+ return part;
+}
+function joinLines(lines){
+ var paras=[],cur="";
+ lines.forEach(function(l){var t=l.t;if(l.p&&cur){paras.push(cur);cur="";}if(!cur)cur=t;else if(/[-‐‑]$/.test(cur)&&/^[a-zà-ú]/.test(t))cur=cur.replace(/[-‐‑]$/,"")+t;else cur+=" "+t;});
+ if(cur)paras.push(cur);return paras.join("\n\n");
+}
+function tailOf(lines){return lines.slice(-3).map(function(l){return l.t;}).join(" / ");}
+function photoBox(c){
+ var lim=ui.imgLim;
+ if(!lim)return ui.sampleOk===false?extHand(c):claudeCard('A leitura de foto da redação usa o Claude e só funciona quando o site é aberto por ele. Aqui você pode digitar o texto.');
+ var max=Math.min(lim.maxCount||3,3),full=c.files.length>=max,acc=(lim.mediaTypes&&lim.mediaTypes.length?lim.mediaTypes:["image/jpeg","image/png","image/webp"]).join(",");
+ var s='<div class="stack" style="gap:12px"><div class="note info"><b>Para a leitura funcionar bem:</b> fotografe a folha inteira, de cima, com boa luz e sem sombra da mão ou do celular, com a folha reta e preenchendo a imagem. Uma foto por página, na ordem. O site corta a foto em faixas para o Claude ler a letra com mais detalhe. Evite aparecer nome ou dados pessoais.</div>';
+ if(c.files.length){s+='<div class="thumbs">'+c.urls.map(function(u,i){return '<figure><button class="thumbbtn" type="button" data-act="corZoom" data-i="'+i+'" aria-label="Ampliar a página '+(i+1)+'"><img src="'+esc(u)+'" alt="Página '+(i+1)+' da redação"></button><figcaption class="row small"><span>Página '+(i+1)+'</span><button class="btn sm ghost danger" type="button" data-act="corPhotoDel" data-i="'+i+'">Remover</button></figcaption></figure>';}).join('')+'</div>';}
+ s+='<div class="row"><label class="btn'+(full?' off':'')+'">Tirar foto<input class="filein" type="file" accept="image/*" capture="environment" data-change="corFiles"'+(full?' disabled':'')+'></label><label class="btn'+(full?' off':'')+'">Escolher da galeria<input class="filein" type="file" accept="'+esc(acc)+'" multiple data-change="corFiles"'+(full?' disabled':'')+'></label><span class="small muted">Até '+max+' fotos</span></div>';
+ s+='<label class="row small" style="align-items:flex-start"><input type="checkbox" data-change="corCareful"'+(c.careful?' checked':'')+'><span><b>Leitura cuidadosa.</b> Mais lenta e usa mais do seu limite de uso do Claude. Ajuda quando a letra é difícil.</span></label>';
+ s+='<div class="row"><button class="btn primary" type="button" data-act="corRead"'+(!c.files.length||c.reading||c.busy||ui.sampleOk===false?' disabled':'')+'>'+(c.reading?'Lendo a foto…':(c.info?'Ler a foto de novo':'Ler a foto'))+'</button>'+(c.reading?'<button class="btn" type="button" data-act="corStop">Parar</button><span class="small muted" id="corProg">'+esc(c.prog||'')+'</span>':'')+'</div>';
+ s+='<p class="small muted">A foto é cortada no seu aparelho e as faixas são enviadas ao Claude pela sua própria conta, com a sua permissão. Isso usa o seu limite de uso e leva alguns minutos. Nada fica guardado no site.</p>';
+ if(c.info){var i=c.info,fora=i.linhas&&(i.linhas<7||i.linhas>30),marc=(String(c.text||"").match(/\[\?\]|\[ilegível\]/g)||[]).length;
+  s+='<div class="chips">'+(c.partial?'<span class="chip bad">Leitura incompleta</span>':'')+'<span class="chip '+(i.leg==="boa"?"good":i.leg==="ruim"?"bad":"warn")+'">Legibilidade: '+(i.leg==="media"?"média":i.leg)+'</span><span class="chip '+(fora?"warn":"")+'">'+i.linhas+(i.linhas===1?' linha lida':' linhas lidas')+(fora?' · a prova exige de 7 a 30':'')+'</span><span class="chip">'+wc(c.text)+' palavras</span>'+(marc?'<span class="chip warn">'+marc+(marc===1?' trecho':' trechos')+' para conferir</span>':'')+'</div>';
+  if(i.obs)s+='<p class="small muted">'+esc(i.obs)+'</p>';
+  if(i.duv.length)s+='<p class="note">Palavras em que a leitura ficou em dúvida: '+i.duv.map(function(d){return '“'+esc(d)+'”';}).join(', ')+'.</p>';
+  s+='<p class="small"><b>Confira o texto lido, palavra por palavra, com a foto ao lado.</b> Se a leitura errou, o erro vira erro seu na correção. Toque numa foto para ampliar.</p>';}
+ return s+'</div>';
+}
+function corInput(c){
+ var s='<div class="field"><span class="lbl">Como você escreveu a redação?</span><div class="chips"><button type="button" class="chip" aria-pressed="'+(c.mode==="type")+'" data-act="corMode" data-v="type">Digitei aqui</button><button type="button" class="chip" aria-pressed="'+(c.mode==="photo")+'" data-act="corMode" data-v="photo">Escrevi à mão e vou enviar a foto</button></div></div>';
+ if(c.mode==="photo")s+=photoBox(c);
+ if(c.mode==="photo"&&c.zoom>=0&&c.urls[c.zoom])s+='<div class="stack" style="gap:8px"><div class="spread"><b class="small">Página '+(c.zoom+1)+' ampliada</b><button class="btn sm" type="button" data-act="corZoom" data-i="-1">Fechar</button></div><img class="zoomimg" src="'+esc(c.urls[c.zoom])+'" alt="Página '+(c.zoom+1)+' da redação, ampliada"></div>';
+ if(c.mode==="type"||c.text||c.info||ui.sampleOk===false)s+='<div class="field"><label for="corText">'+(c.mode==="photo"?'Texto lido da foto (confira e corrija)':'Sua redação')+'</label><textarea id="corText" class="essay" data-in="corText" placeholder="Digite ou cole o texto aqui, com os parágrafos separados como na prova.">'+esc(c.text)+'</textarea><div class="spread small muted"><span id="corCount">'+wc(c.text)+' palavras</span><span>Na prova são de 7 a 30 linhas, escritas à mão.</span></div></div>';
+ if(c.mode==="photo"&&c.text&&!c.reading)s+='<label class="row" style="align-items:flex-start"><input type="checkbox" id="corOk" data-change="corOk"'+(c.ok?' checked':'')+'><span><b>Conferi o texto.</b> Ele está igual ao que eu escrevi, com os mesmos erros e acertos.'+(c.ok?'':' Marque para liberar a correção.')+'</span></label>';
+ return s;
+}
+function getSample(){try{var c=window.claude;if(c&&c.use)return c.use("sample");}catch(e){}return Promise.resolve(null);}
+function initSample(){getSample().then(function(s){ui.sampleOk=!!s;if(s&&s.limits){return s.limits().then(function(l){ui.imgLim=(l&&l.images)||null;}).catch(function(){ui.imgLim=null;});}}).then(function(){if(ui.view==="simulados"&&ui.sim==="redacao")softRender();}).catch(function(){ui.sampleOk=false;});}
+function vEvolucao(){
+ var t=today(),s='<div class="page-head"><span class="eyebrow">Seus números</span><h1>Evolução</h1><p class="muted" style="max-width:62ch">Só entram aqui os dados que você registrou. Com poucas questões, o resultado de uma área ainda oscila muito; por isso a leitura só aparece a partir de 10 questões.</p></div>';
+ var wk=weekSes(),wmin=wk.reduce(function(a,x){return a+x.m;},0),q30=S.ses.filter(function(x){return x.d>=addDays(t,-30);}),qn=q30.reduce(function(a,x){return a+(x.qd||0);},0),qr=q30.reduce(function(a,x){return a+(x.qr||0);},0);
+ s+='<div class="g3"><div class="stat"><b>'+fmtH(wmin/60)+' h</b><span>estudadas na semana</span></div><div class="stat"><b>'+qn+'</b><span>questões em 30 dias</span></div><div class="stat"><b>'+(qn?pct(qr,qn)+"%":"–")+'</b><span>acerto em 30 dias</span></div><div class="stat"><b>'+streak()+'</b><span>dias seguidos</span></div></div>';
+ var rec=areaStats(30),all=areaStats(0);
+ s+='<div class="g2"><section class="card"><div class="head"><h2>Acerto por área</h2><span class="small muted">últimos 30 dias</span></div>';
+ if(!OBJ.some(function(a){return all[a].n>0;}))s+='<div class="empty"><p>Sem questões registradas.</p><p class="small">Ao registrar uma sessão ou simulado com acertos, as barras aparecem.</p></div>';
+ else{s+='<div class="bars">';OBJ.forEach(function(a){var x=rec[a].n>=10?rec[a]:all[a],ok=x.n>=10,p=ok?pct(x.r,x.n):null;s+='<div class="bar"><span>'+dot(a)+' '+SHORT[a]+'</span><div class="track"><i style="width:'+(p||0)+'%;background:var(--c-'+a+')"></i></div><span class="v">'+(ok?p+"%":x.n+" q.")+'</span></div>';});s+='</div><p class="small muted" style="margin-top:12px">Áreas com menos de 10 questões mostram só a contagem. Se não houver 10 questões em 30 dias, usa o histórico todo.</p>';}
+ s+='</section><section class="card"><div class="head"><h2>Horas por semana</h2><span class="small muted">meta: '+fmtH(S.set.goalH)+' h</span></div>';
+ var weeks=[];for(var i=7;i>=0;i--)weeks.push(addDays(weekStart(),-7*i));
+ var hrs=weeks.map(function(w){return weekSes(w).reduce(function(a,x){return a+x.m;},0)/60;}),mx=Math.max.apply(null,hrs.concat([S.set.goalH]));
+ if(!S.ses.length)s+='<div class="empty"><p>As barras aparecem com a primeira sessão.</p></div>';
+ else s+='<div class="vbars">'+hrs.map(function(h,i){return '<div><span class="mono">'+(h?fmtH(h):"")+'</span><i style="height:'+Math.max(2,100*h/mx*1.0)+'px;'+(h>=S.set.goalH?"":"opacity:.75")+'"></i><span>'+fmtDate(weeks[i]).replace(/ .*/,"")+'</span></div>';}).join("")+'</div><p class="small muted" style="margin-top:10px">Barras cheias bateram a meta semanal. O número embaixo é o dia em que a semana começou.</p>';
+ s+='</section></div>';
+ // tempo por área
+ var tm={lin:0,hum:0,nat:0,mat:0,red:0};q30.forEach(function(x){tm[x.a]+=x.m;});var tmax=Math.max.apply(null,Object.keys(tm).map(function(k){return tm[k];}).concat([1]));
+ s+='<div class="g2"><section class="card"><div class="head"><h2>Tempo por área</h2><span class="small muted">últimos 30 dias</span></div>';
+ if(!q30.length)s+='<div class="empty"><p>Sem sessões nos últimos 30 dias.</p></div>';
+ else{s+='<div class="bars">';["lin","hum","nat","mat","red"].forEach(function(a){s+='<div class="bar"><span>'+dot(a)+' '+SHORT[a]+'</span><div class="track"><i style="width:'+(100*tm[a]/tmax)+'%;background:var(--c-'+a+')"></i></div><span class="v">'+fmtMin(tm[a])+'</span></div>';});s+='</div>';}
+ s+='</section>';
+ // erros por tipo
+ var ek={};S.err.forEach(function(e){ek[e.k]=(ek[e.k]||0)+1;});var ekeys=Object.keys(ek).sort(function(a,b){return ek[b]-ek[a];});
+ s+='<section class="card"><div class="head"><h2>Tipos de erro</h2><span class="small muted">'+S.err.length+' anotados</span></div>';
+ if(!ekeys.length)s+='<div class="empty"><p>Sem erros anotados.</p><p class="small">O caderno de erros mostra onde está a maior perda de pontos.</p></div>';
+ else{var em=ek[ekeys[0]];s+='<div class="bars">'+ekeys.map(function(k){return '<div class="bar" style="grid-template-columns:130px minmax(0,1fr) 30px"><span>'+KINDS[k][0]+'</span><div class="track"><i style="width:'+(100*ek[k]/em)+'%;background:var(--moss)"></i></div><span class="v">'+ek[k]+'</span></div>';}).join("")+'</div><p class="small" style="margin-top:12px"><b>Mais frequente:</b> '+KINDS[ekeys[0]][0]+'. '+KINDS[ekeys[0]][1]+'</p>';}
+ s+='</section></div>';
+ // melhorar
+ var ts=topicStats(),keys=Object.keys(ts);
+ var weak=keys.filter(function(k){return ts[k].n>=5&&ts[k].r/ts[k].n<0.6;}).sort(function(a,b){return ts[a].r/ts[a].n-ts[b].r/ts[b].n;}).slice(0,6);
+ var strong=keys.filter(function(k){return ts[k].n>=15&&ts[k].r/ts[k].n>=0.85;}).slice(0,6);
+ var errT={};S.err.forEach(function(e){var k=e.a+"|"+e.tp;errT[k]=(errT[k]||0)+1;});var errTop=Object.keys(errT).filter(function(k){return errT[k]>=2;}).sort(function(a,b){return errT[b]-errT[a];}).slice(0,5);
+ s+='<div class="g2"><section class="card"><div class="head"><h2>O que melhorar</h2></div>';
+ if(!weak.length&&!errTop.length)s+='<div class="empty"><p>Ainda não há dados suficientes.</p><p class="small">Um assunto entra aqui com pelo menos 5 questões registradas e menos de 60% de acerto, ou com 2 erros anotados.</p></div>';
+ else{s+='<div class="list">';weak.forEach(function(k){var p=k.split("|"),x=ts[k];s+='<div class="item" style="grid-template-columns:auto minmax(0,1fr) auto"><span>'+dot(p[0])+'</span><div><div class="t">'+esc(p[1])+'</div><div class="s">'+AREAS[p[0]].n+' · '+x.r+' de '+x.n+' questões</div></div><span class="chip bad">'+pct(x.r,x.n)+'%</span></div>';});errTop.forEach(function(k){var p=k.split("|");s+='<div class="item" style="grid-template-columns:auto minmax(0,1fr) auto"><span>'+dot(p[0])+'</span><div><div class="t">'+esc(p[1])+'</div><div class="s">'+AREAS[p[0]].n+' · erro repetido no caderno</div></div><span class="chip warn">'+errT[k]+' erros</span></div>';});s+='</div>';}
+ s+='</section><section class="card"><div class="head"><h2>Pode pesar menos</h2></div>';
+ if(!strong.length)s+='<div class="empty"><p>Nenhum assunto com 15 ou mais questões e acerto acima de 85%.</p><p class="small">Quando houver, ele passa a precisar só da revisão espaçada, e o tempo livre vai para os pontos fracos.</p></div>';
+ else{s+='<div class="list">';strong.forEach(function(k){var p=k.split("|"),x=ts[k];s+='<div class="item" style="grid-template-columns:auto minmax(0,1fr) auto"><span>'+dot(p[0])+'</span><div><div class="t">'+esc(p[1])+'</div><div class="s">'+AREAS[p[0]].n+' · '+x.r+' de '+x.n+' questões</div></div><span class="chip good">'+pct(x.r,x.n)+'%</span></div>';});s+='</div><p class="small muted" style="margin-top:10px">Mantenha só as revisões. Sem treinar, o acerto cai com o tempo.</p>';}
+ s+='</section></div>';
+ var sl=S.chk.filter(function(c){return c.sleep!=null;}).slice(-7);
+ if(sl.length>=3){var av=sl.reduce(function(a,c){return a+c.sleep;},0)/sl.length;s+='<section class="card soft"><h4>Sono</h4><p class="small muted" style="margin-top:4px">Média de '+fmtH(av)+' h nos últimos '+sl.length+' registros. '+(av<8?"Muita gente rende melhor com 7 a 9 horas de sono (adolescentes costumam precisar de 8 a 10). Vale priorizar o sono nas semanas de mais estudo.":"Bom ritmo. Mantenha.")+'</p></section>';}
+ return s;
+}
+
+/* ------------------------------------------------------------------ render */
+var vmap={hoje:vHoje,estudar:vEstudar,rotina:vRotina,metas:vMetas,revisoes:vRevisoes,simulados:vSimulados,evolucao:vEvolucao};
+function renderNav(){
+ $("#nav").innerHTML=VIEWS.map(function(v){return '<a href="#'+v[0]+'"'+(ui.view===v[0]?' aria-current="page"':'')+'><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+v[2]+'"/></svg>'+v[1]+'</a>';}).join("");
+}
+function foot(){return '<p class="small muted" style="max-width:72ch;padding:4px 2px 0">Seus dados são só seus. '+(ui.sampleOk===false?'Ficam salvos só neste navegador: quem criou este site não vê o que você registra. Se limpar os dados do navegador, eles somem. ':'Ficam salvos no seu navegador e, quando possível, na sua conta do Claude, de forma privada: quem criou este site não vê o que você registra. ')+'Para guardar uma cópia ou usar em outro aparelho, use o backup em <a href="#metas">Metas</a>.</p>';}
+function render(){renderNav();$("#app").innerHTML=vmap[ui.view]()+foot();}
+function softRender(){var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&$("#app").contains(a))return;render();}
+function route(){var h=(location.hash||"").slice(1);ui.view=vmap[h]?h:"hoje";render();window.scrollTo(0,0);}
+
+/* ------------------------------------------------------------------ cronômetro */
+function clockText(){var s=Math.max(0,T.left);return pad(Math.floor(s/60))+":"+pad(s%60);}
+function tickFn(){
+ T.left=Math.max(0,Math.ceil((T.endAt-Date.now())/1000));
+ var el=$("#tdisp");if(el)el.textContent=clockText();
+ if(T.left<=0){clearInterval(T.tick);T.running=false;T.done=true;beep();if(T.mode==="focus"){ui.log=true;ui.logMin=Math.round(T.total/60);}if(ui.view==="estudar")render();}
+}
+function beep(){try{var c=new (window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=660;g.gain.setValueAtTime(0.001,c.currentTime);g.gain.exponentialRampToValueAtTime(0.2,c.currentTime+0.03);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.9);o.start();o.stop(c.currentTime+0.95);}catch(e){}}
+function setTimer(mode,min){clearInterval(T.tick);T.mode=mode;T.total=min*60;T.left=T.total;T.running=false;T.done=false;}
+
+/* ------------------------------------------------------------------ ações */
+function ensureRev(a,tp,k,title){
+ if(!tp)return;
+ if(k==="erro"){S.rev.push({i:uid(),a:a,t:title||tp,k:"erro",due:addDays(today(),1),st:0});return;}
+ if(S.rev.some(function(r){return r.k==="topico"&&r.a===a&&r.t===tp;}))return;
+ S.rev.push({i:uid(),a:a,t:tp,k:"topico",due:addDays(today(),1),st:0});
+}
+function formData(f){var o={};new FormData(f).forEach(function(v,k){o[k]=String(v).trim();});return o;}
+var act={
+ tArea:function(el){T.area=el.dataset.v;render();},
+ tPreset:function(el){setTimer("focus",+el.dataset.v);S.set.focus=+el.dataset.v;render();},
+ tBreak:function(){setTimer("break",S.set.brk);render();},
+ tToggle:function(){
+  if(T.running){clearInterval(T.tick);T.running=false;T.left=Math.max(0,Math.ceil((T.endAt-Date.now())/1000));}
+  else{if(T.left<=0||T.done){T.left=T.total;T.done=false;}T.endAt=Date.now()+T.left*1000;T.running=true;T.tick=setInterval(tickFn,250);}
+  render();
+ },
+ tReset:function(){setTimer(T.mode,Math.round(T.total/60));render();},
+ tFinish:function(){clearInterval(T.tick);if(T.running){T.left=Math.max(0,Math.ceil((T.endAt-Date.now())/1000));T.running=false;}ui.log=true;ui.logMin=Math.max(1,Math.round((T.total-T.left)/60));render();var f=$("#logForm");if(f)f.scrollIntoView({block:"center"});},
+ openLog:function(){ui.log=true;ui.logMin=S.set.focus;render();},
+ closeLog:function(){ui.log=false;ui.logMin=0;render();},
+ startBlock:function(el){
+  var R=routine(),b=R.days[+el.dataset.d].blocks[+el.dataset.j];if(!b)return;
+  if(b.k==="rev"){location.hash="#revisoes";return;}
+  if(b.k==="sim"){location.hash="#simulados";return;}
+  if(b.k==="red"){ui.sim="redacao";location.hash="#simulados";return;}
+  T.area=b.a;T.topic=b.topic.indexOf("Treinar: ")===0||b.k==="red"?(b.k==="red"?"Redação":b.topic):b.topic;T.type=b.k==="red"?"redacao":"questoes";
+  setTimer("focus",45);S.set.focus=45;location.hash="#estudar";
+ },
+ delSes:function(el){S.ses=S.ses.filter(function(x){return x.i!==el.dataset.id;});commit();},
+ ckEn:function(el){var t=today(),c=S.chk.filter(function(x){return x.d===t;})[0];if(!c){c={d:t};S.chk.push(c);}c.en=+el.dataset.v;S.chk=S.chk.slice(-120);commit();},
+ delGoal:function(el){S.goals=S.goals.filter(function(g){return g.i!==el.dataset.id;});commit();},
+ revTab:function(el){ui.rev=el.dataset.v;render();},
+ simTab:function(el){ui.sim=el.dataset.v;render();},
+ errKind:function(el){ui.errKind=el.dataset.v;render();},
+ errFrom:function(el){ui.errO=el.dataset.v;ui.rev="erros";location.hash="#revisoes";render();},
+ rate:function(el){
+  var r=S.rev.filter(function(x){return x.i===el.dataset.id;})[0];if(!r)return;var v=el.dataset.v;
+  S.rd[today()]=(S.rd[today()]||0)+1;
+  if(v==="facil"){if(r.st>=INT.length-1){S.rev=S.rev.filter(function(x){return x.i!==r.i;});commit();return;}r.st++;}
+  else if(v==="dificil")r.st=Math.max(0,r.st-1);
+  r.due=addDays(today(),v==="dificil"?1:INT[r.st]);commit();
+ },
+ delErr:function(el){S.err=S.err.filter(function(e){return e.i!==el.dataset.id;});S.rev=S.rev.filter(function(r){return r.ref!==el.dataset.id;});commit();},
+ topicSt:function(el){var k=el.dataset.a+"|"+SYL[el.dataset.a][+el.dataset.i];S.ts[k]=((S.ts[k]||0)+1)%3;if(!S.ts[k])delete S.ts[k];commit();},
+ sylToggle:function(el,e){if(e.target.closest("summary"))ui.openSyl[el.dataset.a]=!el.open;},
+ delMock:function(el){S.mock=S.mock.filter(function(m){return m.i!==el.dataset.id;});commit();},
+ delEss:function(el){S.ess=S.ess.filter(function(m){return m.i!==el.dataset.id;});commit();},
+ delRep:function(el){S.rep=S.rep.filter(function(m){return m.i!==el.dataset.id;});commit();},
+ addSes:function(f){
+  var o=formData(f),m=num(o.m,1,600),qd=num(o.qd,0,500)||0,qr=num(o.qr,0,500)||0;if(!m)return;if(qr>qd)qr=qd;
+  var tp=T.topic.trim();
+  S.ses.push({i:uid(),d:o.d||today(),a:T.area,tp:tp,ty:T.type,m:Math.round(m),qd:qd,qr:qr,nt:o.nt||""});
+  if(tp){ensureRev(T.area,tp,"topico");var k=T.area+"|"+tp;if(!S.ts[k]&&SYL[T.area].indexOf(tp)>=0)S.ts[k]=1;}
+  ui.log=false;ui.logMin=0;if(T.done){T.done=false;}setTimer("focus",S.set.focus);commit();
+ },
+ addGoal:function(f){var o=formData(f);if(!o.t)return;S.goals.push({i:uid(),t:o.t,a:o.a||"",d:o.d||"",done:0});commit();},
+ addErr:function(f){var o=formData(f);if(!o.tp||!o.w)return;var id=uid();S.err.push({i:id,d:today(),a:o.a,tp:o.tp,k:o.k,o:o.o||"",w:o.w,y:o.y||"",f:o.f||""});S.rev.push({i:uid(),a:o.a,t:o.tp+": "+o.w.slice(0,70),k:"erro",due:addDays(today(),1),st:0,ref:id});ui.errO="";commit();},
+ addMock:function(f){
+  var o=formData(f),ar={},any=false;
+  OBJ.forEach(function(a){var r=num(o["r_"+a],0,200),n=num(o["n_"+a],1,200);if(r!=null&&n){ar[a]={r:Math.min(r,n),n:n};any=true;}});
+  if(!any||!o.nm)return;S.mock.push({i:uid(),d:o.d||today(),nm:o.nm,ar:ar,min:num(o.min,1,600)||0,nt:o.nt||""});commit();
+ },
+ addEss:function(f){var o=formData(f);if(!o.t)return;S.ess.push({i:uid(),d:o.d||today(),t:o.t,c:[0,1,2,3,4].map(function(i){return +o["c"+i]||0;}),nt:o.nt||""});commit();},
+ addRep:function(f){var o=formData(f);if(!o.t)return;S.rep.push({i:uid(),t:o.t,m:o.m||""});commit();},
+ bkMake:function(){ui.bk=JSON.stringify(S);ui.bkR=false;ui.bkErr="";render();var t=$("#bkOut");if(t&&t.scrollIntoView)t.scrollIntoView({block:"center"});},
+ bkCopy:function(){var t=$("#bkOut");if(t&&t.select)t.select();var m=$("#bkMsg");try{navigator.clipboard.writeText(ui.bk).then(function(){if(m)m.textContent="Copiado.";}).catch(function(){if(m)m.textContent="Selecione o texto e copie.";});}catch(e){if(m)m.textContent="Selecione o texto e copie.";}},
+ bkRestoreOpen:function(){ui.bkR=true;ui.bk="";ui.bkErr="";ui.delAsk=false;render();},
+ bkApply:function(){try{S=sanitize(JSON.parse(ui.bkText||""));ui.bkR=false;ui.bkText="";ui.bkErr="";ui.bk="";commit();}catch(e){ui.bkErr="Não consegui ler esse backup. Cole o texto completo que o site gerou.";render();}},
+ delAll:function(){ui.delAsk=true;ui.bk="";ui.bkR=false;render();},
+ delAllNo:function(){ui.delAsk=false;render();},
+ delAllYes:function(){S=DEF();ui.delAsk=false;ui.bk="";ui.bkR=false;ui.cor.res=null;ui.cor.text="";commit();},
+ egAuto:function(){S.set.eg.t=null;commit();},
+ goNotas:function(){ui.sim="notas";if(location.hash==="#simulados")render();else location.hash="#simulados";},
+ corSrc:function(el){ui.cor.src=el.dataset.v;ui.cor.err="";render();},
+ useWeek:function(){ui.cor.src="week";ui.cor.err="";render();var f=$("#corText");if(f&&f.scrollIntoView)f.scrollIntoView({block:"center"});},
+ usePast:function(el){ui.cor.src="past";ui.cor.past=+el.dataset.i;ui.cor.err="";render();var f=$("#corText");if(f&&f.scrollIntoView)f.scrollIntoView({block:"center"});},
+ corMode:function(el){ui.cor.mode=el.dataset.v;ui.cor.err="";render();},
+ corPhotoDel:function(el){var c=ui.cor,i=+el.dataset.i;try{URL.revokeObjectURL(c.urls[i]);}catch(e){}c.files.splice(i,1);c.urls.splice(i,1);c.zoom=-1;render();},
+ corZoom:function(el){var i=+el.dataset.i;ui.cor.zoom=(ui.cor.zoom===i&&i>=0)?-1:i;render();},
+ corRead:function(){
+  var c=ui.cor;if(c.reading||c.busy)return;
+  if(!c.files.length){c.err="Escolha uma foto da redação.";render();return;}
+  c.err="";c.reading=true;c.res=null;c.ok=false;c.info=null;c.partial=false;c.prog="Preparando a foto…";
+  var ctl=new AbortController();c.ctl=ctl;render();
+  var th=corTheme(),lim=ui.imgLim,G=Math.max(1,Math.min((lim&&lim.maxCount)||4,5)),tier=c.careful?"complex":"default";
+  var lines=[],duv=[],legs=[],obs="";
+  function mk(){var rank={boa:0,media:1,ruim:2},worst=legs.reduce(function(a,b){return rank[b]>rank[a]?b:a;},"boa");var seen={},d=[];duv.forEach(function(x){if(!seen[x]){seen[x]=1;d.push(x);}});return {linhas:lines.length,leg:legs.length?worst:"media",duv:d.slice(0,8),obs:obs};}
+  function prog(m){c.prog=m;var el=$("#corProg");if(el)el.textContent=m;}
+  (async function(){
+   try{
+    var sample=await getSample();if(!sample)throw {code:"not_declared"};
+    var strips=[];
+    for(var f=0;f<c.files.length;f++){try{strips=strips.concat(await sliceImage(c.files[f]));}catch(e){strips.push(c.files[f]);}}
+    var groups=[];for(var i=0;i<strips.length;i+=G)groups.push(strips.slice(i,i+G));
+    for(var g=0;g<groups.length;g++){
+     if(ctl.signal.aborted)throw {code:"cancelled"};
+     prog("Lendo parte "+(g+1)+" de "+groups.length+"…");
+     var raw=await sample.json(readPrompt({theme:th.t,tail:g?tailOf(lines):""}),{images:groups[g],signal:ctl.signal,modelTier:tier});
+     var part=normRead(raw);
+     lines=lines.concat(g?dedupeStart(lines,part.lines):part.lines);
+     legs.push(part.leg);duv=duv.concat(part.duv);if(part.obs&&!obs)obs=part.obs;
+     c.text=joinLines(lines);c.info=mk();
+     if(g<groups.length-1)render();
+    }
+    if(!lines.length)throw {code:"empty_completion"};
+    c.reading=false;c.prog="";c.info=mk();render();
+   }catch(e){
+    c.reading=false;c.prog="";var code=e&&e.code;
+    if(lines.length){c.text=joinLines(lines);c.info=mk();c.partial=true;c.err=code==="cancelled"?"Leitura interrompida. O que já foi lido está abaixo.":"A leitura parou antes do fim. "+(COR_ERR[code]||COR_ERR.upstream_error)+" O que já foi lido está abaixo. Leia a foto de novo para pegar o texto inteiro.";}
+    else c.err=code==="cancelled"?"":(COR_ERR[code]||COR_ERR.upstream_error);
+    render();
+   }
+  })();
+ },
+ corRerun:function(){
+  var c=ui.cor;if(c.busy||!c.res)return;
+  c.rr={prev:c.res,note:c.rev};act.corRun();
+ },
+ corExtCopy:function(el){
+  var c=ui.cor,th=corTheme(),text=String(c.text||"").trim(),re=el&&el.dataset&&el.dataset.v==="re";
+  if(!th.t){c.err="Escolha ou escreva um tema.";render();return;}
+  if(!re&&c.mode==="photo"&&!c.ok){c.err="Marque que você conferiu o texto lido antes de corrigir.";render();return;}
+  if(wc(text)<30){c.err="Escreva o texto antes de corrigir. São necessárias pelo menos 30 palavras.";render();return;}
+  var rr=re&&c.res?{prev:c.res,note:c.rev}:null;
+  c.err="";c.extRr=rr;c.extP=corPrompt(th,text.slice(0,9000),rr?revExtra(rr):"");c.extMsg="Preparando…";render();
+  copyTxt(c.extP,function(okc){c.extMsg=okc?"Pedido copiado.":"Não consegui copiar sozinho. Selecione o texto abaixo e copie.";render();});
+ },
+ corExtReadCopy:function(){var c=ui.cor;copyTxt(extReadPrompt(corTheme().t||"tema livre"),function(okc){c.extMsg2=okc?"Pedido de leitura copiado. Agora abra o Claude, anexe a foto e cole o pedido.":"Não consegui copiar sozinho.";render();});},
+ corExtImport:function(){
+  var c=ui.cor,th=corTheme(),text=String(c.text||"").trim();
+  try{var res=normRes(parseExt(c.extIn));}catch(e){c.err="Não consegui entender a resposta. Cole a resposta inteira do Claude, do primeiro { ao último }.";render();return;}
+  var rr=c.extRr;c.extIn="";c.extP="";c.extRr=null;c.extMsg="";c.err="";applyRes(res,th,text,rr);
+ },
+ corStop:function(){if(ui.cor.ctl)ui.cor.ctl.abort();},
+ corView:function(el){var x=S.cor.filter(function(k){return k.i===el.dataset.id;})[0];if(!x)return;ui.cor.mode="type";ui.cor.info=null;ui.cor.src="free";ui.cor.free=x.t;ui.cor.text=x.text;ui.cor.res=x.res;ui.cor.rev="";ui.cor.err="";render();},
+ corSave:function(){
+  var r=ui.cor.res;if(!r||r.saved||r.an)return;
+  var x=S.cor.filter(function(k){return k.res===r;})[0],cs=r.comp.map(function(k){return k.nota;}),old=r.essId?S.ess.filter(function(k){return k.i===r.essId;})[0]:null;
+  if(old){old.c=cs;old.nt="Correção por IA (estimativa), refeita";}
+  else{var id=uid();S.ess.push({i:id,d:today(),t:x?x.t:corTheme().t,c:cs,nt:"Correção por IA (estimativa)"});r.essId=id;}
+  r.saved=true;commit();
+ },
+ corRun:function(){
+  var c=ui.cor;if(c.busy)return;
+  var th=corTheme(),text=String(c.text||"").trim();
+  if(!th.t){c.err="Escolha ou escreva um tema.";render();return;}
+  if(c.mode==="photo"&&!c.ok){c.err="Marque que você conferiu o texto lido antes de corrigir.";render();return;}
+  if(wc(text)<30){c.err="Escreva o texto antes de corrigir. São necessárias pelo menos 30 palavras.";render();return;}
+  var rr=c.rr;c.rr=null;
+  c.err="";c.busy=true;c.res=null;
+  var ctl=new AbortController();c.ctl=ctl;render();
+  getSample().then(function(sample){
+   if(!sample)throw {code:"not_declared"};
+   return sample.json(corPrompt(th,text.slice(0,9000),rr?revExtra(rr):""),{signal:ctl.signal,modelTier:"default"});
+  }).then(function(raw){
+   applyRes(normRes(raw),th,text,rr);
+  }).catch(function(e){
+   c.busy=false;var code=e&&e.code;c.err=code==="cancelled"?"":(COR_ERR[code]||COR_ERR.upstream_error);render();
+  });
+ }
+};
+var chg={
+ tType:function(el){T.type=el.value;},
+ ckSleep:function(el){var v=num(el.value,0,14),t=today(),c=S.chk.filter(function(x){return x.d===t;})[0];if(!c){c={d:t};S.chk.push(c);}c.sleep=v;S.chk=S.chk.slice(-120);commit();},
+ dayH:function(el){var v=num(el.value,0,10);if(v==null)v=0;S.set.dayH[+el.dataset.i]=v;commit();},
+ weight:function(el){var v=num(el.value,0.5,2);S.set.w[el.dataset.a]=v==null?1:v;commit();},
+ examDate:function(el){S.set.examDate=el.value;commit();},
+ targetNote:function(el){S.set.targetNote=el.value;commit(true);},
+ goalH:function(el){var v=num(el.value,1,60);if(v)S.set.goalH=v;commit();},
+ goalQ:function(el){var v=num(el.value,5,1000);if(v)S.set.goalQ=Math.round(v);commit();},
+ goalDone:function(el){var g=S.goals.filter(function(x){return x.i===el.dataset.id;})[0];if(g){g.done=el.checked?1:0;commit();}},
+ errArea:function(el){ui.errA=el.value;var f=el.closest("form");ui.errO=f?f.elements.o.value:"";var dl=$("#dlErr");if(dl)dl.innerHTML=SYL[el.value].map(function(x){return '<option value="'+esc(x)+'">';}).join("");},
+ essSum:function(el){var f=el.closest("form"),tot=0;for(var i=0;i<5;i++)tot+=+f.elements["c"+i].value;$("#essTot").textContent=tot;},
+ corFiles:function(el){
+  var c=ui.cor,lim=ui.imgLim,max=Math.min((lim&&lim.maxCount)||3,3),fl=Array.prototype.slice.call(el.files||[]);c.err="";
+  fl.forEach(function(f){
+   if(c.files.length>=max){c.err="Você pode enviar até "+max+" fotos.";return;}
+   if(lim&&lim.maxInputBytes&&f.size>lim.maxInputBytes){c.err="Uma das fotos é grande demais (máximo de "+Math.floor(lim.maxInputBytes/1048576)+" MB).";return;}
+   try{c.urls.push(URL.createObjectURL(f));c.files.push(f);}catch(e){c.err="Não consegui abrir essa foto.";}
+  });
+  try{el.value="";}catch(e){}render();
+ },
+ corPast:function(el){ui.cor.past=+el.value;},
+ corOk:function(el){ui.cor.ok=!!el.checked;render();},
+ corCareful:function(el){ui.cor.careful=!!el.checked;},
+
+ objSet:function(el){var k=el.dataset.k,v=String(el.value).trim().slice(0,80);if(k==="year")v=v.replace(/[^0-9]/g,"").slice(0,4);S.set[k]=v;commit(true);},
+ egComp:function(el){S.set.eg.c[+el.dataset.i]=+el.value;commit();},
+ egTot:function(el){var v=num(el.value,0,1000);S.set.eg.t=v==null?null:Math.round(v);commit();}
+};
+var app=$("#app");
+app.addEventListener("click",function(e){var el=e.target.closest("[data-act]");if(!el||el.tagName==="DETAILS"&&!e.target.closest("summary"))return;if(act[el.dataset.act]&&el.tagName!=="FORM")act[el.dataset.act](el,e);});
+app.addEventListener("submit",function(e){e.preventDefault();var f=e.target;if(f.dataset.submit&&act[f.dataset.submit])act[f.dataset.submit](f);});
+app.addEventListener("change",function(e){var el=e.target.closest("[data-change]");if(el&&chg[el.dataset.change])chg[el.dataset.change](el);});
+app.addEventListener("input",function(e){var el=e.target;if(!el.dataset||!el.dataset.in)return;if(el.dataset.in==="tTopic")T.topic=el.value;else if(el.dataset.in==="bkIn")ui.bkText=el.value;else if(el.dataset.in==="corText"){ui.cor.text=el.value;var k=$("#corCount");if(k)k.textContent=wc(el.value)+" palavras";}else if(el.dataset.in==="corFree")ui.cor.free=el.value;else if(el.dataset.in==="corRev")ui.cor.rev=el.value;else if(el.dataset.in==="corExtIn")ui.cor.extIn=el.value;});
+
+/* ------------------------------------------------------------------ tema e início */
+function dark(){var t=document.documentElement.dataset.theme;return t?t==="dark":window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches;}
+try{var th=localStorage.getItem("rota-theme");if(th)document.documentElement.dataset.theme=th;}catch(e){}
+$("#themeBtn").addEventListener("click",function(){var n=dark()?"light":"dark";document.documentElement.dataset.theme=n;try{localStorage.setItem("rota-theme",n);}catch(e){}});
+window.addEventListener("hashchange",route);
+setStatus("local");route();initDb();initSample();
+})();
+</script>
+
+</body>
+</html>
